@@ -35,6 +35,7 @@ build/
 
 ### VS Code ###
 .vscode/
+.history/
 
 ### generated files ###
 bin/
