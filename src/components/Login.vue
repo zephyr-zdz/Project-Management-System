@@ -1,34 +1,36 @@
 <!--2022/11/3 modified by JZT-->
 <template>
-  <div class="login-box">
-    <div class="lb-header">
-      <a href="javascript:void(0)"  id="login-box" >登陆</a>
-    </div>
-    <el-form
-      :model="loginForm"
-      ref="loginFormRef"
-      :rules="loginFormRules"
-    >
-      <el-form-item class="u-form-group" prop="email">
-        <el-input
-          type="text"
-          title="email"
-          v-model="loginForm.email"
-          placeholder="Email"
-        />
-      </el-form-item>
-      <el-form-item class="u-form-group" prop="password">
-        <el-input
-          type="password"
-          v-model="loginForm.password"
-          placeholder="Password"
-        />
-      </el-form-item>
-      <div class="u-form-group">
-        <button type="submit" @click.prevent="login">登录</button>
-        <p class="login-error">{{ msg }}</p>
+  <div id="bg">
+    <el-card class="card">
+      <div slot="header">
+        <span class="chr">登录</span>
       </div>
-    </el-form>
+      <el-form
+        :model="loginForm"
+        ref="loginFormRef"
+        :rules="loginFormRules"
+      >
+        <el-form-item class="u-form-group" prop="email">
+          <el-input
+            type="text"
+            title="email"
+            v-model="loginForm.email"
+            placeholder="Email"
+          />
+        </el-form-item>
+        <el-form-item class="u-form-group" prop="password">
+          <el-input
+            type="password"
+            v-model="loginForm.password"
+            placeholder="Password"
+          />
+        </el-form-item>
+        <div class="u-form-group">
+          <el-button type="primary" @click.prevent="login">登录</el-button>
+          <p class="login-error">{{ msg }}</p>
+        </div>
+      </el-form>
+    </el-card>
   </div>
 </template>
 
@@ -100,5 +102,12 @@ export default {
 </script>
 
 <style scoped>
-  @import '../assets/styles/login.css';
+.card {
+  width: 400px;
+  margin: 25% auto auto;
+}
+.chr {
+  font-weight: bold;
+  font-size: large;
+}
 </style>

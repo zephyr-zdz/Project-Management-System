@@ -14,16 +14,3 @@ export function getLabel(list, id, value, label) {
   }
 }
 
-/**
- * split the courseTerm into year and term
- */
-export function splitTerm(term) {
-  let t = term.split('-')
-  let y = t[t.length - 2]
-  if (t[t.length - 1] === '1') {
-    return y + "春"
-  } else {
-    return y + "秋"
-  }
-}
-
