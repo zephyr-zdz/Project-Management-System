@@ -10,29 +10,30 @@
               {{form.name}}
             </el-descriptions-item>
             <el-descriptions-item
-              label="学号">
-              {{form.number}}
+              label="邮箱">
+              {{form.email}}
             </el-descriptions-item>
+<!--            <el-descriptions-item-->
+<!--              label="学号">-->
+<!--              {{form.number}}-->
+<!--            </el-descriptions-item>-->
+<!--            <el-descriptions-item-->
+<!--              label="身份证号">-->
+<!--              {{form.identity}}-->
+<!--            </el-descriptions-item>-->
             <el-descriptions-item
-              label="身份证号">
-              {{form.identity}}
-            </el-descriptions-item>
-            <el-descriptions-item
-              label="学院">
-              {{form.department.school.schoolName}}
-            </el-descriptions-item>
-            <el-descriptions-item
-              label="专业">
+              label="部门">
               {{form.department.departmentName}}
+            </el-descriptions-item>
+            <el-descriptions-item
+              label="职位">
+              {{form.department.position}}
             </el-descriptions-item>
             <el-descriptions-item
               label="手机号">
               {{form.mobile}}
             </el-descriptions-item>
-            <el-descriptions-item
-              label="邮箱">
-              {{form.email}}
-            </el-descriptions-item>
+
           </el-descriptions>
           <el-button @click="addDialogVisible = true" type="primary">修改信息</el-button>
           <el-button @click="changePasswordVisible = true" type="primary">修改密码</el-button>
@@ -46,36 +47,37 @@
           ref="edit"
           :rules="editRules">
           <el-form-item
-            label="学号"
-            prop="number"
-            :label-width="formLabelWidth"
-            disabled="true">
-            <el-input :disabled="true" v-model="edit.number"></el-input>
+            label="邮箱"
+            prop="email"
+            :label-width="formLabelWidth">
+            <el-input v-model="edit.email" placeholder="Email"></el-input>
           </el-form-item>
+<!--          <el-form-item-->
+<!--            label="账号"-->
+<!--            prop="number"-->
+<!--            :label-width="formLabelWidth"-->
+<!--            disabled="true">-->
+<!--            <el-input :disabled="true" v-model="edit.number"></el-input>-->
+<!--          </el-form-item>-->
           <el-form-item
             label="姓名"
             prop="name"
             :label-width="formLabelWidth">
             <el-input :disabled="true" v-model="edit.name"></el-input>
           </el-form-item>
-          <el-form-item
-            label="身份证号"
-            prop="identity"
-            :label-width="formLabelWidth">
-            <el-input :disabled="true" v-model="edit.identity"></el-input>
-          </el-form-item>
+<!--          <el-form-item-->
+<!--            label="身份证号"-->
+<!--            prop="identity"-->
+<!--            :label-width="formLabelWidth">-->
+<!--            <el-input :disabled="true" v-model="edit.identity"></el-input>-->
+<!--          </el-form-item>-->
           <el-form-item
             label="手机号"
             prop="mobile"
             :label-width="formLabelWidth">
             <el-input v-model="edit.mobile" placeholder="Mobile"></el-input>
           </el-form-item>
-          <el-form-item
-            label="邮箱"
-            prop="email"
-            :label-width="formLabelWidth">
-            <el-input v-model="edit.email" placeholder="Email"></el-input>
-          </el-form-item>
+
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="addDialogVisible = false; ">取 消</el-button>
@@ -106,11 +108,12 @@ export default {
         number: 'hhh',
         identity: 'hhh',
         department: {
-          departmentName: '22',
-          school: {
-            schoolName: 'school',
-            schoolId: '2'
-          }
+          departmentName: 'hhh',
+          position:'hhh'
+          // school: {
+          //   schoolName: 'school',
+          //   schoolId: '2'
+          // }
         },
         "mobile": 'hhh',
         "email": 'hhh',

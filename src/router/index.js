@@ -44,11 +44,11 @@ export default new VueRouter({
       name: 'Login',
       component: Login,
       meta: {
-        roles: [ 'guest', 'admin', 'teacher', 'student' ]
+        roles: [ 'guest', 'admin', 'teacher', 'user' ]
       }
     },
     {
-      path: '/student-home',
+      path: '/user-home',
       name: 'StudentHome',
       component: StudentHome,
       children: [
@@ -57,7 +57,7 @@ export default new VueRouter({
           name: 'StudentDash',
           component: StudentDash,
           meta: {
-            roles: [ 'student', 'guest']
+            roles: [ 'user', 'guest']
           }
         },
         {
@@ -65,7 +65,7 @@ export default new VueRouter({
           name: 'StudentEdit',
           component: StudentEdit,
           meta: {
-            roles: [ 'student', 'guest']
+            roles: [ 'user', 'guest']
           }
         },
         {
@@ -73,36 +73,36 @@ export default new VueRouter({
           name: 'ChangePassword',
           component: ChangePassword,
           meta: {
-            roles: [ 'student']
+            roles: [ 'user']
           }
         },
         {
-          path: 'select-course',
+          path: 'new-project',
           name: 'SelectCourse',
           component: SelectCourse,
           meta: {
-            roles: [ 'student', 'guest']
+            roles: [ 'user', 'guest']
           }
         },
         {
-          path: 'course-selection-request',
+          path: 'project-leader-request',
           name: 'CourseSelectionRequest',
           component: CourseSelectionRequest,
           meta: {
-            roles: [ 'student', 'guest']
+            roles: [ 'user', 'guest']
           }
         },
         {
-          path: 'my-course',
+          path: 'my-project',
           name: 'MyCourse',
           component: MyCourse,
           meta: {
-            roles: [ 'student', 'guest']
+            roles: [ 'user', 'guest']
           }
         }
       ],
       meta: {
-        roles: [ 'student' ] // guest is for test
+        roles: [ 'user' ] // guest is for test
       }
     },
     {
