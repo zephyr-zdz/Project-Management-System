@@ -14,8 +14,8 @@ export default {
   name: 'Welcome',
   data () {
     return {
-      msg: 'This is the Welcome page of lab2',
-      caption: '2022/3/15 from Group 2'
+      msg: 'Welcome to the Project Management System',
+      caption: '2022/11/03'
     }
   }
 }

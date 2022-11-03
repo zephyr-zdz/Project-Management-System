@@ -35,17 +35,17 @@ export default new VueRouter({
       path: '/',
       name: 'Welcome',
       component: Welcome,
-      meta: {
-        roles: [ 'guest', 'admin', 'teacher', 'student' ]
-      }
+      //meta: {
+      //  roles: [ 'guest', 'admin', 'teacher', 'student' ]
+      //}
     },
     {
       path: '/login',
       name: 'Login',
       component: Login,
-      meta: {
-        roles: [ 'guest', 'admin', 'teacher', 'user' ]
-      }
+      //meta: {
+      //  roles: [ 'guest', 'admin', 'teacher', 'user' ]
+      //}
     },
     {
       path: '/user-home',
@@ -56,54 +56,54 @@ export default new VueRouter({
           path: 'dashboard',
           name: 'StudentDash',
           component: StudentDash,
-          meta: {
-            roles: [ 'user', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'user', 'guest']
+          //}
         },
         {
           path: 'edit-info',
           name: 'StudentEdit',
           component: StudentEdit,
-          meta: {
-            roles: [ 'user', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'user', 'guest']
+          //}
         },
         {
           path: 'change-password',
           name: 'ChangePassword',
           component: ChangePassword,
-          meta: {
-            roles: [ 'user']
-          }
+          //meta: {
+          //  roles: [ 'user']
+          //}
         },
         {
           path: 'new-project',
           name: 'SelectCourse',
           component: SelectCourse,
-          meta: {
-            roles: [ 'user', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'user', 'guest']
+          //}
         },
         {
           path: 'project-leader-request',
           name: 'CourseSelectionRequest',
           component: CourseSelectionRequest,
-          meta: {
-            roles: [ 'user', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'user', 'guest']
+          //}
         },
         {
           path: 'my-project',
           name: 'MyCourse',
           component: MyCourse,
-          meta: {
-            roles: [ 'user', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'user', 'guest']
+          //}
         }
       ],
-      meta: {
-        roles: [ 'user' ] // guest is for test
-      }
+      //meta: {
+      //  roles: [ 'user' ] // guest is for test
+      //}
     },
     {
       path: '/teacher-home',
@@ -114,46 +114,46 @@ export default new VueRouter({
           path: 'dashboard',
           name: 'TeacherDash',
           component: TeacherDash,
-          meta: {
-            roles: [ 'teacher']
-          }
+          //meta: {
+          //  roles: [ 'teacher']
+          //}
         },
         {
           path: 'edit-info',
           name: 'TeacherEdit',
           component: TeacherEdit,
-          meta: {
-            roles: [ 'teacher', 'guest']
-          },
+          //meta: {
+          //  roles: [ 'teacher', 'guest']
+          //},
         },
         {
           path: 'my-course',
           name: 'TeacherCourse',
           component: TeacherCourse,
-          meta: {
-            roles: [ 'teacher', 'guest']
-          },
+          //meta: {
+          //  roles: [ 'teacher', 'guest']
+          //},
         },
         {
           path: 'course-request',
           name: 'CourseRequest',
           component: CourseRequest,
-          meta: {
-            roles: ['teacher', 'guest']
-          }
+          //meta: {
+          //  roles: ['teacher', 'guest']
+          //}
         },
         {
           path: 'change-password',
           name: 'ChangePassword',
           component: ChangePassword,
-          meta: {
-            roles: ['teacher']
-          },
+          //meta: {
+          //  roles: ['teacher']
+          //},
         }
       ],
-      meta: {
-        roles: [ 'teacher' ]
-      }
+      //meta: {
+      //  roles: [ 'teacher' ]
+      //}
     },
     {
       path: '/admin-home',
@@ -164,82 +164,82 @@ export default new VueRouter({
           path: 'dashboard',
           name: 'AdminDash',
           component: AdminDash,
-          meta: {
-            // requireAuth: true,
-            roles: [ 'admin' ]
-          }
+          //meta: {
+          //  // requireAuth: true,
+          //  roles: [ 'admin' ]
+          //}
         },
         {
           path: 'add-user', // edit user
           name: 'AddUser',
           component: AddUser,
-          meta: {
-            // requireAuth: true
-            roles: [ 'admin', 'guest']
-          }
+          //meta: {
+          //  // requireAuth: true
+          //  roles: [ 'admin', 'guest']
+          //}
         },
         {
           path: 'edit-school',
           name: 'ManageSchool',
           component: ManageSchool,
-          meta: {
-            // requireAuth:true
-            roles: [ 'admin', 'guest']
-          }
+          //meta: {
+          //  // requireAuth:true
+          //  roles: [ 'admin', 'guest']
+          //}
         },
         {
           path: 'manage-courses',
           name: 'ManageCourses',
           component: ManageCourses,
-          meta: {
-            roles: [ 'admin', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'admin', 'guest']
+          //}
         },
         {
           path: 'manage-classroom',
           name: 'ManageClassroom',
           component: ManageClassroom,
-          meta: {
-            roles: [ 'admin', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'admin', 'guest']
+          //}
         },
         {
           path: 'manage-schedule',
           name: 'ManageClassSchedule',
           component: ManageClassSchedule,
-          meta: {
-            roles: [ 'admin', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'admin', 'guest']
+          //}
         },
         {
           path: 'manage-course-selection',
           name: 'ManageCourseSelection',
           component: ManageCourseSelection,
-          meta: {
-            roles: [ 'admin', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'admin', 'guest']
+          //}
         },
         {
           path: 'handle-course-selection-requests',
           name: 'ManageCourseSelectionRequest',
           component: ManageCourseSelectionRequest,
-          meta: {
-            roles: [ 'admin', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'admin', 'guest']
+          //}
         },
         {
           path: 'handle-course-requests',
           name: 'HandleCourseRequest',
           component: HandleCourseRequest,
-          meta: {
-            roles: [ 'admin', 'guest']
-          }
+          //meta: {
+          //  roles: [ 'admin', 'guest']
+          //}
         }
       ],
-      meta: {
-       // requireAuth: true,
-        roles: [ 'admin' ]
-      }
+      //meta: {
+      // // requireAuth: true,
+      //  roles: [ 'admin' ]
+      //}
     },
   ]
 })
