@@ -2,20 +2,21 @@ package com.example.projectmanagementsystem.service.user;
 
 
 import com.example.projectmanagementsystem.manager.user.UserManager;
+import com.example.projectmanagementsystem.model.ClassAdapter;
 import com.example.projectmanagementsystem.model.entity.User;
+import com.example.projectmanagementsystem.model.vo.SafeUser;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service("UserUserService")
 public class UserService {
     private final UserManager userManager;
-
+    private final ClassAdapter classAdapter;
     @Autowired
-    UserService(UserManager userManager){
+    UserService(UserManager userManager, ClassAdapter classAdapter){
         this.userManager = userManager;
+        this.classAdapter = classAdapter;
     }
 
     public Response<String> login(String name, String password){
@@ -34,7 +35,7 @@ public class UserService {
         }
     }
 
-    public Response<User> create(User user) {
+    public Response<SafeUser> create(User user) {
         if (user.getId() != null) {
             return new Response<>(Response.FAIL, "用户id由系统自动生成", null);
         }
@@ -47,7 +48,7 @@ public class UserService {
             return new Response<>(Response.FAIL, "该用户名已被占用！", null);
         }
         userManager.create(user);
-        return new Response<>(Response.SUCCESS, "用户信息注册成功", user);
+        return new Response<>(Response.SUCCESS, "用户信息注册成功", classAdapter.fromUser2SafeUser(user));
     }
 
 }

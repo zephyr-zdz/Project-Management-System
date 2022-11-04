@@ -2,6 +2,7 @@ package com.example.projectmanagementsystem.controller.user;
 
 import com.example.projectmanagementsystem.controller.config.WebMvcConfig;
 import com.example.projectmanagementsystem.model.entity.User;
+import com.example.projectmanagementsystem.model.vo.SafeUser;
 import com.example.projectmanagementsystem.service.user.UserService;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Response<User> update(User user) {
+    public Response<SafeUser> create(User user) {
         return userService.create(user);
     }
 }
