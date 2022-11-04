@@ -44,7 +44,6 @@ export default {
         email: '',
         password: '',
       },
-      msg: '',
       formRules: {
         name: [
           {
@@ -80,8 +79,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$axios
-            .post('/register', {
-              name: this.form.name,
+            .post('/user/register', {
+              username: this.form.name,
               email: this.form.email,
               password: this.form.password
             })

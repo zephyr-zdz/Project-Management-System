@@ -14,7 +14,7 @@
             type="text"
             title="email"
             v-model="loginForm.email"
-            placeholder="Email"/>
+            placeholder="Email/Name"/>
         </el-form-item>
         <el-form-item class="u-form-group" prop="password">
           <el-input
@@ -24,7 +24,6 @@
         </el-form-item>
         <div class="u-form-group">
           <el-button type="primary" @click.prevent="login">登录</el-button>
-          <p class="login-error">{{ msg }}</p>
         </div>
       </el-form>
     </el-card>
@@ -38,17 +37,14 @@ export default {
     return {
       loginForm: {
         email: '',
-        numError: '',
         password: '',
       },
-      msg: '',
       flag:false,
       loginFormRules: {
         email: [
           {
             required: true,
-            pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
-            message: '邮箱格式不正确',
+            message: '请填入邮箱或用户名',
             trigger: 'blur',
           }
         ],
@@ -63,11 +59,11 @@ export default {
       console.log("Try to login as user...")
       const _this = this;
       console.log(this.$store.state)
+      const param = new FormData();
+      param.append('username', this.loginForm.email)
+      param.append('password', this.loginForm.password)
       this.$axios
-        .post('/login', {
-          email: this.loginForm.email,
-          password: this.loginForm.password
-        })
+        .post('/user/login', param)
         .then(resp => {
           if (resp.data.code === 0 || resp.data.code === 1) {
             console.log(resp.data.code)
@@ -76,7 +72,7 @@ export default {
             this.msg = resp.data.msg
             _this.$store.commit('login', {
               user: {
-                email: this.loginForm.email,
+                username: this.loginForm.email,
                 }
               })
             if (resp.data.code === 0) {
