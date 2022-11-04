@@ -39,8 +39,8 @@ public class UserService {
         if (user.getId() != null) {
             return new Response<>(Response.FAIL, "用户id由系统自动生成", null);
         }
-        User sameEmailUser = userManager.getUserByEmail(user.getEmail());
-        User sameUsernameUser = userManager.getUserByUsername(user.getUsername());
+        User sameEmailUser = userManager.findUserByEmail(user.getEmail());
+        User sameUsernameUser = userManager.findUserByUsername(user.getUsername());
         if (sameEmailUser != null) {
             return new Response<>(Response.FAIL, "该邮箱已被占用！", null);
         }

@@ -26,8 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Response<SafeUser> create(@RequestBody User user) {
-        System.out.println(user);
+    public Response<SafeUser> createUser(@RequestBody User user) {
         return userService.create(user);
     }
 }

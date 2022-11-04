@@ -21,11 +21,11 @@ public class UserManager {
         return userMapper.findUserByEmailAndPassword(email, password);
     }
 
-    public User getUserByEmail(String email) {
+    public User findUserByEmail(String email) {
         return userMapper.findUserByEmail(email);
     }
 
-    public User getUserByUsername(String username) {
+    public User findUserByUsername(String username) {
         return userMapper.findUserByUsername(username);
     }
 
