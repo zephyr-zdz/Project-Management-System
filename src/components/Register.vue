@@ -7,8 +7,7 @@
       <el-form
         :model="form"
         ref="form"
-        :rules="formRules"
-      >
+        :rules="formRules">
         <el-form-item
           label="昵称"
           prop="name">
@@ -25,6 +24,7 @@
           <el-input v-model="form.password" type="password" placeholder="长度8-14"></el-input>
         </el-form-item>
         <div class="u-form-group">
+          <el-button type="info" plain @click.prevent="resetForm('form')">清空</el-button>
           <el-button type="primary" @click.prevent="register('form')">注册</el-button>
         </div>
       </el-form>
@@ -86,28 +86,31 @@ export default {
               password: this.form.password
             })
             .then(resp => {
-              if (resp.data.code === 1) {
-                console.log(resp.data.code)
-                Vue.prototype.$message({
-                  message: resp.data.msg,
-                  type: 'success',
-                });
-                this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
-              } else if (resp.data.code === 0) {
-                this.$message.error("注册失败")
-              } else {
-                Vue.prototype.$message({
-                  message: 'Error happens',
-                  type: 'error'
-                });
+                if (resp.data.code === 0) {
+                  console.log(resp.data.code)
+                  Vue.prototype.$message({
+                    message: resp.data.msg,
+                    type: 'success',
+                  });
+                  this.$router.replace({path: '/login'})
+                } else if (resp.data.code === 1) {
+                  this.$message.error(resp.data.msg)
+                } else {
+                  Vue.prototype.$message({
+                    message: resp.data.msg,
+                    type: 'error'
+                  });
+                }
               }
-            }
             )
             .catch(failResponse => {
               console.log("Error happens")
             })
         }
       })
+    },
+    resetForm(searchForm) {
+      this.$refs[searchForm].resetFields()//重置表单数据
     }
   }
 }
@@ -116,7 +119,7 @@ export default {
 <style scoped>
 .card {
   width: 500px;
-  margin: 20% auto auto;
+  margin: 15% auto auto;
 }
 .chr {
   font-weight: bold;

@@ -8,22 +8,19 @@
       <el-form
         :model="loginForm"
         ref="loginFormRef"
-        :rules="loginFormRules"
-      >
+        :rules="loginFormRules">
         <el-form-item class="u-form-group" prop="email">
           <el-input
             type="text"
             title="email"
             v-model="loginForm.email"
-            placeholder="Email"
-          />
+            placeholder="Email"/>
         </el-form-item>
         <el-form-item class="u-form-group" prop="password">
           <el-input
             type="password"
             v-model="loginForm.password"
-            placeholder="Password"
-          />
+            placeholder="Password"/>
         </el-form-item>
         <div class="u-form-group">
           <el-button type="primary" @click.prevent="login">登录</el-button>
@@ -75,7 +72,6 @@ export default {
           if (resp.data.code === 0 || resp.data.code === 1) {
             console.log(resp.data.code)
             _this.$store.commit('login', _this.loginForm)
-            const path = this.$route.query.redirect;
             console.log(resp.data.data.type)
             this.msg = resp.data.msg
             _this.$store.commit('login', {
@@ -84,7 +80,7 @@ export default {
                 }
               })
             if (resp.data.code === 0) {
-              this.$router.replace({path: path === '/' || path === undefined ? '/user-home/dashboard' : path})
+              this.$router.replace({path: '/user-home/dashboard'})
             } else {
               this.$message.error(this.msg)
               }
@@ -104,7 +100,7 @@ export default {
 <style scoped>
 .card {
   width: 400px;
-  margin: 25% auto auto;
+  margin: 20% auto auto;
 }
 .chr {
   font-weight: bold;
