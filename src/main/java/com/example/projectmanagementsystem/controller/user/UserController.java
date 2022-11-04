@@ -1,12 +1,11 @@
 package com.example.projectmanagementsystem.controller.user;
 
 import com.example.projectmanagementsystem.controller.config.WebMvcConfig;
+import com.example.projectmanagementsystem.model.entity.User;
 import com.example.projectmanagementsystem.service.user.UserService;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,13 +24,17 @@ public class UserController {
 
     @PostMapping("/login")
     public Response<String> login(HttpSession session) {
-        String username = request.getParameter("username");
+        String name = request.getParameter("username");
         String password = request.getParameter("password");
-        Response<String> answer = userService.login(username, password);
+        Response<String> answer = userService.login(name, password);
         if (answer.getData().equals("true")) {    // 登录成功
             session.setAttribute("user", WebMvcConfig.SESSION_KEY); // 登录之后，session就有了user的值
         }
         return answer;
     }
 
+    @PostMapping("/register")
+    public Response<User> update(User user) {
+        return userService.create(user);
+    }
 }

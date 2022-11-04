@@ -16,4 +16,18 @@ public class UserManager {
     public User findUserByUsernameAndPassword(String username, String password) {
         return userMapper.findUserByUsernameAndPassword(username, password);
     }
+
+    public User findUserByEmailAndPassword(String email, String password) {
+        return userMapper.findUserByEmailAndPassword(email, password);
+    }
+
+    public User getUserByEmail(String email) {
+        return userMapper.findUserByEmail(email);
+    }
+
+    public User getUserByUsername(String username) {
+        return userMapper.findUserByUsername(username);
+    }
+
+    public void create(User user) { userMapper.save(user); }
 }

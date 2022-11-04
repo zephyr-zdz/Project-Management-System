@@ -1,18 +1,20 @@
 package com.example.projectmanagementsystem.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "user", indexes = {
         @Index(name = "Username_UNIQUE", columnList = "username", unique = true),
+        @Index(name = "Email_UNIQUE", columnList = "email", unique = true)
 })
 public class User {
     @Id
@@ -30,5 +32,18 @@ public class User {
         setUsername(newUser.getUsername());
         setPassword(newUser.getPassword());
         setEmail(newUser.getEmail());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
