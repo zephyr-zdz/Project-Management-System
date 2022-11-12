@@ -23,4 +23,12 @@ public class InvitationManager {
     public void save(Invitation invitation) {
         invitationMapper.save(invitation);
     }
+
+    public Invitation findById(Integer invitationId) {
+        return invitationMapper.findInvitationById(invitationId);
+    }
+
+    public void delete(Integer invitationId) {
+        invitationMapper.deleteById(invitationId);
+    }
 }

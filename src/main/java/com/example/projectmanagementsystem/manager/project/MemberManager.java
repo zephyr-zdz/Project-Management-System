@@ -1,7 +1,6 @@
 package com.example.projectmanagementsystem.manager.project;
 
 import com.example.projectmanagementsystem.mapper.MemberListMapper;
-import com.example.projectmanagementsystem.mapper.ProjectMapper;
 import com.example.projectmanagementsystem.mapper.UserMapper;
 import com.example.projectmanagementsystem.model.entity.MemberList;
 import com.example.projectmanagementsystem.model.entity.Project;
@@ -13,12 +12,10 @@ import java.util.List;
 
 @Component("ProjectMemberManager")
 public class MemberManager {
-    private final ProjectMapper projectMapper;
     private final UserMapper userMapper;
     private final MemberListMapper memberListMapper;
 
-    public MemberManager(ProjectMapper projectMapper, UserMapper userMapper, MemberListMapper memberListMapper) {
-        this.projectMapper = projectMapper;
+    public MemberManager(UserMapper userMapper, MemberListMapper memberListMapper) {
         this.userMapper = userMapper;
         this.memberListMapper = memberListMapper;
     }
@@ -66,5 +63,15 @@ public class MemberManager {
 
     public boolean isMember(Integer project_id, Integer user_id) {
         return memberListMapper.existsByProjectIdAndMemberId(project_id, user_id);
+    }
+
+    public void addMember(Integer projectId, Integer memberId) {
+        MemberList memberList = new MemberList();
+        memberList.initialize(memberId, projectId, "member");
+        memberListMapper.save(memberList);
+    }
+
+    public MemberList findMemberListByProjectIdAndUserId(Integer projectId, Integer UserId) {
+        return memberListMapper.findMemberListByProjectIdAndMemberId(projectId, UserId);
     }
 }

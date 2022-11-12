@@ -17,4 +17,6 @@ public interface MemberListMapper extends JpaRepository<MemberList, Integer> {
     void deleteByProjectIdAndMemberId(Integer project_id, Integer user_id);
 
     boolean existsByProjectIdAndMemberId(Integer project_id, Integer user_id);
+
+    MemberList findMemberListByProjectIdAndMemberId(Integer projectId, Integer userId);
 }

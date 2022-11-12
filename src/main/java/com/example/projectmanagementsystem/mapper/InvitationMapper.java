@@ -8,6 +8,10 @@ import java.util.List;
 
 @Repository
 public interface InvitationMapper extends JpaRepository<Invitation, Integer> {
+    Invitation findInvitationById(Integer id);
+
     List<Invitation> findAllByReceiverId(Integer ReceiverId);
+
+    void deleteById(Integer id);
 
 }
