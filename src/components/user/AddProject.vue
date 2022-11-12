@@ -78,24 +78,7 @@
 </template>
 
 <script>
-let allDepartments = [
-  {
-    departmentNumber: 1,
-    school: {
-      schoolId: 3,
-      schoolName: "前端-医学院"
-    },
-    departmentName: '临床'
-  },
-  {
-    departmentNumber: 2,
-    school: {
-      schoolId: 1,
-      schoolName: "前端-环境学院"
-    },
-    departmentName: '环境工程'
-  }
-]
+
 export default {
   name: "AddProject",
   data() {
@@ -103,11 +86,7 @@ export default {
       addFormVisible: false,
       disabled: false,
       formLabelWidth: '120px',
-      userList: [
-        { number: "20220403", name:'用户1'},
-        { number: "20220319", name:'用户2'},
-      ],
-      search: [],
+      userList: [],
       addProject: {
         projectCode: '',
         projectName: '',
@@ -150,16 +129,16 @@ export default {
     getUserId () {
       this.$axios.get('/project/list', {params: {user_id: this.$store.getters.user_id}})
         .then(response => {
-          console.log(response.data.data)
+          
           if (response.data.code === 0) {
-            this.res.id = response.data.data
-            console.log(this.res.id)
+            console.log(response.data)
+            this.userList = response.data.data
           } else {
             this.$message({
               message: response.data.msg,
               type: 'error'
             })
-            this.res.id = -1
+            this.addProject.projectLeaderNumber = -1
           }
         })
         .catch(error => {
