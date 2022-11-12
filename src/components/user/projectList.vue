@@ -1,0 +1,101 @@
+<template>
+  <el-table
+      :data="projectData"
+      style="width: 100%">
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="项目名称">
+              <span>{{ props.row.title }}</span>
+            </el-form-item>
+            <el-form-item label="项目id">
+              <span>{{ props.row.id }}</span>
+            </el-form-item>
+            <el-form-item label="项目所有者id">
+              <span>{{ props.row.owner_id }}</span>
+            </el-form-item>
+            <el-form-item label="项目管理者id">
+              <span v-for="(p,index) of props.row.manager_id" :key="index">
+					      {{p}}
+				      </span>
+            </el-form-item>
+            <el-form-item label="项目参与者id">
+              <span v-for="(p,index) of props.row.merber_id" :key="index">
+					      {{p}}
+				      </span>
+            </el-form-item>
+            <el-form-item label="项目总人数">
+              <span>{{ props.row.number }}</span>
+            </el-form-item>
+            <el-form-item style="width:100%" label="项目介绍">
+              <span>{{ props.row.intro }}</span>
+            </el-form-item>
+            
+          </el-form>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="项目id"
+        prop="id">
+      </el-table-column>
+      <el-table-column
+        label="项目名称"
+        prop="name">
+      </el-table-column>
+      <el-table-column
+        label="项目所有者id"
+        prop="owner_id">
+      </el-table-column>
+      <el-table-column
+        prop="operation"
+        label="操作"
+        width="150">
+        <template v-slot="scope">
+          <el-button size="mini" @click="submit(scope.$index)">退出项目</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+</template>
+  
+  <style>
+    .demo-table-expand {
+    font-size: 0;
+  }
+  .demo-table-expand label {
+    width: 100px;
+    color: #99a9bf;
+    
+  }
+  .demo-table-expand span{
+    word-wrap:break-word; 
+    word-break:break-all; 
+    overflow: hidden;
+  }
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 100%;
+  }
+  </style>
+  
+  <script>
+    export default {
+      name:'projectList',
+      data() {
+        return {
+          projectData: [],
+
+        }
+      },
+      mounted () {
+      this.getProject()
+      },
+      methods:{
+      getProject(){
+          this.$axios.get('/project/list', {params: {stunum: this.$store.getters.user_id}}).then(res => {
+          this.projectData = res.data.data
+      })
+        },
+    }
+    }
+  </script>
