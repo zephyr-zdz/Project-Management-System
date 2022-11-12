@@ -22,8 +22,13 @@ public class MemberController {
     @PostMapping("/invite")
     public Response<String> inviteMember(@RequestParam Integer owner_id,
                                          @RequestParam Integer new_member_id,
-                                         @RequestParam Integer project_id
-    ) {
+                                         @RequestParam Integer project_id) {
         return memberService.inviteMember(owner_id, project_id, new_member_id);
+    }
+
+    @PostMapping("/delete")
+    public Response<String> quit(@RequestParam Integer project_id,
+                                 @RequestParam Integer user_id) {
+        return memberService.quit(project_id, user_id);
     }
 }

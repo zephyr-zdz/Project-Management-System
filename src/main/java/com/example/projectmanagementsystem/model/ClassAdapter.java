@@ -31,13 +31,14 @@ public class ClassAdapter {
     public ProjectVO fromProject2ProjectVO(Project project) {
         ProjectVO projectVO = new ProjectVO();
         projectVO.setProject(project);
+        // manager
         Integer projectId = project.getId();
         List<Integer> managerIdList = new ArrayList<>(memberManager.findManagerIdListByProjectId(projectId));
         projectVO.setManagerIdList(managerIdList);
-
-        List<Integer> memberIdList = new ArrayList<>();
-        managerIdList.addAll(memberManager.findMemberIdListByProjectId(projectId));
+        // member
+        List<Integer> memberIdList = new ArrayList<>(memberManager.findMemberIdListByProjectId(projectId));
         projectVO.setMemberIdList(memberIdList);
+        // number
         projectVO.setNumber(memberIdList.size());
         return projectVO;
     }

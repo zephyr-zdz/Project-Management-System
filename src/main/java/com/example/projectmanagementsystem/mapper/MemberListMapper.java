@@ -8,7 +8,11 @@ import java.util.List;
 
 @Repository
 public interface MemberListMapper extends JpaRepository<MemberList, Integer> {
-    List<MemberList> findMemberListsByProject_id(Integer member_id);
+    List<MemberList> findMemberListsByProjectId(Integer projectId);
 
-    List<MemberList> findMemberListsByProject_idAndPrivilege(Integer projectId, String privilege);
+    List<MemberList> findAllByProjectIdAndPrivilege(Integer projectId, String privilege);
+
+    List<MemberList> findAllByProjectId(Integer projectId);
+
+    void deleteByProjectIdAndMemberId(Integer project_id, Integer user_id);
 }

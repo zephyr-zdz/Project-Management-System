@@ -3,8 +3,8 @@ package com.example.projectmanagementsystem.manager.project;
 import com.example.projectmanagementsystem.mapper.MemberListMapper;
 import com.example.projectmanagementsystem.mapper.ProjectMapper;
 import com.example.projectmanagementsystem.mapper.UserMapper;
-import com.example.projectmanagementsystem.model.ClassAdapter;
 import com.example.projectmanagementsystem.model.entity.MemberList;
+import com.example.projectmanagementsystem.model.entity.Project;
 import com.example.projectmanagementsystem.model.entity.User;
 import org.springframework.stereotype.Component;
 
@@ -16,41 +16,51 @@ public class MemberManager {
     private final ProjectMapper projectMapper;
     private final UserMapper userMapper;
     private final MemberListMapper memberListMapper;
-    private final ClassAdapter classAdapter;
 
-    public MemberManager(ProjectMapper projectMapper, UserMapper userMapper, MemberListMapper memberListMapper, ClassAdapter classAdapter) {
+    public MemberManager(ProjectMapper projectMapper, UserMapper userMapper, MemberListMapper memberListMapper) {
         this.projectMapper = projectMapper;
         this.userMapper = userMapper;
         this.memberListMapper = memberListMapper;
-        this.classAdapter = classAdapter;
     }
 
     public List<Integer> findMemberIdListByProjectId(Integer projectId) {// 获取用户id列表
-        List<MemberList> projectMemberERList = memberListMapper.findMemberListsByProject_id(projectId);
+        List<MemberList> projectMemberERList = memberListMapper.findAllByProjectId(projectId);
         List<Integer> projectMemberIdList = new ArrayList<>();
         for (MemberList ERList : projectMemberERList) {
-            projectMemberIdList.add(ERList.getMember_id());
+            System.out.println(ERList);
+            projectMemberIdList.add(ERList.getMemberId());
         }
         return projectMemberIdList;
     }
-
     public List<User> findMemberListByProjectId(Integer projectId) {
-        List<MemberList> projectMemberERList = memberListMapper.findMemberListsByProject_id(projectId);
+        List<MemberList> projectMemberERList = memberListMapper.findMemberListsByProjectId(projectId);
         List<User> projectMemberList = new ArrayList<>();
         for (MemberList ERList : projectMemberERList) {
-            User member = userMapper.findUserById(ERList.getMember_id());
+            User member = userMapper.findUserById(ERList.getMemberId());
             projectMemberList.add(member);
         }
         return projectMemberList;
     }
 
     // manager
-    public List<Integer> findManagerIdListByProjectId(Integer projectId) {// 获取用户id列表
-        List<MemberList> projectMemberERList = memberListMapper.findMemberListsByProject_idAndPrivilege(projectId, "manager");
+    public List<Integer> findManagerIdListByProjectId(Integer projectId) {// 获取管理员id列表
+        List<MemberList> projectManagerERList = memberListMapper.findAllByProjectIdAndPrivilege(projectId, "manager");
         List<Integer> projectManagerIdList = new ArrayList<>();
-        for (MemberList ERList : projectMemberERList) {
-            projectManagerIdList.add(ERList.getMember_id());
+        for (MemberList ERList : projectManagerERList) {
+            projectManagerIdList.add(ERList.getMemberId());
         }
         return projectManagerIdList;
+    }
+
+    public void saveMember(User member, Project project, String privilege) {
+        Integer memberId = member.getId();
+        Integer projectId = project.getId();
+        MemberList memberList = new MemberList();
+        memberList.initialize(memberId, projectId, privilege);
+        memberListMapper.save(memberList);
+    }
+
+    public void deleteProjectMember(Integer project_id, Integer user_id) {
+        memberListMapper.deleteByProjectIdAndMemberId(project_id, user_id);
     }
 }

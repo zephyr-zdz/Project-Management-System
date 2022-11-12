@@ -9,6 +9,10 @@ import com.example.projectmanagementsystem.model.entity.User;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Objects;
+
+@Transactional
 @Service("ProjectMemberService")
 public class MemberService {
     private final ProjectManager projectManager;
@@ -36,5 +40,21 @@ public class MemberService {
         }
         // TODO：保存邀请
         return new Response<>(Response.SUCCESS, "邀请保存成功！", null);
+    }
+
+    public Response<String> quit(Integer project_id, Integer user_id) {
+        User user = userManager.findUserById(user_id);
+        if (user == null) {
+            return new Response<>(Response.FAIL, "用户不存在！", null);
+        }
+        Project project = projectManager.findProjectById(project_id);
+        if (project == null) {
+            return new Response<>(Response.FAIL, "项目不存在！", null);
+        }
+        if (Objects.equals(project.getOwner_id(), user_id)) {
+            return new Response<>(Response.FAIL, "用户为所有者！", null);
+        }
+        memberManager.deleteProjectMember(project_id, user_id);
+        return new Response<>(Response.SUCCESS, "删除成功！", null);
     }
 }

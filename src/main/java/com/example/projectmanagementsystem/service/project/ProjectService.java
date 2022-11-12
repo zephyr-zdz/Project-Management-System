@@ -1,7 +1,10 @@
 package com.example.projectmanagementsystem.service.project;
 
+import com.example.projectmanagementsystem.manager.project.MemberManager;
 import com.example.projectmanagementsystem.manager.project.ProjectManager;
+import com.example.projectmanagementsystem.manager.user.UserManager;
 import com.example.projectmanagementsystem.model.entity.Project;
+import com.example.projectmanagementsystem.model.entity.User;
 import com.example.projectmanagementsystem.model.vo.ProjectVO;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +13,26 @@ import org.springframework.stereotype.Service;
 @Service("ProjectProjectService")
 public class ProjectService {
     private final ProjectManager projectManager;
+    private final MemberManager memberManager;
+    private final UserManager userManager;
 
     @Autowired
-    ProjectService(ProjectManager projectManager) {
+    ProjectService(ProjectManager projectManager, MemberManager memberManager, UserManager userManager) {
         this.projectManager = projectManager;
+        this.memberManager = memberManager;
+        this.userManager = userManager;
     }
 
     public Response<Project> create(Project project) {
         if (project.getId() != null) {
-            return new Response<>(Response.FAIL, "用户id由系统自动生成", null);
+            return new Response<>(Response.FAIL, "项目id由系统自动生成", null);
         }
-
+        User owner = userManager.findUserById(project.getOwner_id());
+        if (owner == null) {
+            return new Response<>(Response.FAIL, "项目创建者不存在！", null);
+        }
         projectManager.createProject(project);
+        memberManager.saveMember(owner, project, "owner");
         return new Response<>(Response.SUCCESS, "项目信息注册成功", project);
     }
 
