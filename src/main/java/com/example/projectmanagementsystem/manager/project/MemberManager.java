@@ -63,4 +63,8 @@ public class MemberManager {
     public void deleteProjectMember(Integer project_id, Integer user_id) {
         memberListMapper.deleteByProjectIdAndMemberId(project_id, user_id);
     }
+
+    public boolean isMember(Integer project_id, Integer user_id) {
+        return memberListMapper.existsByProjectIdAndMemberId(project_id, user_id);
+    }
 }

@@ -26,4 +26,11 @@ public class ProjectController {
     public Response<ProjectVO> getProjectList(@RequestParam("project_id") Integer projectId) {
         return projectService.list(projectId);
     }
+
+    @PostMapping("/invite")
+    public Response<String> invite(@RequestParam("user_id") Integer user_id,
+                                   @RequestParam("receiver_id") Integer receiver_id,
+                                   @RequestParam("project_id") Integer project_id) {
+        return projectService.invite(user_id, receiver_id, project_id);
+    }
 }
