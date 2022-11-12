@@ -9,7 +9,7 @@
               <span>{{ props.row.title }}</span>
             </el-form-item>
             <el-form-item label="项目id">
-              <span>{{ props.row.id }}</span>
+              <span>{{ props.row.project_id }}</span>
             </el-form-item>
             <el-form-item label="项目所有者id">
               <span>{{ props.row.owner_id }}</span>
@@ -20,7 +20,7 @@
 				      </span>
             </el-form-item>
             <el-form-item label="项目参与者id">
-              <span v-for="(p,index) of props.row.merber_id" :key="index">
+              <span v-for="(p,index) of props.row.member_id" :key="index">
 					      {{p}}
 				      </span>
             </el-form-item>
@@ -36,7 +36,7 @@
       </el-table-column>
       <el-table-column
         label="项目id"
-        prop="id">
+        prop="project_id">
       </el-table-column>
       <el-table-column
         label="项目名称"
@@ -87,15 +87,39 @@
 
         }
       },
+
+      
       mounted () {
       this.getProject()
       },
       methods:{
       getProject(){
-          this.$axios.get('/project/list', {params: {stunum: this.$store.getters.user_id}}).then(res => {
+          this.$axios.get('/project/list', {params: {user_id: this.$store.getters.user_id}}).then(res => {
           this.projectData = res.data.data
       })
         },
-    }
+      submit (index) {
+      this.$axios.delete('/project/list/delete',
+        {params: {
+          project_id: this.projectList[index].project.id,
+          user_id: this.user_id
+        }}
+      )
+      .then(res => {
+          if (res.data.code === 0) {
+            this.$message({
+              message: res.data.msg,
+              type: 'success'
+            })
+            this.getProject()
+          } else {
+            this.$message({
+              message: res.data.msg,
+              type: 'error'
+            })
+          }
+        })
+    },
+  }
     }
   </script>
