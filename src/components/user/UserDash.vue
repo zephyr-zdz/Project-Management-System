@@ -1,13 +1,15 @@
-<!--2022/3/2 created by Yifan Yu-->
 <template>
   <div id="bg">
-   HELLO WORLD!
+    <el-container>
+      <el-main>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
 export default {
-  name: "StudentDash"
+  name: "StudentDash",
 }
 </script>
 

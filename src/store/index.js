@@ -6,7 +6,7 @@ export default new Vuex.Store({
   state: {
     user: {
       username: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username,
-      role: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).role,
+      //role: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).role,
     }
   },
   mutations: {
@@ -14,9 +14,5 @@ export default new Vuex.Store({
       state.user = user
       window.localStorage.setItem('user', JSON.stringify(user))
     },
-    adminLogin (state, user) {
-      state.user = user
-      window.localStorage.setItem('user', JSON.stringify(user))
-    }
   }
 })

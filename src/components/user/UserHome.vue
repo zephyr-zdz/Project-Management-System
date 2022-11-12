@@ -1,4 +1,3 @@
-<!--2022/3/2 created by Yifan Yu-->
 <template>
   <div>
     <el-container>
@@ -11,7 +10,7 @@
 </template>
 
 <script>
-import StudentNavBar from "./StudentNavBar";
+import StudentNavBar from "./UserNavBar";
 export default {
   name: "StudentHome",
   components: {StudentNavBar}

@@ -3,7 +3,7 @@
       :data="projectData"
       style="width: 100%">
       <el-table-column type="expand">
-        <template slot-scope="props">
+        <template v-slot="props">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="项目名称">
               <span>{{ props.row.project.title }}</span>
@@ -30,7 +30,7 @@
             <el-form-item style="width:100%" label="项目介绍">
               <span>{{ props.row.project.intro }}</span>
             </el-form-item>
-            
+
           </el-form>
         </template>
       </el-table-column>
@@ -51,12 +51,12 @@
         label="操作"
         width="150">
         <template v-slot="scope">
-          <el-button size="mini" @click="submit(scope.$index)">退出项目</el-button>
+          <el-button size="mini" @click="submit(scope.row)">退出项目</el-button>
         </template>
       </el-table-column>
     </el-table>
 </template>
-  
+
   <style>
     .demo-table-expand {
     font-size: 0;
@@ -64,11 +64,11 @@
   .demo-table-expand label {
     width: 100px;
     color: #99a9bf;
-    
+
   }
   .demo-table-expand span{
-    word-wrap:break-word; 
-    word-break:break-all; 
+    word-wrap:break-word;
+    word-break:break-all;
     overflow: hidden;
   }
   .demo-table-expand .el-form-item {
@@ -77,7 +77,7 @@
     width: 100%;
   }
   </style>
-  
+
   <script>
     export default {
       name:'projectList',
@@ -88,7 +88,7 @@
         }
       },
 
-      
+
       mounted () {
       this.getProject()
       },
@@ -98,10 +98,10 @@
           this.projectData = res.data.data
       })
         },
-      submit (index) {
+      submit (row) {
       this.$axios.delete('/project/list/delete',
         {params: {
-          project_id: this.projectList[index].project.id,
+          project_id: row.project_id,
           user_id: this.user_id
         }}
       )
