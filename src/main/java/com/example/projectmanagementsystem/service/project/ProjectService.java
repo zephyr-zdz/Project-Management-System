@@ -2,6 +2,7 @@ package com.example.projectmanagementsystem.service.project;
 
 import com.example.projectmanagementsystem.manager.project.ProjectManager;
 import com.example.projectmanagementsystem.model.entity.Project;
+import com.example.projectmanagementsystem.model.vo.ProjectVO;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,13 @@ public class ProjectService {
 
         projectManager.createProject(project);
         return new Response<>(Response.SUCCESS, "项目信息注册成功", project);
+    }
+
+    public Response<ProjectVO> list(Integer projectId) {
+        ProjectVO projectVO = projectManager.findProjectListById(projectId);
+        if (projectVO == null) {
+            return new Response<>(Response.FAIL, "该项目不存在", null);
+        }
+        return new Response<>(Response.SUCCESS, "项目信息查找成功", projectVO);
     }
 }

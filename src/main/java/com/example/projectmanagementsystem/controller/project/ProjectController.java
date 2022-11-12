@@ -1,13 +1,11 @@
 package com.example.projectmanagementsystem.controller.project;
 
 import com.example.projectmanagementsystem.model.entity.Project;
+import com.example.projectmanagementsystem.model.vo.ProjectVO;
 import com.example.projectmanagementsystem.service.project.ProjectService;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("ProjectController")
 @RequestMapping("/project")
@@ -24,5 +22,10 @@ public class ProjectController {
 
         System.out.println(project);
         return projectService.create(project);
+    }
+
+    @GetMapping("/list")
+    public Response<ProjectVO> getProjectList(@RequestParam("project_id") Integer projectId) {
+        return projectService.list(projectId);
     }
 }

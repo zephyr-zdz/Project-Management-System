@@ -29,5 +29,11 @@ public class UserManager {
         return userMapper.findUserByUsername(username);
     }
 
-    public void create(User user) { userMapper.save(user); }
+    public void create(User user) {
+        userMapper.save(user);
+    }
+
+    public User findUserById(Integer id) {
+        return userMapper.findUserById(id);
+    }
 }
