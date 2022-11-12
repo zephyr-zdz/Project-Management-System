@@ -58,7 +58,7 @@ public class ProjectService {
         if (!memberManager.isMember(initiatorId, projectId)) {
             return new Response<>(Response.FAIL, "邀请失败，您不是该项目成员", null);
         }
-        if (memberManager.isMember(initiatorId, projectId)) {
+        if (memberManager.isMember(receiverId, projectId)) {
             return new Response<>(Response.FAIL, "邀请失败，该用户已是该项目成员", null);
         }
         Invitation invitation = new Invitation();

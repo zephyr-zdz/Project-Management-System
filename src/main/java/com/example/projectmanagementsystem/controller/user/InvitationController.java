@@ -27,4 +27,9 @@ public class InvitationController {
     public Response<String> acceptInvitation(@RequestParam("invitation_id") Integer invitationId) {
         return invitationService.accept(invitationId);
     }
+
+    @PostMapping("/refuse")
+    public Response<String> refuseInvitation(@RequestParam("invitation_id") Integer invitationId) {
+        return invitationService.refuse(invitationId);
+    }
 }

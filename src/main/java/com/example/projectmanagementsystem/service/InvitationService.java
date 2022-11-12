@@ -31,7 +31,7 @@ public class InvitationService {
     }
 
     public Response<List<Invitation>> getInvitationList(Integer receiverId) {
-        return new Response<>(Response.SUCCESS, "登录成功", invitationManager.findAllByReceiverId(receiverId));
+        return new Response<>(Response.SUCCESS, "获取成功", invitationManager.findAllByReceiverId(receiverId));
     }
 
     public Response<String> accept(Integer invitationId) {
@@ -51,8 +51,17 @@ public class InvitationService {
         if (memberManager.isMember(receiver.getId(), project.getId())) {
             return new Response<>(Response.FAIL, "邀请接受者已在该项目", null);
         }
-        memberManager.addMember(project.getId(), initiator.getId());
+        memberManager.addMember(project.getId(), receiver.getId());
         invitationManager.delete(invitationId);
         return new Response<>(Response.SUCCESS, "邀请通过，加入项目", null);
+    }
+
+    public Response<String> refuse(Integer invitationId) {
+        Invitation invitation = invitationManager.findById(invitationId);
+        if (invitation == null) {
+            return new Response<>(Response.FAIL, "邀请不存在", null);
+        }
+        invitationManager.delete(invitationId);
+        return new Response<>(Response.SUCCESS, "邀请已拒绝，不加入项目", null);
     }
 }

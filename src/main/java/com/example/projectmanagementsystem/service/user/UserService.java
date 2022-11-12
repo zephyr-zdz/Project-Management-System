@@ -60,7 +60,9 @@ public class UserService {
             users.add(classAdapter.fromUser2SafeUser(user));
         }
         for (User user : userManager.findUsersByUsernameLike(name)) {
-            users.add(classAdapter.fromUser2SafeUser(user));
+            if (!users.contains(classAdapter.fromUser2SafeUser(user))) {
+                users.add(classAdapter.fromUser2SafeUser(user));
+            }
         }
         return new Response<>(Response.SUCCESS, "用户查找完毕", users);
     }
