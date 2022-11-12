@@ -30,12 +30,17 @@
           width="50">
         </el-table-column>
         <el-table-column
+          prop="id"
+          label="ID"
+          width="150">
+        </el-table-column>
+        <el-table-column
           prop="email"
           label="邮箱"
           width="auto">
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="username"
           label="昵称"
           width="auto">
         </el-table-column>
@@ -71,8 +76,9 @@ export default {
       },
       userList: [
         {
+          id: 1,
           email: 'bdfbsv@jkk.com',
-          name: 'dsbdb',
+          username: 'dsbdb',
         },
       ]
     }
@@ -82,7 +88,7 @@ export default {
       this.$refs.InviteForm.validate((valid) => {
         if (valid) {
           const param = new FormData();
-          param.append('email', this.inviteForm.email)
+          param.append('name', this.inviteForm.email)
           this.$axios
             .post('project/search', param)
             .then(resp => {
@@ -104,10 +110,11 @@ export default {
     },
     selectUser (row) {
       let jsonObj = JSON.parse(window.localStorage.user);
-      let name = jsonObj.user.username
+      let id = jsonObj.user.userid
       const param = new FormData();
-      param.append('user', name)
-      param.append('email', row.email)
+      param.append('user_id', id)
+      param.append('receiver_id', row.id)
+      /*todo: 加入项目id*/
       this.$axios
         .post('project/invite', param)
         .then(resp => {

@@ -67,12 +67,12 @@ export default {
         .then(resp => {
           if (resp.data.code === 0 || resp.data.code === 1) {
             console.log(resp.data.code)
-            _this.$store.commit('login', _this.loginForm)
-            console.log(resp.data.data.type)
+            console.log(resp.data.data.id)
             this.msg = resp.data.msg
             _this.$store.commit('login', {
               user: {
-                username: this.loginForm.email,
+                userid: resp.data.data.id,
+                name: resp.data.data.name,
                 }
               })
             if (resp.data.code === 0) {

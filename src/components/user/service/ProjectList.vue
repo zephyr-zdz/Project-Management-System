@@ -1,7 +1,9 @@
 <template>
   <el-table
       :data="projectData"
-      style="width: 100%">
+      style="width: 100%"
+      :header-row-style="{height: '100px'}"
+      stripe>
       <el-table-column type="expand">
         <template v-slot="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -80,7 +82,7 @@
 
   <script>
     export default {
-      name:'projectList',
+      name:'ProjectList',
       data() {
         return {
           projectData: [],

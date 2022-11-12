@@ -5,6 +5,8 @@ import Login from '../components/Login';
 import Register from "../components/Register";
 import UserHome from "../components/user/UserHome";
 import UserDash from "../components/user/UserDash";
+import ShowProject from "../components/user/service/ShowProject";
+import ShowInvitation from "../components/user/service/ShowInvitation";
 //import AdminDash from "../components/admin/service/AdminDash";
 //import AddUser from "../components/admin/service/UserManagement/AddUser";
 //import TeacherDash from "../components/teacher/TeacherDash";
@@ -63,9 +65,6 @@ export default new VueRouter({
           path: 'dashboard',
           name: 'StudentDash',
           component: UserDash,
-          //meta: {
-          //  roles: [ 'user', 'guest']
-          //}
         },
         //{
         //  path: 'edit-info',
@@ -83,14 +82,14 @@ export default new VueRouter({
         //      //  roles: [ 'user']
         //      //}
         //    },
-        //    {
-        //      path: 'new-project',
-        //      name: 'SelectCourse',
-        //      component: SelectCourse,
-        //      //meta: {
-        //      //  roles: [ 'user', 'guest']
-        //      //}
-        //    },
+        {
+          path: 'my-invitation',
+          name: 'MyInvitation',
+          component: ShowInvitation,
+          //meta: {
+          //  roles: [ 'user', 'guest']
+          //}
+        },
         //    {
         //      path: 'project-leader-request',
         //      name: 'CourseSelectionRequest',
@@ -99,14 +98,14 @@ export default new VueRouter({
         //      //  roles: [ 'user', 'guest']
         //      //}
         //    },
-        //    {
-        //      path: 'my-project',
-        //      name: 'MyCourse',
-        //      component: MyCourse,
-        //      //meta: {
-        //      //  roles: [ 'user', 'guest']
-        //      //}
-        //    }
+        {
+          path: 'my-project',
+          name: 'MyProject',
+          component: ShowProject,
+          //meta: {
+          //  roles: [ 'user', 'guest']
+          //}
+        }
         //  ],
         //  //meta: {
         //  //  roles: [ 'user' ] // guest is for test

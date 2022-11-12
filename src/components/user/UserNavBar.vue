@@ -21,39 +21,16 @@
         <template slot="title">
           <span>项目</span>
         </template>
-        <el-menu-item index="/user-home/new-project">
-          <span>新增项目</span>
-        </el-menu-item>
         <el-menu-item index="/user-home/my-project">
           <span>我的项目</span>
+        </el-menu-item>
+        <el-menu-item index="/user-home/my-invitation">
+          <span>邀请信息</span>
         </el-menu-item>
         <el-menu-item index="/user-home/project-leader-request">
           <span>项目负责人申请</span>
         </el-menu-item>
       </el-submenu>
-
-<!--      <el-menu-item index="/student-home/dashboard">-->
-<!--        <span>首页</span>-->
-<!--      </el-menu-item>-->
-<!--      <el-menu-item index="/student-home/edit-info">-->
-<!--        <span>个人信息修改</span>-->
-<!--      </el-menu-item>-->
-<!--      <el-submenu index="">-->
-<!--        <template slot="title">-->
-<!--          <span>项目</span>-->
-<!--        </template>-->
-<!--        <el-menu-item index="/student-home/select-course">-->
-<!--          <span>新增项目</span>-->
-<!--        </el-menu-item>-->
-<!--        <el-menu-item index="/student-home/my-course">-->
-<!--          <span>我的项目</span>-->
-<!--        </el-menu-item>-->
-<!--        <el-menu-item index="/student-home/course-selection-request">-->
-<!--          <span>项目负责人申请</span>-->
-<!--        </el-menu-item>-->
-<!--      </el-submenu>-->
-
-
       <div style="color: whitesmoke">
         欢迎，{{ userName }}
       </div>
@@ -68,7 +45,7 @@ export default {
   name: "StudentNavBar",
   data() {
     return {
-      userName: '???'
+      userName: 'xxx'
     }
   },
   mounted: function () {
@@ -77,7 +54,7 @@ export default {
   methods: {
     async getUserName() {
       let jsonObj = JSON.parse(window.localStorage.user);
-      let no = jsonObj.user.number
+      let no = jsonObj.user.name
       let params = new URLSearchParams();
       let _this = this
       params.append('userNumber', no);
