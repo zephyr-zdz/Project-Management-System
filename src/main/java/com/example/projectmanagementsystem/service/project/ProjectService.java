@@ -4,6 +4,7 @@ import com.example.projectmanagementsystem.manager.InvitationManager;
 import com.example.projectmanagementsystem.manager.project.MemberManager;
 import com.example.projectmanagementsystem.manager.project.ProjectManager;
 import com.example.projectmanagementsystem.manager.user.UserManager;
+import com.example.projectmanagementsystem.model.ClassAdapter;
 import com.example.projectmanagementsystem.model.entity.Invitation;
 import com.example.projectmanagementsystem.model.entity.Project;
 import com.example.projectmanagementsystem.model.entity.User;
@@ -18,13 +19,15 @@ public class ProjectService {
     private final MemberManager memberManager;
     private final UserManager userManager;
     private final InvitationManager invitationManager;
+    private final ClassAdapter classAdapter;
 
     @Autowired
-    ProjectService(ProjectManager projectManager, MemberManager memberManager, UserManager userManager, InvitationManager invitationManager) {
+    ProjectService(ProjectManager projectManager, MemberManager memberManager, UserManager userManager, InvitationManager invitationManager, ClassAdapter classAdapter) {
         this.projectManager = projectManager;
         this.memberManager = memberManager;
         this.userManager = userManager;
         this.invitationManager = invitationManager;
+        this.classAdapter = classAdapter;
     }
 
     public Response<Project> create(Project project) {
@@ -41,10 +44,11 @@ public class ProjectService {
     }
 
     public Response<ProjectVO> list(Integer projectId) {
-        ProjectVO projectVO = projectManager.findProjectListById(projectId);
-        if (projectVO == null) {
+        Project project = projectManager.findProjectById(projectId);
+        if (project == null) {
             return new Response<>(Response.FAIL, "该项目不存在", null);
         }
+        ProjectVO projectVO = classAdapter.fromProject2ProjectVO(project);
         return new Response<>(Response.SUCCESS, "项目信息查找成功", projectVO);
     }
 

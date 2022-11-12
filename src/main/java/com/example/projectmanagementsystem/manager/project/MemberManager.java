@@ -53,7 +53,7 @@ public class MemberManager {
         Integer memberId = member.getId();
         Integer projectId = project.getId();
         MemberList memberList = new MemberList();
-        memberList.initialize(memberId, projectId, privilege);
+        memberList.initialize(projectId, memberId, privilege);
         memberListMapper.save(memberList);
     }
 
@@ -67,7 +67,7 @@ public class MemberManager {
 
     public void addMember(Integer projectId, Integer memberId) {
         MemberList memberList = new MemberList();
-        memberList.initialize(memberId, projectId, "member");
+        memberList.initialize(projectId, memberId, "member");
         memberListMapper.save(memberList);
     }
 
