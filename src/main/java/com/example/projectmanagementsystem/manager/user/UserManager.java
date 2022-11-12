@@ -4,6 +4,8 @@ import com.example.projectmanagementsystem.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component("UserUserManager")
 public class UserManager {
     private final UserMapper userMapper;
@@ -35,5 +37,13 @@ public class UserManager {
 
     public User findUserById(Integer id) {
         return userMapper.findUserById(id);
+    }
+
+    public List<User> findUsersByEmailLike(String email) {
+        return userMapper.findUsersByEmailLike(email);
+    }
+
+    public List<User> findUsersByUsernameLike(String name) {
+        return userMapper.findUsersByUsernameLike(name);
     }
 }

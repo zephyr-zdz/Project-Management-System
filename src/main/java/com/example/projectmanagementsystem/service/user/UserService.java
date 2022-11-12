@@ -9,6 +9,9 @@ import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service("UserUserService")
 public class UserService {
     private final UserManager userManager;
@@ -51,4 +54,14 @@ public class UserService {
         return new Response<>(Response.SUCCESS, "用户信息注册成功", classAdapter.fromUser2SafeUser(user));
     }
 
+    public Response<List<SafeUser>> search(String name) {
+        List<SafeUser> users = new ArrayList<>();
+        for (User user : userManager.findUsersByEmailLike(name)) {
+            users.add(classAdapter.fromUser2SafeUser(user));
+        }
+        for (User user : userManager.findUsersByUsernameLike(name)) {
+            users.add(classAdapter.fromUser2SafeUser(user));
+        }
+        return new Response<>(Response.SUCCESS, "用户查找完毕", users);
+    }
 }
