@@ -6,21 +6,21 @@
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="项目名称">
-              <span>{{ props.row.title }}</span>
+              <span>{{ props.row.project.title }}</span>
             </el-form-item>
             <el-form-item label="项目id">
-              <span>{{ props.row.project_id }}</span>
+              <span>{{ props.row.project.id }}</span>
             </el-form-item>
             <el-form-item label="项目所有者id">
-              <span>{{ props.row.owner_id }}</span>
+              <span>{{ props.row.project.owner_id }}</span>
             </el-form-item>
             <el-form-item label="项目管理者id">
-              <span v-for="(p,index) of props.row.manager_id" :key="index">
+              <span v-for="(p,index) of props.row.managerIdList" :key="index">
 					      {{p}}
 				      </span>
             </el-form-item>
             <el-form-item label="项目参与者id">
-              <span v-for="(p,index) of props.row.member_id" :key="index">
+              <span v-for="(p,index) of props.row.memberIdList" :key="index">
 					      {{p}}
 				      </span>
             </el-form-item>
@@ -28,7 +28,7 @@
               <span>{{ props.row.number }}</span>
             </el-form-item>
             <el-form-item style="width:100%" label="项目介绍">
-              <span>{{ props.row.intro }}</span>
+              <span>{{ props.row.project.intro }}</span>
             </el-form-item>
             
           </el-form>
