@@ -19,8 +19,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Response<String> login(@RequestParam("username") String name,
-                                  @RequestParam("password") String password) {
+    public Response<SafeUser> login(@RequestParam("username") String name,
+                                    @RequestParam("password") String password) {
         return userService.login(name, password);
     }
 

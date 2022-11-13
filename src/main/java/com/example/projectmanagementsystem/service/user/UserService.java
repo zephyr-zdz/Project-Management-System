@@ -22,7 +22,7 @@ public class UserService {
         this.classAdapter = classAdapter;
     }
 
-    public Response<String> login(String name, String password){
+    public Response<SafeUser> login(String name, String password) {
         User user;
         String emailRule = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
         if (name.matches(emailRule)) {
@@ -31,10 +31,10 @@ public class UserService {
             user = userManager.findUserByUsernameAndPassword(name, password);
         }
         if (user == null) {
-            return new Response<>(Response.FAIL, "身份验证失败", "false");
+            return new Response<>(Response.FAIL, "身份验证失败", null);
         }
         else {
-            return new Response<>(Response.SUCCESS, "登录成功", "true");
+            return new Response<>(Response.SUCCESS, "登录成功", classAdapter.fromUser2SafeUser(user));
         }
     }
 
