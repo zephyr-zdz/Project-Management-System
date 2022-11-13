@@ -13,11 +13,15 @@
       </el-table-column>
       <el-table-column
         label="昵称"
-        prop="name">
+        prop="inviter.username">
       </el-table-column>
       <el-table-column
         label="项目名称"
-        prop="projectName">
+        prop="project.title">
+      </el-table-column>
+      <el-table-column
+        label="项目介绍"
+        prop="project.intro">
       </el-table-column>
       <el-table-column
         label="操作"
@@ -51,14 +55,42 @@ export default {
       invitationData: [
         {
           id: 1,
-          name: "vdsbssfb",
-          projectName: "vdsbssfb",
+          inviter: {
+            id: 1,
+            username: "张三",
+            email: ""
+          },
+          receiver: {
+            id: 2,
+            username: "李四",
+            email: ""
+          },
+          project:{
+            id: 1,
+            title: "vdsbssfb",
+            intro: "sdfbsdfb",
+            owner_id: 1,
+          },
         },
         {
-          id: 2,
-          name: "vdsbssfb",
-          projectName: "vdsbssfb",
-        }
+          id: 5,
+          inviter: {
+            id: 1,
+            username: "张三",
+            email: ""
+          },
+          receiver: {
+            id: 2,
+            username: "李四",
+            email: ""
+          },
+          project:{
+            id: 1,
+            title: "vdsbssfb",
+            intro: "sdfbsdfb",
+            owner_id: 1,
+          },
+        },
       ],
     }
   },
@@ -69,10 +101,8 @@ export default {
     async loadInvitations() {
       console.log("loadInvitations called")
       let _this = this
-      const params = new FormData();
-      params.append("user_id", this.$store.state.user.id);
       this.$axios
-        .get('/user/invitation', params)
+        .get('/user/invitation', {params: {user_id: this.$store.state.user.id}})
         .then(resp => {
         if (resp && resp.status === 200) {
           _this.invitationData = resp.data
