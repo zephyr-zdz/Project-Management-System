@@ -6,12 +6,16 @@ import com.example.projectmanagementsystem.manager.project.ProjectManager;
 import com.example.projectmanagementsystem.manager.user.UserManager;
 import com.example.projectmanagementsystem.model.ClassAdapter;
 import com.example.projectmanagementsystem.model.entity.Invitation;
+import com.example.projectmanagementsystem.model.entity.MemberList;
 import com.example.projectmanagementsystem.model.entity.Project;
 import com.example.projectmanagementsystem.model.entity.User;
 import com.example.projectmanagementsystem.model.vo.ProjectVO;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("ProjectProjectService")
 public class ProjectService {
@@ -52,24 +56,38 @@ public class ProjectService {
         return new Response<>(Response.SUCCESS, "项目信息查找成功", projectVO);
     }
 
-    public Response<String> invite(Integer initiatorId, Integer receiverId, Integer projectId) {
-        User initiator = userManager.findUserById(initiatorId);
+    public Response<String> invite(Integer inviterId, Integer receiverId, Integer projectId) {
+        User inviter = userManager.findUserById(inviterId);
         User receiver = userManager.findUserById(receiverId);
         Project project = projectManager.findProjectById(projectId);
-        if (initiator == null || receiver == null || project == null) {
+        if (inviter == null || receiver == null || project == null) {
             return new Response<>(Response.FAIL, "邀请失败，用户或项目不存在", null);
         }
-        if (!memberManager.isMember(initiatorId, projectId)) {
+        if (!memberManager.isMember(inviterId, projectId)) {
             return new Response<>(Response.FAIL, "邀请失败，您不是该项目成员", null);
         }
         if (memberManager.isMember(receiverId, projectId)) {
             return new Response<>(Response.FAIL, "邀请失败，该用户已是该项目成员", null);
         }
         Invitation invitation = new Invitation();
-        invitation.setInitatorId(initiatorId);
+        invitation.setInviterId(inviterId);
         invitation.setReceiverId(receiverId);
         invitation.setProjectId(projectId);
         invitationManager.save(invitation);
         return new Response<>(Response.SUCCESS, "邀请成功", null);
+    }
+
+    public Response<List<ProjectVO>> getParticipating(Integer userId) {
+        User user = userManager.findUserById(userId);
+        if (user == null) {
+            return new Response<>(Response.FAIL, "用户不存在", null);
+        }
+        List<MemberList> ERList = memberManager.findMemberListsByUserId(userId);
+        List<ProjectVO> projectVOs = new ArrayList<>();
+        for (MemberList ER : ERList) {
+            Project project = projectManager.findProjectById(ER.getProjectId());
+            projectVOs.add(classAdapter.fromProject2ProjectVO(project));
+        }
+        return new Response<>(Response.SUCCESS, "查找成功", projectVOs);
     }
 }

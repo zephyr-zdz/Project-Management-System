@@ -71,7 +71,11 @@ public class MemberManager {
         memberListMapper.save(memberList);
     }
 
-    public MemberList findMemberListByProjectIdAndUserId(Integer projectId, Integer UserId) {
-        return memberListMapper.findMemberListByProjectIdAndMemberId(projectId, UserId);
+    public MemberList findMemberListByProjectIdAndUserId(Integer projectId, Integer userId) {
+        return memberListMapper.findMemberListByProjectIdAndMemberId(projectId, userId);
+    }
+
+    public List<MemberList> findMemberListsByUserId(Integer userId) {
+        return memberListMapper.findMemberListsByMemberId(userId);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.projectmanagementsystem.controller.user;
 
 import com.example.projectmanagementsystem.model.entity.User;
+import com.example.projectmanagementsystem.model.vo.ProjectVO;
 import com.example.projectmanagementsystem.model.vo.SafeUser;
+import com.example.projectmanagementsystem.service.project.ProjectService;
 import com.example.projectmanagementsystem.service.user.UserService;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,12 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private final ProjectService projectService;
+
     @Autowired
-    UserController(UserService userService) {
+    UserController(UserService userService, ProjectService projectService) {
         this.userService = userService;
+        this.projectService = projectService;
     }
 
     @PostMapping("/login")
@@ -32,5 +37,10 @@ public class UserController {
     @PostMapping("/search")
     public Response<List<SafeUser>> searchUser(@RequestParam("name") String name) {
         return userService.search("%" + name + "%");
+    }
+
+    @GetMapping("/participating")
+    public Response<List<ProjectVO>> getParticipatingProjectList(@RequestParam("user_id") Integer userId) {
+        return projectService.getParticipating(userId);
     }
 }

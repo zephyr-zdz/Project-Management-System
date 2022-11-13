@@ -19,4 +19,6 @@ public interface MemberListMapper extends JpaRepository<MemberList, Integer> {
     boolean existsByProjectIdAndMemberId(Integer project_id, Integer user_id);
 
     MemberList findMemberListByProjectIdAndMemberId(Integer projectId, Integer userId);
+
+    List<MemberList> findMemberListsByMemberId(Integer userId);
 }
