@@ -4,14 +4,17 @@ import com.example.projectmanagementsystem.manager.InvitationManager;
 import com.example.projectmanagementsystem.manager.project.MemberManager;
 import com.example.projectmanagementsystem.manager.project.ProjectManager;
 import com.example.projectmanagementsystem.manager.user.UserManager;
+import com.example.projectmanagementsystem.model.ClassAdapter;
 import com.example.projectmanagementsystem.model.entity.Invitation;
 import com.example.projectmanagementsystem.model.entity.Project;
 import com.example.projectmanagementsystem.model.entity.User;
+import com.example.projectmanagementsystem.model.vo.InvitationVO;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -21,17 +24,24 @@ public class InvitationService {
     private final ProjectManager projectManager;
     private final UserManager userManager;
     private final MemberManager memberManager;
+    private final ClassAdapter classAdapter;
 
     @Autowired
-    InvitationService(InvitationManager invitationManager, ProjectManager projectManager, UserManager userManager, MemberManager memberManager) {
+    InvitationService(InvitationManager invitationManager, ProjectManager projectManager, UserManager userManager, MemberManager memberManager, ClassAdapter classAdapter) {
         this.invitationManager = invitationManager;
         this.projectManager = projectManager;
         this.userManager = userManager;
         this.memberManager = memberManager;
+        this.classAdapter = classAdapter;
     }
 
-    public Response<List<Invitation>> getInvitationList(Integer receiverId) {
-        return new Response<>(Response.SUCCESS, "获取成功", invitationManager.findAllByReceiverId(receiverId));
+    public Response<List<InvitationVO>> getInvitationList(Integer receiverId) {
+        List<Invitation> invitationList = invitationManager.findAllByReceiverId(receiverId);
+        List<InvitationVO> invitationVOList = new ArrayList<>();
+        for (Invitation invitation : invitationList) {
+            invitationVOList.add(classAdapter.fromInvitation2InvitationVO(invitation));
+        }
+        return new Response<>(Response.SUCCESS, "获取成功", invitationVOList);
     }
 
     public Response<String> accept(Integer invitationId) {
@@ -40,12 +50,12 @@ public class InvitationService {
             return new Response<>(Response.FAIL, "邀请不存在", null);
         }
         Project project = projectManager.findProjectById(invitationManager.findById(invitationId).getProjectId());
-        User initiator = userManager.findUserById(invitation.getInitatorId());
+        User inviter = userManager.findUserById(invitation.getInviterId());
         User receiver = userManager.findUserById(invitation.getReceiverId());
-        if (project == null || initiator == null || receiver == null) {
+        if (project == null || inviter == null || receiver == null) {
             return new Response<>(Response.FAIL, "该项目或邀请人或接受人已注销", null);
         }
-        if (!memberManager.isMember(initiator.getId(), project.getId())) {
+        if (!memberManager.isMember(inviter.getId(), project.getId())) {
             return new Response<>(Response.FAIL, "邀请人不在该项目", null);
         }
         if (memberManager.isMember(receiver.getId(), project.getId())) {

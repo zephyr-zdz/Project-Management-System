@@ -1,6 +1,6 @@
 package com.example.projectmanagementsystem.controller.user;
 
-import com.example.projectmanagementsystem.model.entity.Invitation;
+import com.example.projectmanagementsystem.model.vo.InvitationVO;
 import com.example.projectmanagementsystem.service.InvitationService;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class InvitationController {
     }
 
     @GetMapping("")
-    public Response<List<Invitation>> getMyInvitations(@RequestParam("user_id") Integer userId) {
+    public Response<List<InvitationVO>> getMyInvitations(@RequestParam("user_id") Integer userId) {
         return invitationService.getInvitationList(userId);
     }
 

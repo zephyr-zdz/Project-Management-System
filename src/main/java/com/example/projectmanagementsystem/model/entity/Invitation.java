@@ -16,8 +16,8 @@ public class Invitation {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "initiator_id", nullable = false)
-    private Integer initatorId;
+    @Column(name = "inviter_id", nullable = false)
+    private Integer inviterId;
     @Column(name = "receiver_id", nullable = false)
     private Integer receiverId;
     @Column(name = "project_id", nullable = false)
