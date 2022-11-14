@@ -20,12 +20,12 @@ public class MemberList {
     private Integer memberId;
     @Column(name = "project_id", nullable = false)
     private Integer projectId;
-    @Column(name = "privilege", nullable = false)
-    private String privilege;
+    @Column(name = "role", nullable = false)
+    private String role;
 
-    public void initialize(Integer project_id, Integer member_id, String privilege) {
+    public void initialize(Integer project_id, Integer member_id, String role) {
         this.memberId = member_id;
         this.projectId = project_id;
-        this.privilege = privilege;
+        this.role = role;
     }
 }

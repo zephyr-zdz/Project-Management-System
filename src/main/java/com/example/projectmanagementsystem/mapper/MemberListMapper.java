@@ -10,7 +10,7 @@ import java.util.List;
 public interface MemberListMapper extends JpaRepository<MemberList, Integer> {
     List<MemberList> findMemberListsByProjectId(Integer projectId);
 
-    List<MemberList> findAllByProjectIdAndPrivilege(Integer projectId, String privilege);
+    List<MemberList> findAllByProjectIdAndRole(Integer projectId, String role);
 
     List<MemberList> findAllByProjectId(Integer projectId);
 

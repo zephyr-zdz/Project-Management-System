@@ -41,7 +41,7 @@ public class MemberManager {
 
     // manager
     public List<Integer> findManagerIdListByProjectId(Integer projectId) {// 获取管理员id列表
-        List<MemberList> projectManagerERList = memberListMapper.findAllByProjectIdAndPrivilege(projectId, "manager");
+        List<MemberList> projectManagerERList = memberListMapper.findAllByProjectIdAndRole(projectId, "manager");
         List<Integer> projectManagerIdList = new ArrayList<>();
         for (MemberList ERList : projectManagerERList) {
             projectManagerIdList.add(ERList.getMemberId());
@@ -49,11 +49,11 @@ public class MemberManager {
         return projectManagerIdList;
     }
 
-    public void saveMember(User member, Project project, String privilege) {
+    public void saveMember(User member, Project project, String role) {
         Integer memberId = member.getId();
         Integer projectId = project.getId();
         MemberList memberList = new MemberList();
-        memberList.initialize(projectId, memberId, privilege);
+        memberList.initialize(projectId, memberId, role);
         memberListMapper.save(memberList);
     }
 
