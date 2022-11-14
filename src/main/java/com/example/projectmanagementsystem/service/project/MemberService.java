@@ -62,4 +62,49 @@ public class MemberService {
         }
         return new Response<>(Response.SUCCESS, "查找成功", projectVOs);
     }
+
+    public Response<String> getRole(Integer project_id, Integer user_id) {
+        Project project = projectManager.findProjectById(project_id);
+        User user = userManager.findUserById(user_id);
+        if (project == null) {
+            return new Response<>(Response.FAIL, "项目不存在", null);
+        }
+        if (user == null) {
+            return new Response<>(Response.FAIL, "用户不存在", null);
+        }
+        MemberList ER = memberManager.findMemberListByProjectIdAndUserId(project_id, user_id);
+        if (ER == null) {
+            return new Response<>(Response.NOT_FOUND, "用户不在项目中", null);
+        }
+        return new Response<>(Response.SUCCESS, "查找成功", ER.getRole());
+    }
+
+    public Response<String> editRole(Integer project_id, Integer user_id, String role) {
+        if (role == null) {
+            return new Response<>(Response.FAIL, "角色不能为空", null);
+        }
+        if (role.equals("owner")) {
+            return new Response<>(Response.FAIL, "所有者角色不可更改", null);
+        }
+        if (!role.equals("member") && !role.equals("manager")) {
+            return new Response<>(Response.FAIL, "角色不合法", null);
+        }
+        Project project = projectManager.findProjectById(project_id);
+        User user = userManager.findUserById(user_id);
+        if (project == null) {
+            return new Response<>(Response.FAIL, "项目不存在", null);
+        }
+        if (user == null) {
+            return new Response<>(Response.FAIL, "用户不存在", null);
+        }
+        MemberList ER = memberManager.findMemberListByProjectIdAndUserId(project_id, user_id);
+        if (ER == null) {
+            return new Response<>(Response.FAIL, "用户不在项目中", null);
+        }
+        if (role.equals(ER.getRole())) {
+            return new Response<>(Response.INVALID_PARAMETER, "用户权限未更改", null);
+        }
+        memberManager.editRole(ER.getMemberId(), ER.getProjectId(), role);
+        return new Response<>(Response.SUCCESS, "修改成功", role);
+    }
 }

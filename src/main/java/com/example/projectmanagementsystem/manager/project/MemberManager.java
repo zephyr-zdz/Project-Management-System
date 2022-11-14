@@ -78,4 +78,10 @@ public class MemberManager {
     public List<MemberList> findMemberListsByUserId(Integer userId) {
         return memberListMapper.findMemberListsByMemberId(userId);
     }
+
+    public void editRole(Integer user_id, Integer project_id, String role) {
+        MemberList memberList = memberListMapper.findMemberListByProjectIdAndMemberId(project_id, user_id);
+        memberList.setRole(role);
+        memberListMapper.save(memberList);
+    }
 }

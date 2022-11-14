@@ -40,4 +40,9 @@ public class ProjectController {
                                    @RequestParam("project_id") Integer project_id) {
         return invitationService.invite(user_id, receiver_id, project_id);
     }
+    @PostMapping("/transfer")
+    public Response<String> transfer(@RequestParam("new_owner_id") Integer new_owner_id,
+                                     @RequestParam("project_id") Integer project_id) {
+        return projectService.transfer(new_owner_id, project_id);
+    }
 }

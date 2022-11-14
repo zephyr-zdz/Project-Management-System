@@ -68,8 +68,8 @@ public class ProjectService {
         } else if (memberManager.isMember(project.getOwner_id(), project.getId())) {
             return new Response<>(Response.FAIL, "新项目创建者为项目成员！", null);
         }
-        else if (!Objects.equals(project.getOwner_id(), oldProject.getOwner_id())) { // 不相等
-            msg += "创建者更改成功（此为高危操作）；";
+        else if (!Objects.equals(project.getOwner_id(), oldProject.getOwner_id())) {
+            return new Response<>(Response.FAIL, "项目创建者不可修改！", null);
         }
         // 项目标题
         if (project.getTitle() == null || project.getTitle().equals("")) {
@@ -84,5 +84,24 @@ public class ProjectService {
         projectManager.editProject(project);
         ProjectVO projectVO = classAdapter.fromProject2ProjectVO(project);
         return new Response<>(Response.SUCCESS, msg+"项目信息修改成功。", projectVO);
+    }
+
+    public Response<String> transfer(Integer new_owner_id, Integer project_id) {
+        User newOwner = userManager.findUserById(new_owner_id);
+        Project project = projectManager.findProjectById(project_id);
+        User oldOwner = userManager.findUserById(project.getOwner_id());
+        if (newOwner == null) {
+            return new Response<>(Response.FAIL, "新项目创建者不存在！", null);
+        } else if (Objects.equals(new_owner_id, oldOwner.getId())) {
+            return new Response<>(Response.INVALID_PARAMETER, "新项目创建者为原项目创建者！", null);
+        }
+        if (!memberManager.isMember(new_owner_id, project_id)) {
+            memberManager.saveMember(newOwner, project, "member");
+        }
+        memberManager.editRole(oldOwner.getId(), project_id, "member");
+        memberManager.editRole(new_owner_id, project_id, "owner");
+        project.setOwner_id(new_owner_id);
+        projectManager.editProject(project);
+        return new Response<>(Response.SUCCESS, "项目创建者更改成功", null);
     }
 }
