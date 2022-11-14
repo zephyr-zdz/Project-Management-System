@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service("ProjectProjectService")
 public class ProjectService {
@@ -32,7 +33,7 @@ public class ProjectService {
         this.classAdapter = classAdapter;
     }
 
-    public Response<Project> create(Project project) {
+    public Response<ProjectVO> create(Project project) {
         if (project.getId() != null) {
             return new Response<>(Response.FAIL, "项目id由系统自动生成", null);
         }
@@ -42,7 +43,8 @@ public class ProjectService {
         }
         projectManager.createProject(project);
         memberManager.saveMember(owner, project, "owner");
-        return new Response<>(Response.SUCCESS, "项目信息注册成功", project);
+        ProjectVO projectVO = classAdapter.fromProject2ProjectVO(project);
+        return new Response<>(Response.SUCCESS, "项目信息注册成功", projectVO);
     }
 
     public Response<ProjectVO> list(Integer projectId) {
@@ -52,5 +54,35 @@ public class ProjectService {
         }
         ProjectVO projectVO = classAdapter.fromProject2ProjectVO(project);
         return new Response<>(Response.SUCCESS, "项目信息查找成功", projectVO);
+    }
+
+    public Response<ProjectVO> edit(Project project) {
+        Project oldProject = projectManager.findProjectById(project.getId());
+        if (oldProject == null) {
+            return new Response<>(Response.FAIL, "该项目不存在", null);
+        }
+        String msg = "";
+        // 项目所有者
+        if (userManager.findUserById(project.getOwner_id()) == null) {
+            return new Response<>(Response.FAIL, "项目创建者不存在！", null);
+        } else if (memberManager.isMember(project.getOwner_id(), project.getId())) {
+            return new Response<>(Response.FAIL, "新项目创建者为项目成员！", null);
+        }
+        else if (!Objects.equals(project.getOwner_id(), oldProject.getOwner_id())) { // 不相等
+            msg += "创建者更改成功（此为高危操作）；";
+        }
+        // 项目标题
+        if (project.getTitle() == null || project.getTitle().equals("")) {
+            return new Response<>(Response.FAIL, "项目标题不能为空", null);
+        } else if (!Objects.equals(project.getTitle(), oldProject.getTitle())) { // 不相等
+            msg += "项目名称更改成功；";
+        }
+        // 项目描述
+        if (!Objects.equals(project.getIntro(), oldProject.getIntro())) { // 不相等
+            msg += "项目描述更改成功；";
+        }
+        projectManager.editProject(project);
+        ProjectVO projectVO = classAdapter.fromProject2ProjectVO(project);
+        return new Response<>(Response.SUCCESS, msg+"项目信息修改成功。", projectVO);
     }
 }

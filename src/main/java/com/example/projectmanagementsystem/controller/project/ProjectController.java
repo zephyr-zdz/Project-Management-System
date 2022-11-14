@@ -21,8 +21,13 @@ public class ProjectController {
     }
 
     @PostMapping("/create")
-    public Response<Project> createProject(@RequestBody Project project) {
+    public Response<ProjectVO> createProject(@RequestBody Project project) {
         return projectService.create(project);
+    }
+
+    @PostMapping("/edit")
+    public Response<ProjectVO> editProject(@RequestBody Project project) {
+        return projectService.edit(project);
     }
 
     @GetMapping("/list")

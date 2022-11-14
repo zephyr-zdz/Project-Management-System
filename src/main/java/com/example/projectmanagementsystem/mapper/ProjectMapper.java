@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface ProjectMapper extends JpaRepository<Project, Integer> {
 
     Project findProjectById(Integer id);
+
+    void update(Project project);
 }
