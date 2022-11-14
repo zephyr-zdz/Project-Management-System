@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/participating")
-    public Response<List<ProjectVO>> findProjectsOfUser(@RequestParam("user_id") Integer userId) {
+    public Response<List<ProjectVO>> findMyProjects(@RequestParam("user_id") Integer userId) {
         return memberService.findProjects(userId);
     }
 }
