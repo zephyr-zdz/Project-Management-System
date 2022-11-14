@@ -84,4 +84,13 @@ public class MemberManager {
         memberList.setRole(role);
         memberListMapper.save(memberList);
     }
+
+    public List<Integer> findProjectIdListByUserId(Integer userId) {
+        List<MemberList> ERList = memberListMapper.findMemberListsByMemberId(userId);
+        List<Integer> projectIdList = new ArrayList<>();
+        for (MemberList memberList : ERList) {
+            projectIdList.add(memberList.getProjectId());
+        }
+        return projectIdList;
+    }
 }

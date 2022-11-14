@@ -54,10 +54,10 @@ public class MemberService {
         if (user == null) {
             return new Response<>(Response.FAIL, "用户不存在", null);
         }
-        List<MemberList> ERList = memberManager.findMemberListsByUserId(userId);
+        List<Integer> projectIdList = memberManager.findProjectIdListByUserId(userId);
         List<ProjectVO> projectVOs = new ArrayList<>();
-        for (MemberList ER : ERList) {
-            Project project = projectManager.findProjectById(ER.getProjectId());
+        for (Integer projectId : projectIdList) {
+            Project project = projectManager.findProjectById(projectId);
             projectVOs.add(classAdapter.fromProject2ProjectVO(project));
         }
         return new Response<>(Response.SUCCESS, "查找成功", projectVOs);
