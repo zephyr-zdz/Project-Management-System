@@ -3,6 +3,7 @@ package com.example.projectmanagementsystem.controller.user;
 import com.example.projectmanagementsystem.model.entity.User;
 import com.example.projectmanagementsystem.model.vo.ProjectVO;
 import com.example.projectmanagementsystem.model.vo.SafeUser;
+import com.example.projectmanagementsystem.service.project.MemberService;
 import com.example.projectmanagementsystem.service.project.ProjectService;
 import com.example.projectmanagementsystem.service.user.UserService;
 import com.example.projectmanagementsystem.util.Response;
@@ -15,12 +16,12 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
-    private final ProjectService projectService;
+    private final MemberService memberService;
 
     @Autowired
-    UserController(UserService userService, ProjectService projectService) {
+    UserController(UserService userService, MemberService memberService) {
         this.userService = userService;
-        this.projectService = projectService;
+        this.memberService = memberService;
     }
 
     @PostMapping("/login")
@@ -40,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/participating")
-    public Response<List<ProjectVO>> getParticipatingProjectList(@RequestParam("user_id") Integer userId) {
-        return projectService.getParticipating(userId);
+    public Response<List<ProjectVO>> findProjectsOfUser(@RequestParam("user_id") Integer userId) {
+        return memberService.findProjects(userId);
     }
 }

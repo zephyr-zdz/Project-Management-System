@@ -35,6 +35,27 @@ public class InvitationService {
         this.classAdapter = classAdapter;
     }
 
+    public Response<String> invite(Integer inviterId, Integer receiverId, Integer projectId) {
+        User inviter = userManager.findUserById(inviterId);
+        User receiver = userManager.findUserById(receiverId);
+        Project project = projectManager.findProjectById(projectId);
+        if (inviter == null || receiver == null || project == null) {
+            return new Response<>(Response.FAIL, "邀请失败，用户或项目不存在", null);
+        }
+        if (!memberManager.isMember(inviterId, projectId)) {
+            return new Response<>(Response.FAIL, "邀请失败，您不是该项目成员", null);
+        }
+        if (memberManager.isMember(receiverId, projectId)) {
+            return new Response<>(Response.FAIL, "邀请失败，该用户已是该项目成员", null);
+        }
+        Invitation invitation = new Invitation();
+        invitation.setInviterId(inviterId);
+        invitation.setReceiverId(receiverId);
+        invitation.setProjectId(projectId);
+        invitationManager.save(invitation);
+        return new Response<>(Response.SUCCESS, "邀请成功", null);
+    }
+
     public Response<List<InvitationVO>> getInvitationList(Integer receiverId) {
         List<Invitation> invitationList = invitationManager.findAllByReceiverId(receiverId);
         List<InvitationVO> invitationVOList = new ArrayList<>();
