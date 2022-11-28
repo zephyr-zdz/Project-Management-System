@@ -23,5 +23,5 @@ public class ProjectManager {
         projectMapper.save(project);
     }
 
-    public void editProject(Project project) { projectMapper.update(project); }
+    public void editProject(Project project) { projectMapper.save(project); }
 }

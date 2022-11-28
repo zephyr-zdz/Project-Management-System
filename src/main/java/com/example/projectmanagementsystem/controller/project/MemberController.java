@@ -2,6 +2,7 @@ package com.example.projectmanagementsystem.controller.project;
 
 import com.example.projectmanagementsystem.service.project.MemberService;
 import com.example.projectmanagementsystem.util.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("MemberController")
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService) {
+    @Autowired
+    MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
