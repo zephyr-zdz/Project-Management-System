@@ -57,7 +57,7 @@
           size="mini"
           @click="myMission(scope.$index, scope.row)">我的任务</el-button>
         <el-button
-          disabled=""
+          v-if="!isManager(scope.$index, scope.row)"
           size="mini"
           type="primary"
           @click="assignMission(scope.$index, scope.row)">任务指派</el-button>
@@ -111,6 +111,9 @@
           this.projectData = res.data.data
       })
         },
+        isManager(index,row){
+        return row.managerIdList.includes(this.user_id)||this.user_id===row.project.owner_id
+      },
         exit(index,row){
           this.$axios.delete('/project/list/delete',
           {params: {
