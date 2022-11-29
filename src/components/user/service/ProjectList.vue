@@ -53,7 +53,18 @@
         label="操作"
         width="150">
         <template v-slot="scope">
-          <el-button size="mini" @click="submit(scope.row)">退出项目</el-button>
+          <el-button
+          size="mini"
+          @click="myMission(scope.$index, scope.row)">我的任务</el-button>
+        <el-button
+          disabled=""
+          size="mini"
+          type="primary"
+          @click="assignMission(scope.$index, scope.row)">任务指派</el-button>
+          <el-button
+          size="mini"
+          type="danger"
+          @click="exit(scope.$index, scope.row)">退出项目</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -100,12 +111,12 @@
           this.projectData = res.data.data
       })
         },
-      submit (row) {
-      this.$axios.delete('/project/list/delete',
-        {params: {
-          project_id: row.project_id,
-          user_id: this.user_id
-        }}
+        exit(index,row){
+          this.$axios.delete('/project/list/delete',
+          {params: {
+            project_id: row.project_id,
+            user_id: this.user_id
+          }}
       )
       .then(res => {
           if (res.data.code === 0) {
@@ -121,7 +132,13 @@
             })
           }
         })
-    },
+        },
+        myMission(index,row){
+          //TODO:
+        },
+        assignMission(index,row){
+          //TODO:
+        },
   }
     }
   </script>
