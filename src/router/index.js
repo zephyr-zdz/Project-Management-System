@@ -39,22 +39,25 @@ export default new VueRouter({
       path: '/',
       name: 'Welcome',
       component: Welcome,
-      //meta: {
-      //  roles: [ 'guest', 'admin', 'teacher', 'student' ]
-      //}
+      meta: {
+        roles: [ 'guest', 'user' ]
+      }
     },
     {
       path: '/login',
       name: 'Login',
       component: Login,
-      //meta: {
-      //  roles: [ 'guest', 'admin', 'teacher', 'user' ]
-      //}
+      meta: {
+        roles: [ 'guest', 'user' ]
+      }
     },
     {
       path: '/register',
       name: 'Register',
       component: Register,
+      meta: {
+        roles: [ 'guest', 'user' ]
+      }
     },
     {
       path: '/user-home',
@@ -65,6 +68,9 @@ export default new VueRouter({
           path: 'dashboard',
           name: 'StudentDash',
           component: UserDash,
+          meta: {
+            roles: [ 'user' ]
+          }
         },
         //{
         //  path: 'edit-info',
@@ -86,9 +92,9 @@ export default new VueRouter({
           path: 'my-invitation',
           name: 'MyInvitation',
           component: ShowInvitation,
-          //meta: {
-          //  roles: [ 'user', 'guest']
-          //}
+          meta: {
+            roles: [ 'user' ]
+          }
         },
         //    {
         //      path: 'project-leader-request',
@@ -102,9 +108,9 @@ export default new VueRouter({
           path: 'my-project',
           name: 'MyProject',
           component: ShowProject,
-          //meta: {
-          //  roles: [ 'user', 'guest']
-          //}
+          meta: {
+            roles: [ 'user' ]
+          }
         }
         //  ],
         //  //meta: {

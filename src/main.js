@@ -68,26 +68,26 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 
-//router.beforeEach((to, from, next) => {
-//    let role = 'guest'
-//    if (window.localStorage.user !== undefined) {
-//      // console.log(typeof(window.localStorage.user)) // string
-//      let jsonObj = JSON.parse(window.localStorage.user);
-//      // console.log(typeof(jsonObj)) // obj
-//      console.log(jsonObj)
-//      role = jsonObj.user.role
-//    }
-//    console.log("role is " + role)
-//    if(to.meta.roles.includes(role)){
-//      next()
-//    } else {
-//      next({
-//        path: 'login',
-//        query: {redirect: to.fullPath}
-//      })
-//    }
-//  }
-//)
+router.beforeEach((to, from, next) => {
+    let role = 'guest'
+    if (window.localStorage.user !== undefined) {
+      console.log(typeof(window.localStorage.user)) // string
+      let jsonObj = JSON.parse(window.localStorage.user);
+      // console.log(typeof(jsonObj)) // obj
+      console.log(jsonObj)
+      role = jsonObj.user.role
+    }
+    console.log("role is " + role)
+    if(to.meta.roles.includes(role)){
+      next()
+    } else {
+      next({
+        path: 'login',
+        query: {redirect: to.fullPath}
+      })
+    }
+  }
+)
 
 /* eslint-disable no-new */
 new Vue({

@@ -67,18 +67,25 @@ export default {
         .then(resp => {
           if (resp.data.code === 0 || resp.data.code === 1) {
             console.log(resp.data.code)
-            console.log(resp.data.data.id)
-            this.msg = resp.data.msg
-            _this.$store.commit('login', {
-              user: {
-                userid: resp.data.data.id,
-                name: resp.data.data.name,
+            if (resp.data.code === 0) {
+              console.log(resp.data.data.id)
+              _this.$store.commit('login', {
+                user: {
+                  userid: resp.data.data.id,
+                  name: resp.data.data.name,
+                  role: 'user',
                 }
               })
-            if (resp.data.code === 0) {
+              this.$message({
+                message: resp.data.msg,
+                type: 'success'
+              })
               this.$router.replace({path: '/user-home/dashboard'})
             } else {
-              this.$message.error(this.msg)
+              this.$message({
+                message: resp.data.msg,
+                type: 'error'
+              })
               }
           } else {
             this.msg = resp.data.msg
