@@ -115,6 +115,11 @@
         return row.managerIdList.includes(this.user_id)||this.user_id===row.project.owner_id
       },
         exit(index,row){
+          this.$confirm('此操作将退出该项目, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
           this.$axios.delete('/project/list/delete',
           {params: {
             project_id: row.project_id,
@@ -135,6 +140,17 @@
             })
           }
         })
+          this.$message({
+            type: 'success',
+            message: '成功退出项目!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消退出'
+          });          
+        });
+          
         },
         myMission(index,row){
           //TODO:
