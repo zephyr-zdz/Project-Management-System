@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
 #bg {
-  background-color: #C7C7CC;
+  background-color: ghostwhite;
   height: 100%;
 }
 </style>

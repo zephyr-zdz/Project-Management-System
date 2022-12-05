@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="addFormVisible = true" type="primary">新增项目</el-button>
+    <el-button @click="addFormVisible = true" type="primary" size="small" icon="el-icon-plus">新增项目</el-button>
     <el-dialog title="项目信息" :visible.sync="addFormVisible" style="line-height: 100px;">
       <el-form
         :model="addProject"
@@ -129,7 +129,7 @@ export default {
     getUserId () {
       this.$axios.get('/project/list', {params: {user_id: this.$store.getters.user_id}})
         .then(response => {
-          
+
           if (response.data.code === 0) {
             console.log(response.data)
             this.userList = response.data.data

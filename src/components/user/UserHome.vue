@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container>
-      <el-header height="auto"><student-nav-bar></student-nav-bar></el-header>
+      <el-aside height="100%"><student-nav-bar></student-nav-bar></el-aside>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style scoped>
-.el-header {
+.el-aside {
   color: #333;
   text-align: center;
   line-height: 60px;

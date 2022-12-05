@@ -1,10 +1,12 @@
 <template>
   <div id="bg">
     <el-container>
-      <el-main style="line-height: 80px">
+      <el-main style="line-height: 60px">
         <el-card class="card">
-          <h2 style="height: 75px; margin: 25px 0 0;">我的项目</h2>
-          <add-project style="position: relative; left: 45%;"></add-project>
+          <el-row>
+            <h2 style="height: 25px; margin: 20px 0 0;">我的项目</h2>
+            <add-project style="position: relative; left: 40%;"></add-project>
+          </el-row>
           <project-list></project-list>
         </el-card>
       </el-main>

@@ -3,7 +3,7 @@
     <el-table
       :data="invitationData"
       style="width: 100%"
-      :header-row-style="{height: '100px'}"
+      :header-row-style="{height: '60px'}"
       stripe
       border>
       <el-table-column

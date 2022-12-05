@@ -1,16 +1,12 @@
 <template>
   <div>
     <el-menu
-      style="min-width: calc(100vh);
-      height: auto;
+      style="width: 200px;
+      min-height: calc(100vh);
       border: none"
-      mode= "horizontal"
       router
       :default-active="$route.path"
-      text-color="#fff"
-      background-color="#28283C"
-      active-text-color="#8F8F99"
-      class="el-menu">
+      class="el-menu-vertical-demo">
       <el-menu-item index="/user-home/dashboard">
         <span>首页</span>
       </el-menu-item>
@@ -31,7 +27,7 @@
           <span>项目负责人申请</span>
         </el-menu-item>
       </el-submenu>
-      <div style="color: whitesmoke">
+      <div style="color: #333333">
         欢迎，{{ userName }}
       </div>
     </el-menu>
@@ -76,5 +72,8 @@ export default {
 </script>
 
 <style scoped>
+.el-menu-item.is-active{
+  background-color: ghostwhite;
+}
 
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div id="bg">
     <el-container>
-      <el-main style="line-height: 80px">
+      <el-main style="line-height: 60px">
         <el-card class="card">
-          <h2 style="height: 75px; margin: 25px 0 0;">邀请信息</h2>
+          <h2 style="height: 80px; margin: 10px 0 0;">邀请信息</h2>
           <invitation-list></invitation-list>
         </el-card>
       </el-main>
@@ -20,7 +20,11 @@ export default {
 </script>
 
 <style scoped>
+.el-container {
+  top: 0;
+}
 .card {
+  position: relative;
   margin: 0 auto;
   width: 85%;
 }
