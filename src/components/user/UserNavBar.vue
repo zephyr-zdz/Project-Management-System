@@ -8,28 +8,29 @@
       :default-active="$route.path"
       class="el-menu-vertical-demo">
       <el-menu-item index="/user-home/dashboard">
-        <span>首页</span>
-      </el-menu-item>
-      <el-menu-item index="/user-home/edit-info">
-        <span>个人信息修改</span>
+        <i class="el-icon-s-home" style="'color:#455368'; position: relative; left: -30px"></i>
+        <span class="character">首页</span>
       </el-menu-item>
       <el-submenu index="">
         <template slot="title">
-          <span>项目</span>
+          <i class="el-icon-document" style="'color:#455368'; position: relative; left: -30px"></i>
+          <span class="character">项目</span>
         </template>
         <el-menu-item index="/user-home/my-project">
+          <i class="el-icon-files" style="'color:#455368'"></i>
           <span>我的项目</span>
         </el-menu-item>
         <el-menu-item index="/user-home/my-invitation">
+          <i class="el-icon-message-solid" style="'color:#455368'"></i>
           <span>邀请信息</span>
         </el-menu-item>
-        <el-menu-item index="/user-home/project-leader-request">
-          <span>项目负责人申请</span>
-        </el-menu-item>
       </el-submenu>
-      <div style="color: #333333">
-        欢迎，{{ userName }}
-      </div>
+      <el-menu-item
+        index="/user-home/edit-info"
+        style="position: fixed; bottom: 0; left: 0%; width: 200px">
+        <i class="el-icon-user-solid" style="'color:#455368'; position: relative; left: -30px"></i>
+        <span class="character">个人信息</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -72,6 +73,13 @@ export default {
 </script>
 
 <style scoped>
+.character{
+  position: relative;
+  left: -30px;
+}
+.el-menu{
+  box-shadow: #cccccc 0 0 10px;
+}
 .el-menu-item:hover{
   border-left:#33A2EF solid 6px !important;
   background-color: ghostwhite !important;
@@ -83,9 +91,9 @@ export default {
 }
 /*设置选中el-menu-item时的样式*/
 .el-menu-item.is-active {
-    border-left:#33A2EF solid 6px !important;
-    background-color: ghostwhite !important;
-    color: #38B2FF !important;
+  border-left:#33A2EF solid 6px !important;
+  background-color: ghostwhite !important;
+  color: #38B2FF !important;
 }
 
 </style>
