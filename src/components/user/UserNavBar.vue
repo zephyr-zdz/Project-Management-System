@@ -72,8 +72,20 @@ export default {
 </script>
 
 <style scoped>
-.el-menu-item.is-active{
-  background-color: ghostwhite;
+.el-menu-item:hover{
+  border-left:#33A2EF solid 6px !important;
+  background-color: ghostwhite !important;
+  color: #38B2FF !important;
+/*less语法，实现鼠标悬停时icon变色*/
+  i {
+    color: #38B2FF;
+  }
+}
+/*设置选中el-menu-item时的样式*/
+.el-menu-item.is-active {
+    border-left:#33A2EF solid 6px !important;
+    background-color: ghostwhite !important;
+    color: #38B2FF !important;
 }
 
 </style>
