@@ -32,7 +32,7 @@
       label="操作"
       width="120">
       <template slot-scope="scope">
-        <el-button
+        <el-button :plain="true"
           @click="readMessage(scope.$index, scope.row)"
           type="text"
           size="small">
@@ -55,6 +55,10 @@
       data() {
         return {
           messageData: [],
+          messageStatus: {
+            messageName: '',
+            messageStatus: ''
+          },
         }
       },
       mounted () {
@@ -68,12 +72,38 @@
         },
         readMessage(index, row){
           row.status=1
+        this.$refs.messageList.validate((valid) => {
+          if (valid) {
+            this.$axios
+              .post('/message/list', {
+                messageName: this.MessageList.messageName,
+                messageStatus: this.MessageList.messageStatus
+              })
+              .then(resp => {
+                console.log(resp.data)
+                if (resp.data.code === 0) {
+                  this.$message({
+                    message: '消息已读。',
+                    type: 'success'
+                  })
+                  this.clear()
+                } else {
+                  this.$message({
+                    message: '消息已读失败。',
+                    type: 'error'
+                  })
+                }
+              })
+          } 
+      })
 
         },
         tableRowClassName({row, rowIndex}) {
           if (row.status === 0) {
+            this.messageStatus=0;
             return 'unread-row';
           }
+          this.messageStatus=1;
           return '';
         }
       },
