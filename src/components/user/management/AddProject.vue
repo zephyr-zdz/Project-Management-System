@@ -146,7 +146,7 @@ export default {
         })
     },
     clear() {
-      this.addFormVisible = true;
+      this.addFormVisible = false;
       this.disabled = false;
       this.$refs.addProject.resetFields();
     },
