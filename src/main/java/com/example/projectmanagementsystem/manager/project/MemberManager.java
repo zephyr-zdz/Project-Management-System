@@ -49,6 +49,16 @@ public class MemberManager {
         return projectManagerIdList;
     }
 
+    public List<User> findManagerListByProjectId(Integer projectId) {
+        List<MemberList> projectManagerERList = memberListMapper.findAllByProjectIdAndRole(projectId, "manager");
+        List<User> projectManagerList = new ArrayList<>();
+        for (MemberList ERList : projectManagerERList) {
+            User manager = userMapper.findUserById(ERList.getMemberId());
+            projectManagerList.add(manager);
+        }
+        return projectManagerList;
+    }
+
     public void saveMember(User member, Project project, String role) {
         Integer memberId = member.getId();
         Integer projectId = project.getId();

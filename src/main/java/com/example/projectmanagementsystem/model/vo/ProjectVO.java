@@ -1,6 +1,7 @@
 package com.example.projectmanagementsystem.model.vo;
 
 import com.example.projectmanagementsystem.model.entity.Project;
+import com.example.projectmanagementsystem.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProjectVO {
     private Project project;
-    private List<Integer> managerIdList;
-    private List<Integer> memberIdList;
+    private List<User> managerList;
+    private List<User> memberList;
     private Integer number; // 项目总人数
 }

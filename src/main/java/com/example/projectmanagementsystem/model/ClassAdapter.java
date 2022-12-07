@@ -41,13 +41,13 @@ public class ClassAdapter {
         projectVO.setProject(project);
         // manager
         Integer projectId = project.getId();
-        List<Integer> managerIdList = new ArrayList<>(memberManager.findManagerIdListByProjectId(projectId));
-        projectVO.setManagerIdList(managerIdList);
+        List<User> managerList = new ArrayList<>(memberManager.findManagerListByProjectId(projectId));
+        projectVO.setManagerList(managerList);
         // member
-        List<Integer> memberIdList = new ArrayList<>(memberManager.findMemberIdListByProjectId(projectId));
-        projectVO.setMemberIdList(memberIdList);
+        List<User> memberList = new ArrayList<>(memberManager.findMemberListByProjectId(projectId));
+        projectVO.setMemberList(memberList);
         // number
-        projectVO.setNumber(memberIdList.size());
+        projectVO.setNumber(memberList.size());
         return projectVO;
     }
 
