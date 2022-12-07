@@ -1,7 +1,7 @@
 package com.example.projectmanagementsystem.controller.user;
 
 import com.example.projectmanagementsystem.model.entity.User;
-import com.example.projectmanagementsystem.model.vo.ProjectVO;
+import com.example.projectmanagementsystem.model.vo.ProjectUserVO;
 import com.example.projectmanagementsystem.model.vo.SafeUser;
 import com.example.projectmanagementsystem.service.project.MemberService;
 import com.example.projectmanagementsystem.service.user.UserService;
@@ -35,7 +35,7 @@ public class UserController {
         return userService.search("%" + name + "%");
     }
     @GetMapping("/participating/{userId}")
-    public Response<List<ProjectVO>> findMyProjects(@PathVariable Integer userId) {
+    public Response<List<ProjectUserVO>> findMyProjects(@PathVariable Integer userId) {
         return memberService.findProjects(userId);
     }
 }

@@ -7,6 +7,7 @@ import com.example.projectmanagementsystem.model.entity.Invitation;
 import com.example.projectmanagementsystem.model.entity.Project;
 import com.example.projectmanagementsystem.model.entity.User;
 import com.example.projectmanagementsystem.model.vo.InvitationVO;
+import com.example.projectmanagementsystem.model.vo.ProjectUserVO;
 import com.example.projectmanagementsystem.model.vo.ProjectVO;
 import com.example.projectmanagementsystem.model.vo.SafeUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,23 @@ public class ClassAdapter {
         invitationVO.setInviter(userManager.findUserById(invitation.getInviterId()));
         invitationVO.setReceiver(userManager.findUserById(invitation.getReceiverId()));
         return invitationVO;
+    }
+
+    public ProjectUserVO fromProject2ProjectUserVO(Project project, User user) {
+        ProjectUserVO projectUserVO = new ProjectUserVO();
+        projectUserVO.setProject(project);
+        String role = memberManager.findMemberListByProjectIdAndUserId(project.getId(), user.getId()).getRole();
+        projectUserVO.setRole(role);
+        projectUserVO.setOwner(fromUser2SafeUser(userManager.findUserById(project.getOwner_id())));
+        // manager
+        Integer projectId = project.getId();
+        List<User> managerList = new ArrayList<>(memberManager.findManagerListByProjectId(projectId));
+        projectUserVO.setManagerList(managerList);
+        // member
+        List<User> memberList = new ArrayList<>(memberManager.findMemberListByProjectId(projectId));
+        projectUserVO.setMemberList(memberList);
+        // number
+        projectUserVO.setNumber(memberList.size());
+        return projectUserVO;
     }
 }

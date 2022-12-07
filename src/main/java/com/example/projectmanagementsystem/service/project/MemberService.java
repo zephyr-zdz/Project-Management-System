@@ -8,7 +8,7 @@ import com.example.projectmanagementsystem.model.ClassAdapter;
 import com.example.projectmanagementsystem.model.entity.MemberList;
 import com.example.projectmanagementsystem.model.entity.Project;
 import com.example.projectmanagementsystem.model.entity.User;
-import com.example.projectmanagementsystem.model.vo.ProjectVO;
+import com.example.projectmanagementsystem.model.vo.ProjectUserVO;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.stereotype.Service;
 
@@ -49,16 +49,16 @@ public class MemberService {
         return new Response<>(Response.SUCCESS, "删除成功！", null);
     }
 
-    public Response<List<ProjectVO>> findProjects(Integer userId) {
+    public Response<List<ProjectUserVO>> findProjects(Integer userId) {
         User user = userManager.findUserById(userId);
         if (user == null) {
             return new Response<>(Response.FAIL, "用户不存在", null);
         }
         List<Integer> projectIdList = memberManager.findProjectIdListByUserId(userId);
-        List<ProjectVO> projectVOs = new ArrayList<>();
+        List<ProjectUserVO> projectVOs = new ArrayList<>();
         for (Integer projectId : projectIdList) {
             Project project = projectManager.findProjectById(projectId);
-            projectVOs.add(classAdapter.fromProject2ProjectVO(project));
+            projectVOs.add(classAdapter.fromProject2ProjectUserVO(project,user));
         }
         return new Response<>(Response.SUCCESS, "查找成功", projectVOs);
     }
