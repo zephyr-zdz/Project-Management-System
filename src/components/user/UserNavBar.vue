@@ -26,6 +26,12 @@
         </el-menu-item>
       </el-submenu>
       <el-menu-item
+        index="/user-home/message-list"
+        style="position: fixed; bottom: 56px; left: 0%; width: 200px">
+        <i class="el-icon-s-flag" style="'color:#455368'; position: relative; left: -30px"></i>
+        <span class="character">任务消息</span>
+      </el-menu-item>
+      <el-menu-item
         index="/user-home/edit-info"
         style="position: fixed; bottom: 0; left: 0%; width: 200px">
         <i class="el-icon-user-solid" style="'color:#455368'; position: relative; left: -30px"></i>
@@ -36,8 +42,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-
 export default {
   name: "StudentNavBar",
   data() {
@@ -45,30 +49,6 @@ export default {
       userName: 'xxx'
     }
   },
-  mounted: function () {
-    this.getUserName()
-  },
-  methods: {
-    async getUserName() {
-      let jsonObj = JSON.parse(window.localStorage.user);
-      let no = jsonObj.user.name
-      let params = new URLSearchParams();
-      let _this = this
-      params.append('userNumber', no);
-      this.$axios
-        .post('/getUser', params)
-        .then(resp => {
-          if (resp && resp.data.code === 200) {
-            _this.userName = resp.data.data.name
-          } else {
-            this.$message({
-              message: 'Error happens',
-              type: 'error'
-            });
-          }
-        })
-    }
-  }
 }
 </script>
 

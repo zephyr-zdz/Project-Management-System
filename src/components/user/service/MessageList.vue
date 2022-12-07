@@ -4,13 +4,14 @@
       style="width: 100%"
       :row-class-name="tableRowClassName">
       <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
         prop="project"
         label="所属项目"
+        width="180"
+        fixed="left">
+      </el-table-column>
+      <el-table-column
+        prop="date"
+        label="日期"
         width="180">
       </el-table-column>
       <el-table-column
@@ -28,10 +29,10 @@
         label="任务简介">
       </el-table-column>
       <el-table-column
-      fixed="operation"
+      fixed="right"
       label="操作"
       width="120">
-      <template slot-scope="scope">
+      <template v-slot="scope">
         <el-button :plain="true"
           @click="readMessage(scope.$index, scope.row)"
           type="text"
@@ -42,13 +43,13 @@
       </el-table-column>
     </el-table>
   </template>
-  
+
   <style>
     .el-table .unread-row {
       background: oldlace;
     }
   </style>
-  
+
   <script>
     export default {
       name:"MessageList",
@@ -94,7 +95,7 @@
                   })
                 }
               })
-          } 
+          }
       })
 
         },
@@ -107,6 +108,6 @@
           return '';
         }
       },
-     
+
     }
   </script>

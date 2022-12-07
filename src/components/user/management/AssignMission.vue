@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button type="primary" @click="dialogFormVisible = true">指派任务</el-button>
+    <el-button type="primary" plain @click="dialogFormVisible = true" icon="el-icon-plus" :disabled="disabled">指派任务</el-button>
     <el-dialog
       title="指派任务"
       :visible.sync="dialogFormVisible"
@@ -10,7 +10,7 @@
         ref="assignForm"
         :rules="rules">
         <el-form-item label="项目名称" prop="pjName">
-          <el-select v-model="assignForm.pjID" filterable placeholder="请选择" @change="loadUser">
+          <el-select v-model="assignForm.pjID" filterable :placeholder="this.assignForm.pjName" disabled>
             <el-option
               v-for="item in projectList"
               :key="item.project.id"
@@ -19,12 +19,12 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="指派成员" prop="user">
+        <el-form-item label="指派成员" prop="userID">
           <el-select v-model="assignForm.userID" filterable placeholder="请选择">
             <el-option
               v-for="item in userList"
               :key="item.id"
-              :label="item.name"
+              :label="item.username"
               :value="item.id">
             </el-option>
           </el-select>
@@ -51,18 +51,16 @@ export default {
   data () {
     return {
       dialogFormVisible: false,
+      disabled: true,
       assignForm: {
         pjID: '',
+        pjName: '',
         userID: '',
         taskName: '',
         taskInfo: '',
       },
       userList: [
-        {
-          id: 2,
-          name: "csdv",
-          auth: 1,
-        }
+        {id: 1, username: '张三'},
       ],
       rules: {
         pjName: [
@@ -72,7 +70,7 @@ export default {
             trigger: 'blur',
           }
         ],
-        user: [
+        userID: [
           {
             required: true,
             message: '请选择成员',
@@ -86,6 +84,12 @@ export default {
             trigger: 'blur',
           }
         ],
+        taskInfo: [
+          {
+            required: false,
+            trigger: 'blur',
+          }
+        ],
       },
       projectList: [
         {
@@ -95,10 +99,12 @@ export default {
             intro: "已候军制全局点数山公更先风劳习所。六已该院战世元后以义观件亲此厂业本知。分识着应众越正金准数展受正细采阶。西集代南力组安油信转方才准队员月了适。历平青什光近深活段所速电半毛始办七。该往学办看电及参及件到九全类被。",
             owner_id: 1
           },
-          managerIdList: [],
-          memberIdList: [
-            1,
-            2
+          memberList: [
+            {
+              id: 1,
+              name: "csdv",
+              auth: 1,
+            }
           ],
           number: 2
         }
@@ -112,10 +118,10 @@ export default {
     async loadProject() {
       let jsonObj = JSON.parse(window.localStorage.user);
       let id = jsonObj.user.userid;
-      const param = new FormData();
-      param.append('user_id', id)
+      let url = '/user/participating/' + id
+      console.log(this.userList)
       this.$axios
-        .post('/user/participating', param)
+        .get(url)
         .then(response => {
           if (response.data.code === 0) {
             this.projectList = response.data.data;
@@ -124,29 +130,21 @@ export default {
           }
         })
     },
-    loadUser(value) {
-      const param = new FormData();
-      param.append('project_id', value);
-      this.$axios
-        .post('/project/user-list', param)
-        .then(response => {
-          if (response.data.code === 0) {
-            this.userList = response.data.data;
-          } else {
-            this.$message.error(response.data.msg);
-          }
-        })
-    },
     submitForm() {
       this.$refs.assignForm.validate((valid) => {
         if (valid) {
-          const param = new FormData();
-          param.append('id', this.assignForm.pjID);
-          param.append('user_id', this.assignForm.userID);
-          param.append('task_name', this.assignForm.taskName);
-          param.append('task_info', this.assignForm.taskInfo);
+          let jsonObj = JSON.parse(window.localStorage.user);
+          let id = jsonObj.user.userid
+          let issue = {
+            projectId: this.assignForm.pjID,
+            assigneeId: this.assignForm.userID,
+            title: this.assignForm.taskName,
+            description: this.assignForm.taskInfo,
+            reviewerId: id,
+            status: "open"
+          }
           this.$axios
-            .post('project/search', param)
+            .post('/project/issue/create', issue)
             .then(resp => {
               console.log(resp.data.code)
               if (resp.data.code === 0) {
@@ -165,7 +163,7 @@ export default {
       });
     },
     clear() {
-      this.addFormVisible = false;
+      this.dialogFormVisible = false;
       this.$refs.assignForm.resetFields();
     },
   }
@@ -174,10 +172,8 @@ export default {
 
 <style scoped>
 .dialog {
+  overflow-y: scroll;
   text-align: center;
   line-height: 30px;
-  width: 100%;
-  position: relative;
-  left: -10%;
 }
 </style>

@@ -17,9 +17,10 @@
 <script>
 import ProjectList from "./ProjectList";
 import AddProject from "../management/AddProject";
+import {methods} from "babel-plugin-transform-runtime/lib/definitions";
 export default {
   name: "ShowProject",
-  components: {AddProject, ProjectList}
+  components: {AddProject, ProjectList},
 }
 </script>
 

@@ -4,8 +4,7 @@
       :data="invitationData"
       style="width: 100%"
       :header-row-style="{height: '60px'}"
-      stripe
-      border>
+      stripe>
       <el-table-column
         label="编号"
         prop="id"
@@ -100,12 +99,14 @@ export default {
   methods: {
     async loadInvitations() {
       console.log("loadInvitations called")
-      let _this = this
+      let jsonObj = JSON.parse(window.localStorage.user);
+      let id = jsonObj.user.userid
+      let url = '/user/invitation/' + id
       this.$axios
-        .get('/user/invitation', {params: {user_id: this.$store.state.user.id}})
+        .get(url)
         .then(resp => {
         if (resp && resp.status === 200) {
-          _this.invitationData = resp.data
+          this.invitationData = resp.data
         }
       })
     },

@@ -1,14 +1,13 @@
 <template>
   <div>
-    <el-button type="primary" @click="dialogFormVisible = true"></el-button>
+    <el-button type="primary" plain @click="dialogFormVisible = true" icon="el-icon-plus" :disabled="disabled">邀请成员</el-button>
     <el-dialog
       title="邀请成员"
       :visible.sync="dialogFormVisible"
       class="dialog">
       <el-form
         :model="inviteForm"
-        ref="inviteForm"
-        :rules="rules">
+        ref="inviteForm">
         <el-form-item  label="邮箱/昵称" prop="email">
           <el-input
             v-model="inviteForm.email"
@@ -62,35 +61,19 @@ export default {
   data () {
     return {
       dialogFormVisible: false,
+      disabled: true,
       inviteForm: {
         email: '',
       },
-      rules: {
-        email: [
-          {
-            required: true,
-            message: '请输入邮箱/昵称',
-            trigger: 'blur',
-          }
-        ],
-      },
-      userList: [
-        {
-          id: 1,
-          email: 'bdfbsv@jkk.com',
-          username: 'dsbdb',
-        },
-      ]
+      userList: []
     }
   },
   methods: {
     onSubmit() {
-      this.$refs.InviteForm.validate((valid) => {
-        if (valid) {
           const param = new FormData();
           param.append('name', this.inviteForm.email)
           this.$axios
-            .post('project/search', param)
+            .post('/user/search', param)
             .then(resp => {
               console.log(resp.data.code)
               if (resp.data.code === 0) {
@@ -102,11 +85,6 @@ export default {
                 })
               }
             })
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
     },
     selectUser (row) {
       let jsonObj = JSON.parse(window.localStorage.user);
@@ -114,9 +92,9 @@ export default {
       const param = new FormData();
       param.append('user_id', id)
       param.append('receiver_id', row.id)
-      /*todo: 加入项目id*/
+      param.append('project_id', this.$route.params.id)
       this.$axios
-        .post('project/invite', param)
+        .post('/project/invite', param)
         .then(resp => {
           console.log(resp.data.code)
           if (resp.data.code === 0) {

@@ -7,6 +7,8 @@ import UserHome from "../components/user/UserHome";
 import UserDash from "../components/user/UserDash";
 import ShowProject from "../components/user/service/ShowProject";
 import ShowInvitation from "../components/user/service/ShowInvitation";
+import ProjectContent from "../components/user/service/ProjectContent.vue";
+import ShowMessage from "../components/user/service/ShowMessage.vue";
 
 Vue.use(VueRouter)
 
@@ -78,6 +80,22 @@ export default new VueRouter({
           path: 'my-project',
           name: 'MyProject',
           component: ShowProject,
+          meta: {
+            roles: [ 'user' ]
+          }
+        },
+        {
+          path: 'message-list',
+          name: 'MessageList',
+          component: ShowMessage,
+          meta: {
+            roles: [ 'user' ]
+          }
+        },
+        {
+          path: 'my-project/:id',
+          name: 'ProjectContent',
+          component: ProjectContent,
           meta: {
             roles: [ 'user' ]
           }

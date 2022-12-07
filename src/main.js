@@ -21,7 +21,7 @@ import {
   TimeSelect, DatePicker,
   Upload,
   Divider,
-  Row, Col,
+  Row, Col, PageHeader
 } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Menu)
@@ -57,6 +57,7 @@ Vue.use(Popover)
 Vue.use(Divider)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(PageHeader)
 Vue.component(MessageBox.name, MessageBox)
 Vue.component(Message.name, Message)
 

@@ -1,19 +1,11 @@
 <template>
   <div>
     <el-button @click="addFormVisible = true" type="primary" size="small" icon="el-icon-plus">新增项目</el-button>
-    <el-dialog title="项目信息" :visible.sync="addFormVisible" style="line-height: 100px;">
+    <el-dialog title="项目信息" :visible.sync="addFormVisible">
       <el-form
         :model="addProject"
         ref="addProject"
-        :rules="projectFormRules"
-      >
-        <el-form-item
-          label="项目id"
-          prop="projectCode"
-          :label-width="formLabelWidth"
-        >
-          <el-input  :disabled="disabled" v-model="addProject.projectCode"></el-input>
-        </el-form-item>
+        :rules="projectFormRules">
         <el-form-item
           label="项目名称"
           prop="projectName"
@@ -24,49 +16,7 @@
           label="项目简介"
           prop="projectIntroduction"
           :label-width="formLabelWidth">
-          <el-input v-model="addProject.projectIntroduction"></el-input>
-        </el-form-item>
-        <el-form-item
-          label="项目所有者"
-          prop="projectLeaderNumber"
-          :label-width="formLabelWidth">
-          <el-select v-model="addProject.projectLeaderNumber"
-                     placeholder="项目所有者">
-            <el-option
-              v-for="item in userList"
-              :key="item.number"
-              :label="item.name"
-              :value="item.number">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          label="项目管理员"
-          prop="projectAdminNumber"
-          :label-width="formLabelWidth">
-          <el-select v-model="addProject.projectAdminNumber"
-                     placeholder="项目管理员">
-            <el-option
-              v-for="item in userList"
-              :key="item.number"
-              :label="item.name"
-              :value="item.number">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          label="项目成员"
-          prop="projectMemberNumber"
-          :label-width="formLabelWidth">
-          <el-select v-model="addProject.projectMemberNumber"
-                     placeholder="项目成员">
-            <el-option
-              v-for="item in userList"
-              :key="item.number"
-              :label="item.name"
-              :value="item.number">
-            </el-option>
-          </el-select>
+          <el-input v-model="addProject.projectIntroduction" type="textarea" :autosize="{ minRows: 3, maxRows: 5}"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -84,92 +34,44 @@ export default {
   data() {
     return {
       addFormVisible: false,
-      disabled: false,
       formLabelWidth: '120px',
-      userList: [],
       addProject: {
-        projectCode: '',
         projectName: '',
         projectIntroduction:'',
-        projectLeaderNumber: '',
-        projectAdminNumber:'',
-        projectMemberNumber:'',
       },
       projectFormRules: {
-        projectCode: [
-          { required: true, message: '必填', trigger: ['blur', 'change']},
-          {
-            pattern: /\d\d\d\d\d\d+.\d\d/,
-            message: '注意项目id格式',
-            trigger: 'blur'
-          }
-        ],
         projectName: [
           { required: true, message: '必填', trigger: ['blur', 'change']},
         ],
         projectIntroduction: [
           { required: true, message: '必填', trigger: ['blur', 'change']},
         ],
-        projectLeaderNumber: [
-          { required: true, message: '必填', trigger: ['blur', 'change']},
-        ],
-        projectAdminNumber:[
-          { required: true, message: '必填', trigger: ['blur', 'change']},
-        ],
-        projectMemberNumber:[
-          { required: true, message: '必填', trigger: ['blur', 'change']},
-        ],
       },
     }
   },
-  mounted: function() {
-    this.getUserId()
-  },
   methods: {
-    getUserId () {
-      this.$axios.get('/project/list', {params: {user_id: this.$store.getters.user_id}})
-        .then(response => {
-
-          if (response.data.code === 0) {
-            console.log(response.data)
-            this.userList = response.data.data
-          } else {
-            this.$message({
-              message: response.data.msg,
-              type: 'error'
-            })
-            this.addProject.projectLeaderNumber = -1
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
     clear() {
       this.addFormVisible = false;
-      this.disabled = false;
       this.$refs.addProject.resetFields();
     },
     SubmitProject(formName) {
       console.log("Submit called")
-
       this.$refs.addProject.validate((valid) => {
-        if ((valid) && (this.addProject.projectLeaderNumber !== -1)) {
+        if (valid) {
           console.log("on Submit")
+          let jsonObj = JSON.parse(window.localStorage.user);
+          let id = jsonObj.user.userid;
           this.$axios
             .post('/project/create', {
-              projectCode: this.addProject.projectCode,
-              projectName: this.addProject.projectName,
-              projectIntroduction: this.addProject.projectIntroduction,
-              projectLeaderNumber: this.addProject.projectLeaderNumber,
-              projectAdminNumber: this.addProject.projectAdminNumber,
-              projectMemberNumber: this.addProject.projectMemberNumber
+              title: this.addProject.projectName,
+              intro: this.addProject.projectIntroduction,
+              owner_id: id,
             })
             .then(resp => {
               console.log(resp.data)
               if (resp.data.code === 0) {
                 this.$message({
-                  message: '添加成功',
+                  message: resp.data.msg,
                   type: 'success'
                 })
                 this.clear()
