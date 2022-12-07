@@ -34,8 +34,8 @@ public class UserController {
     public Response<List<SafeUser>> searchUser(@RequestParam("name") String name) {
         return userService.search("%" + name + "%");
     }
-    @GetMapping("/participating")
-    public Response<List<ProjectVO>> findMyProjects(@RequestParam("user_id") Integer userId) {
+    @GetMapping("/participating/{userId}")
+    public Response<List<ProjectVO>> findMyProjects(@PathVariable Integer userId) {
         return memberService.findProjects(userId);
     }
 }

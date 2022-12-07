@@ -16,9 +16,9 @@ public class InvitationController {
     InvitationController(InvitationService invitationService) {
         this.invitationService = invitationService;
     }
-    @GetMapping("")
-    public Response<List<InvitationVO>> getMyInvitations(@RequestParam("user_id") Integer userId) {
-        return invitationService.getInvitationList(userId);
+    @GetMapping("/{user_id}")
+    public Response<List<InvitationVO>> getMyInvitations(@PathVariable Integer user_id) {
+        return invitationService.getInvitationList(user_id);
     }
     @PostMapping("/accept")
     public Response<String> acceptInvitation(@RequestParam("invitation_id") Integer invitationId) {

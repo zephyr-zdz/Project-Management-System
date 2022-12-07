@@ -20,8 +20,8 @@ public class MessageController {
     public Response<List<Message>> listUnseenMessagesByUser(@RequestParam("user_id") Integer userId) {
         return messageService.listUnseenByUser(userId);
     }
-    @GetMapping("/list")
-    public Response<List<Message>> listMessagesByUser(@RequestParam("user_id") Integer userId) {
+    @GetMapping("/list/{userId}")
+    public Response<List<Message>> listMessagesByUser(@PathVariable Integer userId) {
         return messageService.listByUser(userId);
     }
     @PostMapping("/see")

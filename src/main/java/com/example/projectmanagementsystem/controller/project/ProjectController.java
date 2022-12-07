@@ -29,9 +29,9 @@ public class ProjectController {
     public Response<ProjectVO> editProject(@RequestBody Project project) {
         return projectService.edit(project);
     }
-    @GetMapping("/list")
-    public Response<ProjectVO> getProjectList(@RequestParam("project_id") Integer projectId) {
-        return projectService.list(projectId);
+    @GetMapping("/list/{project_id}")
+    public Response<ProjectVO> getProjectList(@PathVariable Integer project_id) {
+        return projectService.list(project_id);
     }
     @PostMapping("/invite")
     public Response<String> invite(@RequestParam("user_id") Integer user_id,

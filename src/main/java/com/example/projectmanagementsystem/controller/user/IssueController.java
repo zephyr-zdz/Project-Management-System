@@ -17,12 +17,12 @@ public class IssueController {
         this.issueService = issueService;
 
     }
-    @GetMapping("/list/assigning")
-    public Response<List<Issue>> getAssigningListByUser(@RequestParam("user_id") Integer userId) {
-        return issueService.listAssigningByUser(userId);
+    @GetMapping("/list/assigning/{user_id}")
+    public Response<List<Issue>> getAssigningListByUser(@PathVariable Integer user_id) {
+        return issueService.listAssigningByUser(user_id);
     }
-    @GetMapping("/list/assigned")
-    public Response<List<Issue>> getAssignedListByUser(@RequestParam("user_id") Integer userId) {
-        return issueService.listAssignedByUser(userId);
+    @GetMapping("/list/assigned/{user_id}")
+    public Response<List<Issue>> getAssignedListByUser(@PathVariable Integer user_id) {
+        return issueService.listAssignedByUser(user_id);
     }
 }
