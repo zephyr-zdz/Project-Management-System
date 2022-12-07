@@ -39,6 +39,7 @@ public class ClassAdapter {
     public ProjectVO fromProject2ProjectVO(Project project) {
         ProjectVO projectVO = new ProjectVO();
         projectVO.setProject(project);
+        projectVO.setOwner(fromUser2SafeUser(userManager.findUserById(project.getOwner_id())));
         // manager
         Integer projectId = project.getId();
         List<User> managerList = new ArrayList<>(memberManager.findManagerListByProjectId(projectId));
