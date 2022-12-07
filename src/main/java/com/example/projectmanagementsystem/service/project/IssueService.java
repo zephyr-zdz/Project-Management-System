@@ -72,12 +72,19 @@ public class IssueService {
         List<Issue> issues = issueManager.findIssuesByProjectId(projectId);
         return new Response<>(Response.SUCCESS, "获取项目下所有issue成功", issues);
     }
+    public Response<List<Issue>> listAssigningByUser(Integer userId) {
+        if (userManager.findUserById(userId) == null) {
+            return new Response<>(Response.FAIL, "用户不存在", null);
+        }
+        List<Issue> issues = issueManager.findIssuesByReviewerId(userId);
+        return new Response<>(Response.SUCCESS, "获取用户指派他人的所有issue成功", issues);
+    }
 
-    public Response<List<Issue>> listByUser(Integer userId) {
+    public Response<List<Issue>> listAssignedByUser(Integer userId) {
         if (userManager.findUserById(userId) == null) {
             return new Response<>(Response.FAIL, "用户不存在", null);
         }
         List<Issue> issues = issueManager.findIssuesByAssigneeId(userId);
-        return new Response<>(Response.SUCCESS, "获取用户下所有issue成功", issues);
+        return new Response<>(Response.SUCCESS, "获取用户被指派的所有issue成功", issues);
     }
 }

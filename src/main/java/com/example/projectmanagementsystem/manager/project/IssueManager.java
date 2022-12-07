@@ -34,4 +34,6 @@ public class IssueManager {
     public List<Issue> findIssuesByAssigneeId(Integer userId) {
         return issueMapper.findIssuesByAssigneeId(userId);
     }
+
+    public List<Issue> findIssuesByReviewerId(Integer userId) { return issueMapper.findIssuesByReviewerId(userId); }
 }

@@ -12,22 +12,18 @@ import java.util.List;
 @RequestMapping("/user/invitation")
 public class InvitationController {
     private final InvitationService invitationService;
-
     @Autowired
     InvitationController(InvitationService invitationService) {
         this.invitationService = invitationService;
     }
-
     @GetMapping("")
     public Response<List<InvitationVO>> getMyInvitations(@RequestParam("user_id") Integer userId) {
         return invitationService.getInvitationList(userId);
     }
-
     @PostMapping("/accept")
     public Response<String> acceptInvitation(@RequestParam("invitation_id") Integer invitationId) {
         return invitationService.accept(invitationId);
     }
-
     @PostMapping("/refuse")
     public Response<String> refuseInvitation(@RequestParam("invitation_id") Integer invitationId) {
         return invitationService.refuse(invitationId);
