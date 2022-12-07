@@ -15,6 +15,6 @@ public class ProjectVO {
     private Project project;
     private SafeUser owner;
     private List<User> managerList;
-    private List<User> memberList;
+    private List<RoleUser> memberList;
     private Integer number; // 项目总人数
 }

@@ -19,17 +19,7 @@ public class MemberManager {
         this.userMapper = userMapper;
         this.memberListMapper = memberListMapper;
     }
-
-    public List<Integer> findMemberIdListByProjectId(Integer projectId) {// 获取用户id列表
-        List<MemberList> projectMemberERList = memberListMapper.findAllByProjectId(projectId);
-        List<Integer> projectMemberIdList = new ArrayList<>();
-        for (MemberList ERList : projectMemberERList) {
-            System.out.println(ERList);
-            projectMemberIdList.add(ERList.getMemberId());
-        }
-        return projectMemberIdList;
-    }
-    public List<User> findMemberListByProjectId(Integer projectId) {
+    public List<User> findMembersByProjectId(Integer projectId) {
         List<MemberList> projectMemberERList = memberListMapper.findMemberListsByProjectId(projectId);
         List<User> projectMemberList = new ArrayList<>();
         for (MemberList ERList : projectMemberERList) {
@@ -40,15 +30,6 @@ public class MemberManager {
     }
 
     // manager
-    public List<Integer> findManagerIdListByProjectId(Integer projectId) {// 获取管理员id列表
-        List<MemberList> projectManagerERList = memberListMapper.findAllByProjectIdAndRole(projectId, "manager");
-        List<Integer> projectManagerIdList = new ArrayList<>();
-        for (MemberList ERList : projectManagerERList) {
-            projectManagerIdList.add(ERList.getMemberId());
-        }
-        return projectManagerIdList;
-    }
-
     public List<User> findManagerListByProjectId(Integer projectId) {
         List<MemberList> projectManagerERList = memberListMapper.findAllByProjectIdAndRole(projectId, "manager");
         List<User> projectManagerList = new ArrayList<>();
@@ -84,11 +65,6 @@ public class MemberManager {
     public MemberList findMemberListByProjectIdAndUserId(Integer projectId, Integer userId) {
         return memberListMapper.findMemberListByProjectIdAndMemberId(projectId, userId);
     }
-
-    public List<MemberList> findMemberListsByUserId(Integer userId) {
-        return memberListMapper.findMemberListsByMemberId(userId);
-    }
-
     public void editRole(Integer user_id, Integer project_id, String role) {
         MemberList memberList = memberListMapper.findMemberListByProjectIdAndMemberId(project_id, user_id);
         memberList.setRole(role);

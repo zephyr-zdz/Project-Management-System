@@ -21,7 +21,7 @@ public class MemberList {
     @Column(name = "project_id", nullable = false)
     private Integer projectId;
     @Column(name = "role", nullable = false)
-    private String role;
+    private String role; // owner/manager/member
 
     public void initialize(Integer project_id, Integer member_id, String role) {
         this.memberId = member_id;

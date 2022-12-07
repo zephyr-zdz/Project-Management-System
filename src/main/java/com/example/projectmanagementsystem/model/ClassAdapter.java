@@ -6,10 +6,7 @@ import com.example.projectmanagementsystem.manager.user.UserManager;
 import com.example.projectmanagementsystem.model.entity.Invitation;
 import com.example.projectmanagementsystem.model.entity.Project;
 import com.example.projectmanagementsystem.model.entity.User;
-import com.example.projectmanagementsystem.model.vo.InvitationVO;
-import com.example.projectmanagementsystem.model.vo.ProjectUserVO;
-import com.example.projectmanagementsystem.model.vo.ProjectVO;
-import com.example.projectmanagementsystem.model.vo.SafeUser;
+import com.example.projectmanagementsystem.model.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,8 +43,12 @@ public class ClassAdapter {
         List<User> managerList = new ArrayList<>(memberManager.findManagerListByProjectId(projectId));
         projectVO.setManagerList(managerList);
         // member
-        List<User> memberList = new ArrayList<>(memberManager.findMemberListByProjectId(projectId));
-        projectVO.setMemberList(memberList);
+        List<User> memberList = memberManager.findMembersByProjectId(projectId);
+        List<RoleUser> memberRoleList = new ArrayList<>();
+        for (User member : memberList) {
+            memberRoleList.add(fromUser2RoleUser(project,member));
+        }
+        projectVO.setMemberList(memberRoleList);
         // number
         projectVO.setNumber(memberList.size());
         return projectVO;
@@ -68,15 +69,24 @@ public class ClassAdapter {
         String role = memberManager.findMemberListByProjectIdAndUserId(project.getId(), user.getId()).getRole();
         projectUserVO.setRole(role);
         projectUserVO.setOwner(fromUser2SafeUser(userManager.findUserById(project.getOwner_id())));
-        // manager
-        Integer projectId = project.getId();
-        List<User> managerList = new ArrayList<>(memberManager.findManagerListByProjectId(projectId));
-        projectUserVO.setManagerList(managerList);
         // member
-        List<User> memberList = new ArrayList<>(memberManager.findMemberListByProjectId(projectId));
-        projectUserVO.setMemberList(memberList);
+        List<User> memberList = memberManager.findMembersByProjectId(project.getId());
+        List<RoleUser> memberRoleList = new ArrayList<>();
+        for (User member : memberList) {
+            memberRoleList.add(fromUser2RoleUser(project,member));
+        }
+        projectUserVO.setMemberList(memberRoleList);
         // number
         projectUserVO.setNumber(memberList.size());
         return projectUserVO;
+    }
+    public RoleUser fromUser2RoleUser(Project project, User user) {
+        RoleUser roleUser = new RoleUser();
+        roleUser.setId(user.getId());
+        roleUser.setEmail(user.getEmail());
+        roleUser.setUsername(user.getUsername());
+        String role = memberManager.findMemberListByProjectIdAndUserId(project.getId(), user.getId()).getRole();
+        roleUser.setRole(role);
+        return roleUser;
     }
 }
