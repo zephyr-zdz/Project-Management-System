@@ -37,10 +37,9 @@ public class IssueService {
         if (userManager.findUserById(issue.getAssigneeId()) == null) {
             return new Response<>(Response.FAIL, "issue受托者为空", null);
         }
-        if (!issue.getStatus().equals("open") ) {
+        if (!(issue.getStatus() == null) && !(issue.getStatus().equals("open"))) {
             return new Response<>(Response.FAIL, "issue状态不为开发中", null);
         }
-        issue.setStatus("open");
         issueManager.createIssue(issue);
         messageService.createMessage(issue.getId());
         return new Response<>(Response.SUCCESS, "创建issue成功", issue);
