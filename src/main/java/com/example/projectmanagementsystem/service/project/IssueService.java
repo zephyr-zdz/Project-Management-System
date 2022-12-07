@@ -40,6 +40,7 @@ public class IssueService {
         if (!issue.getStatus().equals("open") ) {
             return new Response<>(Response.FAIL, "issue状态不为开发中", null);
         }
+        issue.setStatus("open");
         issueManager.createIssue(issue);
         messageService.createMessage(issue.getId());
         return new Response<>(Response.SUCCESS, "创建issue成功", issue);
