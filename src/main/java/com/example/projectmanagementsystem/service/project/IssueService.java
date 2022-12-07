@@ -3,8 +3,8 @@ package com.example.projectmanagementsystem.service.project;
 import com.example.projectmanagementsystem.manager.project.IssueManager;
 import com.example.projectmanagementsystem.manager.project.ProjectManager;
 import com.example.projectmanagementsystem.manager.user.UserManager;
-import com.example.projectmanagementsystem.model.ClassAdapter;
 import com.example.projectmanagementsystem.model.entity.Issue;
+import com.example.projectmanagementsystem.service.user.MessageService;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +17,12 @@ public class IssueService {
     private final IssueManager issueManager;
     private final ProjectManager projectManager;
     private final UserManager userManager;
-    private final ClassAdapter classAdapter;
-
-    public IssueService(IssueManager issueManager, ProjectManager projectManager, UserManager userManager, ClassAdapter classAdapter) {
+    private final MessageService messageService;
+    public IssueService(IssueManager issueManager, ProjectManager projectManager, UserManager userManager, MessageService messageService) {
         this.issueManager = issueManager;
         this.projectManager = projectManager;
         this.userManager = userManager;
-        this.classAdapter = classAdapter;
+        this.messageService = messageService;
     }
     public Response<Issue> create(Issue issue) {
         if (issue == null) {
@@ -42,6 +41,7 @@ public class IssueService {
             return new Response<>(Response.FAIL, "issue状态不为开发中", null);
         }
         issueManager.createIssue(issue);
+        messageService.createMessage(issue.getId());
         return new Response<>(Response.SUCCESS, "创建issue成功", issue);
     }
 

@@ -29,6 +29,8 @@ public class ProjectController {
     public Response<ProjectVO> editProject(@RequestBody Project project) {
         return projectService.edit(project);
     }
+
+
     @GetMapping("/list/{project_id}")
     public Response<ProjectVO> getProjectList(@PathVariable Integer project_id) {
         return projectService.list(project_id);

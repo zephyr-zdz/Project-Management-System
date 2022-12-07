@@ -23,7 +23,6 @@ public class MessageManager {
     public List<Message> findUnseenMessagesByUser(User user) {
         return messageMapper.findAllByUserIdAndSeenIsFalse(user.getId());
     }
-
     public Message findMessageById(Integer messageId) {
         return messageMapper.findMessageById(messageId);
     }
