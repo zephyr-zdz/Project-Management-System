@@ -15,7 +15,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/quit")
     public Response<String> quit(@RequestParam Integer project_id,
                                  @RequestParam Integer user_id) {
         return memberService.quit(project_id, user_id);
