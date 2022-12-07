@@ -22,4 +22,9 @@ public class Message {
     private Integer issueId;
     @Column(name = "seen", nullable = false)
     private Boolean seen;
+    public void initialize(Integer user_id, Integer issue_id) {
+        this.userId = user_id;
+        this.issueId = issue_id;
+        this.seen = false;
+    }
 }
