@@ -106,7 +106,7 @@ export default {
         .get(url)
         .then(resp => {
         if (resp && resp.status === 200) {
-          this.invitationData = resp.data
+          this.invitationData = resp.data.data
         }
       })
     },
