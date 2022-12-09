@@ -21,11 +21,11 @@ public class InvitationController {
         return invitationService.getInvitationList(user_id);
     }
     @PostMapping("/accept")
-    public Response<String> acceptInvitation(@RequestParam("invitation_id") Integer invitationId) {
+    public Response<String> acceptInvitation(@RequestParam("invitationId") Integer invitationId) {
         return invitationService.accept(invitationId);
     }
     @PostMapping("/refuse")
-    public Response<String> refuseInvitation(@RequestParam("invitation_id") Integer invitationId) {
+    public Response<String> refuseInvitation(@RequestParam("invitationId") Integer invitationId) {
         return invitationService.refuse(invitationId);
     }
 }
