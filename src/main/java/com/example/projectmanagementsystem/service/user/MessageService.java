@@ -17,11 +17,13 @@ public class MessageService {
     private final UserManager userManager;
     private final MessageManager messageManager;
     private final IssueManager issueManager;
+    private final MailServiceImpl mailService;
     @Autowired
-    MessageService(UserManager userManager, MessageManager messageManager, IssueManager issueManager) {
+    MessageService(UserManager userManager, MessageManager messageManager, IssueManager issueManager, MailServiceImpl mailService) {
         this.userManager = userManager;
         this.messageManager = messageManager;
         this.issueManager = issueManager;
+        this.mailService = mailService;
     }
     public void createMessage(Integer issueId) {
         Issue issue = issueManager.findIssueById(issueId);
@@ -29,6 +31,11 @@ public class MessageService {
         Message message = new Message();
         message.initialize(user.getId(), issueId);
         messageManager.save(message);
+        String mailReceiver = user.getEmail();
+        String mailSubject = "你有一个新任务：" + issue.getTitle();
+        String mailContent = "任务指派人为：" + userManager.findUserById(issue.getReviewerId()).getUsername() + "\n"
+                           + "任务内容为：" + issue.getDescription();
+        mailService.sendMail(mailReceiver, mailSubject, mailContent);
     }
     public Response<List<Message>> listUnseenByUser(Integer userId) {
         User user = userManager.findUserById(userId);
