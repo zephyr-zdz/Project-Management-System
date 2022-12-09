@@ -19,15 +19,20 @@ public class MemberController {
                                  @RequestParam Integer user_id) {
         return memberService.quit(project_id, user_id);
     }
+    @PostMapping("/kick")
+    public Response<String> kick(@RequestParam Integer project_id,
+                                 @RequestParam Integer user_id) {
+        return memberService.quit(project_id, user_id);
+    }
     @GetMapping("/role") // 找不到Response.code = 2
     public Response<String> getRole(@RequestParam Integer project_id,
                                     @RequestParam Integer user_id) {
         return memberService.getRole(project_id, user_id);
     }
     @PostMapping("/role")// 更改角色（除所有者）没改权限code = 4
-    public Response<String> editRole(@RequestParam Integer project_id,
-                                     @RequestParam Integer user_id,
+    public Response<String> editRole(@RequestParam Integer projectId,
+                                     @RequestParam Integer userId,
                                      @RequestParam String role) {
-        return memberService.editRole(project_id, user_id, role);
+        return memberService.editRole(projectId, userId, role);
     }
 }
