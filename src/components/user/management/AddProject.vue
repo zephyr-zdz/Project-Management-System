@@ -77,7 +77,7 @@ export default {
                 this.clear()
               } else {
                 this.$message({
-                  message: '添加失败，请检查输入课程是否有冲突',
+                  message: '添加失败，请检查输入是否有冲突',
                   type: 'error'
                 })
               }
