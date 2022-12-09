@@ -90,7 +90,7 @@
               type="danger"
               plain
               @click="deleteMember(scope.row.id)"
-              :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') !== 2">移除
+              :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') === 0">移除
             </el-button>
           </el-button-group>
         </template>
@@ -189,6 +189,40 @@ export default {
           }
         })
     },
+    deleteMember(id) {
+      const params = new FormData()
+      params.append('project_id', this.$route.params.id)
+      params.append('user_id', id)
+      this.$axios
+        .post('/project/member/kick', params)
+        .then(resp => {
+          if (resp.data.code === 0 ) {
+            this.$message(
+              {
+                message: resp.data.msg,
+                type: 'success'
+              }
+            )
+          } else if (resp.data.code === 1) {
+            this.$message(
+              {
+                message: resp.data.msg,
+                type: 'error'
+              }
+             )
+          }
+        })
+        .catch(() =>
+          {
+            this.$message(
+          {
+                message: '发生错误',
+                type: 'error'
+              }
+            )
+          }
+        )
+    }
   }
 }
 </script>
