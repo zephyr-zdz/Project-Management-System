@@ -74,7 +74,7 @@
       <el-table-column
         label="操作"
         prop="status"
-        width="200">
+        width="200"
         fixed="right">
         <template v-slot="scope">
           <el-button-group>
