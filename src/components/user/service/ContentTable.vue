@@ -77,22 +77,36 @@
         width="200"
         fixed="right">
         <template v-slot="scope">
-          <el-button-group>
+          <el-popover
+            placement="top"
+            width="160"
+            @show="visible[scope.$index]">
+            <p>修改成员权限</p>
+            <el-radio v-model="roleEdit" label="manager">管理员</el-radio>
+            <el-radio v-model="roleEdit" label="member">成员</el-radio>
+            <div style="text-align: right; margin: 0">
+              <el-button size="mini" type="text" @click="visible[scope.$index] = false">取消</el-button>
+              <el-button type="primary" size="mini" @click="editMember(scope)">确定</el-button>
+            </div>
             <el-button
+              slot="reference"
               size="small"
               type="primary"
+              icon="el-icon-edit"
+              circle
               plain
-              @click="editMember(scope.row.id)"
-              :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') !== 2">修改身份
+              :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') !== 2 || scope.row.role === 'owner'">
             </el-button>
-            <el-button
-              size="small"
-              type="danger"
-              plain
-              @click="deleteMember(scope.row.id)"
-              :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') === 0">移除
-            </el-button>
-          </el-button-group>
+          </el-popover>
+          <el-button
+            size="small"
+            type="danger"
+            icon="el-icon-delete"
+            circle
+            plain
+            @click="deleteMember(scope.row.id)"
+            :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') === 0">
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -111,6 +125,8 @@ export default {
   components: {Invite, AssignMission},
   data () {
     return {
+      visible: [],
+      roleEdit: 'member',
       roleList:[
         {value: "owner", label: "项目所有者", cont: 2},
         {value: "manager", label: "项目管理员", cont: 1},
@@ -147,7 +163,7 @@ export default {
             intro: "已候军制全局点数山公更先风劳习所。六已该院战世元后以义观件亲此厂业本知。分识着应众越正金准数展受正细采阶。西集代南力组安油信转方才准队员月了适。历平青什光近深活段所速电半毛始办七。该往学办看电及参及件到九全类被。",
             owner_id: 1
           },
-          memberIdList: [
+          memberList: [
             1,
             2
           ],
@@ -178,6 +194,7 @@ export default {
             if (this.allProjectData[i].project.id === parseInt(this.$route.params.id)) {
               this.projectData = this.allProjectData[i]
               console.log(this.projectData.role)
+              this.visible = new Array(this.projectData.number).fill(false)
               this.$refs.assign.disabled = getLabel(this.roleList, this.projectData.role, 'value', 'cont') !== 2
               //console.log(this.$refs.assign.disabled)
               this.$refs.invite.disabled = getLabel(this.roleList, this.projectData.role, 'value', 'cont') === 0
@@ -195,15 +212,16 @@ export default {
       params.append('user_id', id)
       this.$axios
         .post('/project/member/kick', params)
-        .then(resp => {
-          if (resp.data.code === 0 ) {
+        .then( resp => {
+          if ( resp.data.code === 0 ) {
             this.$message(
               {
                 message: resp.data.msg,
                 type: 'success'
-              }
-            )
-          } else if (resp.data.code === 1) {
+              },
+            ),
+              this.getProject()
+          } else if ( resp.data.code === 1) {
             this.$message(
               {
                 message: resp.data.msg,
@@ -212,16 +230,54 @@ export default {
              )
           }
         })
-        .catch(() =>
-          {
+        .catch(() =>{
+          this.$message(
+            {
+              message: '发生错误',
+              type: 'error'
+            })
+        })
+    },
+    editMember(scope) {
+      this.visible[scope.$index] = false
+      const params = new FormData()
+      params.append('projectId', this.$route.params.id)
+      params.append('userId', scope.row.id)
+      params.append('role', this.roleEdit)
+      this.$axios
+        .post('/project/member/role', params)
+        .then( resp => {
+          if ( resp.data.code === 0 ) {
             this.$message(
-          {
-                message: '发生错误',
+              {
+                message: resp.data.msg,
+                type: 'success'
+              }
+            ),
+              this.getProject()
+          } else if ( resp.data.code === 1) {
+            this.$message(
+              {
+                message: resp.data.msg,
+                type: 'error'
+              }
+            )
+          } else {
+            this.$message(
+              {
+                message: resp.data.msg,
                 type: 'error'
               }
             )
           }
-        )
+        })
+        .catch(() =>{
+          this.$message(
+            {
+              message: '发生错误',
+              type: 'error'
+            })
+        })
     }
   }
 }
