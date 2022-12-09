@@ -121,7 +121,6 @@ export default {
               this.$alert(resp.data.msg, '结果', {
                 confirmButtonText: '确定'
               });
-              location.reload();
             } else if (resp.data.code === 1) {
               this.$alert(resp.data.msg, '结果', {
                 confirmButtonText: '确定'
@@ -143,7 +142,6 @@ export default {
               this.$alert(resp.data.msg, '结果', {
                 confirmButtonText: '确定'
               });
-              location.reload();
             } else if (resp.data.code === 1) {
               this.$alert(resp.data.msg, '结果', {
                 confirmButtonText: '确定'
