@@ -112,7 +112,7 @@ export default {
     },
     acceptInvitation(invitationId) {
       let params = new FormData();
-      params.append('invitationId', invitationId);
+      params.append('invitation_id', invitationId);
       this.$axios
         .post('/user/invitation/accept', params)
         .then(resp => {
@@ -134,7 +134,7 @@ export default {
     },
     refuseInvitation(invitationId) {
       let params = new FormData();
-      params.append('invitationId', invitationId);
+      params.append('invitation_id', invitationId);
       this.$axios
         .post('/user/invitation/refuse', params)
         .then(resp => {
