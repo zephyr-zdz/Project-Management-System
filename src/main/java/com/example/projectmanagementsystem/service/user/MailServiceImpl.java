@@ -25,7 +25,7 @@ public class MailServiceImpl implements MailService {
     public void sendMail(String receivers, String subject, String htmlMsg){
         MimeMessage mail = javaMailSender.createMimeMessage();
         mail.addRecipients(Message.RecipientType.TO, InternetAddress.parse(receivers));
-        mail.setFrom(new InternetAddress("mail-bot@zephyr-zdz.space"));
+        mail.setFrom(new InternetAddress("mail-bot@zephyr-zdz.space", "项目管理小助手"));
         mail.setSentDate(new Date());
         mail.setSubject(subject);
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
