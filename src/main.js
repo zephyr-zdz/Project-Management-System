@@ -71,9 +71,9 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
     let role = 'guest'
-    if (window.localStorage.user !== undefined) {
-      console.log(typeof(window.localStorage.user)) // string
-      let jsonObj = JSON.parse(window.localStorage.user);
+    if (window.sessionStorage.user !== undefined) {
+      console.log(typeof(window.sessionStorage.user)) // string
+      let jsonObj = JSON.parse(window.sessionStorage.user);
       // console.log(typeof(jsonObj)) // obj
       console.log(jsonObj)
       role = jsonObj.user.role

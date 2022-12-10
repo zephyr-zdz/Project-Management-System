@@ -57,7 +57,6 @@ export default {
   methods: {
     login () {
       console.log("Try to login as user...")
-      const _this = this;
       console.log(this.$store.state)
       const param = new FormData();
       param.append('username', this.loginForm.email)
@@ -69,10 +68,10 @@ export default {
             console.log(resp.data.code)
             if (resp.data.code === 0) {
               console.log(resp.data.data.id)
-              _this.$store.commit('login', {
+              this.$store.commit('login', {
                 user: {
                   userid: resp.data.data.id,
-                  name: resp.data.data.name,
+                  name: resp.data.data.username,
                   role: 'user',
                 }
               })

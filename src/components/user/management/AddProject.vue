@@ -59,7 +59,7 @@ export default {
       this.$refs.addProject.validate((valid) => {
         if (valid) {
           console.log("on Submit")
-          let jsonObj = JSON.parse(window.localStorage.user);
+          let jsonObj = JSON.parse(window.sessionStorage.user);
           let id = jsonObj.user.userid;
           this.$axios
             .post('/project/create', {

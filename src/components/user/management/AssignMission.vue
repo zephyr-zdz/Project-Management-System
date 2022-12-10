@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     async loadProject() {
-      let jsonObj = JSON.parse(window.localStorage.user);
+      let jsonObj = JSON.parse(window.sessionStorage.user);
       let id = jsonObj.user.userid;
       let url = '/user/participating/' + id
       console.log(this.userList)
@@ -133,7 +133,7 @@ export default {
     submitForm() {
       this.$refs.assignForm.validate((valid) => {
         if (valid) {
-          let jsonObj = JSON.parse(window.localStorage.user);
+          let jsonObj = JSON.parse(window.sessionStorage.user);
           let id = jsonObj.user.userid
           let issue = {
             projectId: this.assignForm.pjID,

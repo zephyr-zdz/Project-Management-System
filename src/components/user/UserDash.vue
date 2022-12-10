@@ -7,7 +7,7 @@
             <img src="../../assets/title.jpg" alt="flexslider" style="height: 95%; width: 95%" />
             <div class="flex-caption" style="margin-left: 18%">
               <div style="font-size: 70px;background-color:rgba(255,255,255,0.5);margin-right:45%;width: 375px">
-                <h3 style="font-size: 60px;color:#204F9F; opacity: 100%;">项目管理系统</h3>
+                <h3 style="font-size: 60px;color:#204F9F; opacity: 100%;background-color: ghostwhite">项目管理系统</h3>
               </div>
             </div>
           </div>

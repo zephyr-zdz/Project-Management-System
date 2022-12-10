@@ -99,7 +99,7 @@ export default {
   methods: {
     async loadInvitations() {
       console.log("loadInvitations called")
-      let jsonObj = JSON.parse(window.localStorage.user);
+      let jsonObj = JSON.parse(window.sessionStorage.user);
       let id = jsonObj.user.userid
       let url = '/user/invitation/' + id
       this.$axios
@@ -112,7 +112,7 @@ export default {
     },
     acceptInvitation(invitationId) {
       let params = new FormData();
-      params.append('invitation_id', invitationId);
+      params.append('invitationId', invitationId);
       this.$axios
         .post('/user/invitation/accept', params)
         .then(resp => {
@@ -134,7 +134,7 @@ export default {
     },
     refuseInvitation(invitationId) {
       let params = new FormData();
-      params.append('invitation_id', invitationId);
+      params.append('invitationId', invitationId);
       this.$axios
         .post('/user/invitation/refuse', params)
         .then(resp => {

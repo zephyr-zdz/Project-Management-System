@@ -49,15 +49,15 @@
       <el-table-column
         label="项目id"
         prop="project.id"
-        width="200">
+        width="150">
       </el-table-column>
       <el-table-column
         label="项目名称"
         prop="project.title">
       </el-table-column>
       <el-table-column
-        label="项目所有者id"
-        prop="project.owner_id"
+        label="项目所有者"
+        prop="owner.username"
         width="200">
       </el-table-column>
       <el-table-column
@@ -206,7 +206,7 @@
       },
       methods:{
         async getProject(){
-          let jsonObj = JSON.parse(window.localStorage.user);
+          let jsonObj = JSON.parse(window.sessionStorage.user);
           let id = jsonObj.user.userid
           let url ='/user/participating/' + id
           this.$axios
@@ -214,7 +214,7 @@
             .then(res => {this.projectData = res.data.data})
           },
         exit(index,row){
-          let jsonObj = JSON.parse(window.localStorage.user);
+          let jsonObj = JSON.parse(window.sessionStorage.user);
           let id = jsonObj.user.userid
           const params = new FormData();
           params.append('user_id', id);

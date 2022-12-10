@@ -105,7 +105,7 @@
             circle
             plain
             @click="deleteMember(scope.row.id)"
-            :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') === 0">
+            :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') === 0 || scope.row.role === 'owner' || scope.row.role === 'manager'">
           </el-button>
         </template>
       </el-table-column>
@@ -183,7 +183,7 @@ export default {
   },
   methods: {
     async getProject() {
-      let jsonObj = JSON.parse(window.localStorage.user);
+      let jsonObj = JSON.parse(window.sessionStorage.user);
       let id = jsonObj.user.userid
       let url = '/user/participating/' + id
       this.$axios
@@ -195,7 +195,7 @@ export default {
               this.projectData = this.allProjectData[i]
               console.log(this.projectData.role)
               this.visible = new Array(this.projectData.number).fill(false)
-              this.$refs.assign.disabled = getLabel(this.roleList, this.projectData.role, 'value', 'cont') !== 2
+              this.$refs.assign.disabled = getLabel(this.roleList, this.projectData.role, 'value', 'cont') === 0
               //console.log(this.$refs.assign.disabled)
               this.$refs.invite.disabled = getLabel(this.roleList, this.projectData.role, 'value', 'cont') === 0
               this.$refs.assign.assignForm.pjID = this.projectData.project.id

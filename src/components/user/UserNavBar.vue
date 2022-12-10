@@ -11,7 +11,7 @@
         <i class="el-icon-s-home" style="'color:#455368'; position: relative; left: -30px"></i>
         <span class="character">首页</span>
       </el-menu-item>
-      <el-submenu index="">
+      <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-document" style="'color:#455368'; position: relative; left: -30px"></i>
           <span class="character">项目</span>
@@ -25,17 +25,25 @@
           <span>邀请信息</span>
         </el-menu-item>
       </el-submenu>
-      <el-menu-item
-        index="/user-home/message-list"
-        style="position: fixed; bottom: 56px; left: 0%; width: 200px">
-        <i class="el-icon-s-flag" style="'color:#455368'; position: relative; left: -30px"></i>
-        <span class="character">任务消息</span>
-      </el-menu-item>
+      <el-submenu index="2">
+        <template slot="title">
+          <i class="el-icon-s-cooperation" style="'color:#455368'; position: relative; left: -30px"></i>
+          <span class="character">任务</span>
+        </template>
+        <el-menu-item index="/user-home/message-list">
+          <i class="el-icon-s-flag" style="'color:#455368'"></i>
+          <span>我的任务</span>
+        </el-menu-item>
+        <el-menu-item index="/user-home/assigned-mission">
+          <i class="el-icon-thumb" style="'color:#455368'"></i>
+          <span>指派的任务</span>
+        </el-menu-item>
+      </el-submenu>
       <el-menu-item
         index="/user-home/edit-info"
         style="position: fixed; bottom: 0; left: 0%; width: 200px">
         <i class="el-icon-user-solid" style="'color:#455368'; position: relative; left: -30px"></i>
-        <span class="character">个人信息</span>
+        <span class="character">{{ userName }}</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -49,6 +57,10 @@ export default {
       userName: 'xxx'
     }
   },
+  mounted() {
+    let jsonObj = JSON.parse(window.sessionStorage.user);
+    this.userName = jsonObj.user.name
+  }
 }
 </script>
 

@@ -87,7 +87,7 @@ export default {
             })
     },
     selectUser (row) {
-      let jsonObj = JSON.parse(window.localStorage.user);
+      let jsonObj = JSON.parse(window.sessionStorage.user);
       let id = jsonObj.user.userid
       const param = new FormData();
       param.append('user_id', id)

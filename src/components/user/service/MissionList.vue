@@ -1,5 +1,5 @@
 <template>
-  <el-table 
+  <el-table
     ref="filterTable"
       :data="TaskData"
       style="width: 100%" >
@@ -33,7 +33,7 @@
 
   </el-table>
 </template>
-  
+
 <script>
 import AssignMission from "../management/AssignMission.vue";
 import Invite from "../management/Invite.vue";
@@ -111,7 +111,7 @@ Vue.prototype.$getLabel = getLabel;
           return row[property] === value;
         },
         async getMission() {
-        let jsonObj = JSON.parse(window.localStorage.user);
+        let jsonObj = JSON.parse(window.sessionStorage.user);
         let id = jsonObj.user.userid
         let url = '/user/participating/' + id
         this.$axios
