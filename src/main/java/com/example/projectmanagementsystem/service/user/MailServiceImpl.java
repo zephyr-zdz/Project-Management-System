@@ -15,11 +15,6 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Date;
 
 @Service("UserMailService")
-/*
-  @author M.C
- * @description EmailServiceImpl
- * @date 2019-02-20 9:01
- */
 public class MailServiceImpl implements MailService {
 
     @Resource
@@ -39,5 +34,6 @@ public class MailServiceImpl implements MailService {
         multipart.addBodyPart(mimeBodyPart);
         mail.setContent(multipart);
         javaMailSender.send(mail);
+        System.out.println("邮件发送成功");
     }
 }

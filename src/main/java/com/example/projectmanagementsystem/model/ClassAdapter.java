@@ -41,7 +41,11 @@ public class ClassAdapter {
         // manager
         Integer projectId = project.getId();
         List<User> managerList = new ArrayList<>(memberManager.findManagerListByProjectId(projectId));
-        projectVO.setManagerList(managerList);
+        List<SafeUser> managerSafeList = new ArrayList<>();
+        for (User member : managerList) {
+            managerSafeList.add(fromUser2SafeUser(member));
+        }
+        projectVO.setManagerList(managerSafeList);
         // member
         List<User> memberList = memberManager.findMembersByProjectId(projectId);
         List<RoleUser> memberRoleList = new ArrayList<>();
