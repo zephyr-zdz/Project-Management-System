@@ -28,12 +28,8 @@ public class User {
     private String password;
     @Column(name = "email", length = 30)
     private String email;
-
-    public void update(User newUser) {
-        setUsername(newUser.getUsername());
-        setPassword(newUser.getPassword());
-        setEmail(newUser.getEmail());
-    }
+    @Column(name = "send_key", length = 256)
+    private String sendKey;
 
     @Override
     public boolean equals(Object o) {
