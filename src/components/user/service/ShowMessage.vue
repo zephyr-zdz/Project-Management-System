@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import MessageList from "./MessageList.vue";
+import MessageList from "./MyMissionList.vue";
 export default {
   name: "ShowMessage",
   components: {MessageList}
