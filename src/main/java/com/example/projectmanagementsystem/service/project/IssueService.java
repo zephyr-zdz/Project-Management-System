@@ -3,7 +3,9 @@ package com.example.projectmanagementsystem.service.project;
 import com.example.projectmanagementsystem.manager.project.IssueManager;
 import com.example.projectmanagementsystem.manager.project.ProjectManager;
 import com.example.projectmanagementsystem.manager.user.UserManager;
+import com.example.projectmanagementsystem.model.ClassAdapter;
 import com.example.projectmanagementsystem.model.entity.Issue;
+import com.example.projectmanagementsystem.model.vo.IssueVO;
 import com.example.projectmanagementsystem.service.user.MessageService;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,15 @@ public class IssueService {
     private final ProjectManager projectManager;
     private final UserManager userManager;
     private final MessageService messageService;
-    public IssueService(IssueManager issueManager, ProjectManager projectManager, UserManager userManager, MessageService messageService) {
+    private final ClassAdapter classAdapter;
+
+    public IssueService(IssueManager issueManager, ProjectManager projectManager, UserManager userManager, MessageService messageService, ClassAdapter classAdapter
+                        ) {
         this.issueManager = issueManager;
         this.projectManager = projectManager;
         this.userManager = userManager;
         this.messageService = messageService;
+        this.classAdapter = classAdapter;
     }
     public Response<Issue> create(Issue issue) {
         if (issue == null) {
@@ -72,19 +78,21 @@ public class IssueService {
         List<Issue> issues = issueManager.findIssuesByProjectId(projectId);
         return new Response<>(Response.SUCCESS, "获取项目下所有issue成功", issues);
     }
-    public Response<List<Issue>> listAssigningByUser(Integer userId) {
+    public Response<List<IssueVO>> listAssigningByUser(Integer userId) {
         if (userManager.findUserById(userId) == null) {
             return new Response<>(Response.FAIL, "用户不存在", null);
         }
         List<Issue> issues = issueManager.findIssuesByReviewerId(userId);
-        return new Response<>(Response.SUCCESS, "获取用户指派他人的所有issue成功", issues);
+        List<IssueVO> issueVOs = issues.stream().map(classAdapter::fromIssue2IssueVO).toList();
+        return new Response<>(Response.SUCCESS, "获取用户指派他人的所有issue成功", issueVOs);
     }
 
-    public Response<List<Issue>> listAssignedByUser(Integer userId) {
+    public Response<List<IssueVO>> listAssignedByUser(Integer userId) {
         if (userManager.findUserById(userId) == null) {
             return new Response<>(Response.FAIL, "用户不存在", null);
         }
         List<Issue> issues = issueManager.findIssuesByAssigneeId(userId);
-        return new Response<>(Response.SUCCESS, "获取用户被指派的所有issue成功", issues);
+        List<IssueVO> issueVOs = issues.stream().map(classAdapter::fromIssue2IssueVO).toList();
+        return new Response<>(Response.SUCCESS, "获取用户被指派的所有issue成功", issueVOs);
     }
 }

@@ -4,6 +4,7 @@ import com.example.projectmanagementsystem.manager.project.MemberManager;
 import com.example.projectmanagementsystem.manager.project.ProjectManager;
 import com.example.projectmanagementsystem.manager.user.UserManager;
 import com.example.projectmanagementsystem.model.entity.Invitation;
+import com.example.projectmanagementsystem.model.entity.Issue;
 import com.example.projectmanagementsystem.model.entity.Project;
 import com.example.projectmanagementsystem.model.entity.User;
 import com.example.projectmanagementsystem.model.vo.*;
@@ -92,5 +93,16 @@ public class ClassAdapter {
         String role = memberManager.findMemberListByProjectIdAndUserId(project.getId(), user.getId()).getRole();
         roleUser.setRole(role);
         return roleUser;
+    }
+
+    public IssueVO fromIssue2IssueVO(Issue issue) {
+        IssueVO issueVO = new IssueVO();
+        issueVO.setId(issue.getId());
+        issueVO.setProjectName(projectManager.findProjectById(issue.getProjectId()).getTitle());
+        issueVO.setReviewerName(userManager.findUserById(issue.getReviewerId()).getUsername());
+        issueVO.setTitle(issue.getTitle());
+        issueVO.setDescription(issue.getDescription());
+        issueVO.setStatus(issue.getStatus());
+        return issueVO;
     }
 }
