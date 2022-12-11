@@ -46,4 +46,8 @@ public class UserManager {
     public List<User> findUsersByUsernameLike(String name) {
         return userMapper.findUsersByUsernameLike(name);
     }
+
+    public void update(User user) {
+        userMapper.save(user);
+    }
 }

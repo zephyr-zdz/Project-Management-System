@@ -66,4 +66,14 @@ public class UserService {
         }
         return new Response<>(Response.SUCCESS, "用户查找完毕", users);
     }
+
+    public Response<String> saveSendKey(String token, Integer userId) {
+        User user = userManager.findUserById(userId);
+        if (user == null) {
+            return new Response<>(Response.FAIL, "用户不存在", null);
+        }
+        user.setSendKey(token);
+        userManager.update(user);
+        return new Response<>(Response.SUCCESS, "发送密钥保存成功", token);
+    }
 }

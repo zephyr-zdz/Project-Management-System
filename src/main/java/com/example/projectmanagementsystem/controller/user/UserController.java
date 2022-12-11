@@ -34,6 +34,10 @@ public class UserController {
     public Response<List<SafeUser>> searchUser(@RequestParam("name") String name) {
         return userService.search("%" + name + "%");
     }
+    @PostMapping("/token/{userId}")
+    public Response<String> sendKey(@RequestParam("token") String token, @PathVariable Integer userId) {
+        return userService.saveSendKey(token, userId);
+    }
     @GetMapping("/participating/{userId}")
     public Response<List<ProjectUserVO>> findMyProjects(@PathVariable Integer userId) {
         return memberService.findProjects(userId);
