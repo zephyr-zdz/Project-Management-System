@@ -9,6 +9,8 @@ import ShowProject from "../components/user/service/ShowProject";
 import ShowInvitation from "../components/user/service/ShowInvitation";
 import ProjectContent from "../components/user/service/ProjectContent.vue";
 import ShowMessage from "../components/user/service/ShowMessage.vue";
+import UserInfo from "../components/user/UserInfo.vue";
+import ShowMyAssignedList from "../components/user/service/ShowMyAssignedList.vue";
 
 Vue.use(VueRouter)
 
@@ -52,14 +54,14 @@ export default new VueRouter({
             roles: [ 'user' ]
           }
         },
-        //{
-        //  path: 'edit-info',
-        //  name: 'StudentEdit',
-        //  component: UserEdit,
-        //  //meta: {
-        //  //  roles: [ 'user', 'guest']
-        //  //}
-        //},
+        {
+          path: 'user-info',
+          name: 'UserInfo',
+          component: UserInfo,
+          meta: {
+            roles: [ 'user' ]
+          }
+        },
         //    {
         //      path: 'change-password',
         //      name: 'ChangePassword',
@@ -72,6 +74,14 @@ export default new VueRouter({
           path: 'my-invitation',
           name: 'MyInvitation',
           component: ShowInvitation,
+          meta: {
+            roles: [ 'user' ]
+          }
+        },
+        {
+          path: 'assigned-mission',
+          name: 'MyAssignedList',
+          component: ShowMyAssignedList,
           meta: {
             roles: [ 'user' ]
           }

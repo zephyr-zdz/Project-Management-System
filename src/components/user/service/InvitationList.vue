@@ -8,7 +8,7 @@
       <el-table-column
         label="编号"
         prop="id"
-        width="50px">
+        width="100px">
       </el-table-column>
       <el-table-column
         label="昵称"
@@ -51,46 +51,7 @@ export default {
   name: "InvitationList",
   data () {
     return {
-      invitationData: [
-        {
-          id: 1,
-          inviter: {
-            id: 1,
-            username: "张三",
-            email: ""
-          },
-          receiver: {
-            id: 2,
-            username: "李四",
-            email: ""
-          },
-          project:{
-            id: 1,
-            title: "vdsbssfb",
-            intro: "sdfbsdfb",
-            owner_id: 1,
-          },
-        },
-        {
-          id: 5,
-          inviter: {
-            id: 1,
-            username: "张三",
-            email: ""
-          },
-          receiver: {
-            id: 2,
-            username: "李四",
-            email: ""
-          },
-          project:{
-            id: 1,
-            title: "vdsbssfb",
-            intro: "sdfbsdfb",
-            owner_id: 1,
-          },
-        },
-      ],
+      invitationData: [],
     }
   },
   mounted: function() {

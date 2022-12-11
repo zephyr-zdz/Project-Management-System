@@ -3,35 +3,35 @@
     <el-descriptions class="margin-top" :column="2" direction="vertical" border>
       <el-descriptions-item>
         <template slot="label">
-          <i class="el-icon-user"></i>
+          <i class="el-icon-s-order"></i>
           项目名称
         </template>
         {{ projectData.project.title }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
-          <i class="el-icon-mobile-phone"></i>
+          <i class="el-icon-s-data"></i>
           项目ID
         </template>
         {{ projectData.project.id }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
-          <i class="el-icon-location-outline"></i>
+          <i class="el-icon-user"></i>
           所有者
         </template>
         {{ projectData.owner.username }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
-          <i class="el-icon-mobile-phone"></i>
+          <i class="el-icon-s-custom"></i>
           项目人数
         </template>
         {{ projectData.number }}
       </el-descriptions-item>
       <el-descriptions-item>
         <template slot="label">
-          <i class="el-icon-mobile-phone"></i>
+          <i class="el-icon-info"></i>
           项目介绍
         </template>
         {{ projectData.project.intro }}
@@ -132,50 +132,8 @@ export default {
         {value: "manager", label: "项目管理员", cont: 1},
         {value: "member", label: "项目成员", cont: 0}
       ],
-      projectData:
-        {
-          project: {
-            id: 1,
-            title: "片候设",
-            intro: "已候军制全局点数山公更先风劳习所。六已该院战世元后以义观件亲此厂业本知。分识着应众越正金准数展受正细采阶。西集代南力组安油信转方才准队员月了适。历平青什光近深活段所速电半毛始办七。该往学办看电及参及件到九全类被。",
-            owner_id: 1
-          },
-          memberList: [
-            {
-              id: 1,
-              username: "张三",
-              email: ""
-            }
-          ],
-          number: 2,
-          owner: {
-            id: 1,
-            username: "张三",
-            email: ""
-          },
-          role: ''
-        },
-      allProjectData: [
-        {
-          project: {
-            id: 1,
-            title: "片候设",
-            intro: "已候军制全局点数山公更先风劳习所。六已该院战世元后以义观件亲此厂业本知。分识着应众越正金准数展受正细采阶。西集代南力组安油信转方才准队员月了适。历平青什光近深活段所速电半毛始办七。该往学办看电及参及件到九全类被。",
-            owner_id: 1
-          },
-          memberList: [
-            1,
-            2
-          ],
-          number: 2,
-          owner: {
-            id: 1,
-            username: "张三",
-            email: ""
-          },
-          role: ''
-        },
-      ]
+      projectData: {},
+      allProjectData: []
     }
   },
   mounted () {

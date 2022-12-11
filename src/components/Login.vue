@@ -72,6 +72,7 @@ export default {
                 user: {
                   userid: resp.data.data.id,
                   name: resp.data.data.username,
+                  email: resp.data.data.email,
                   role: 'user',
                 }
               })

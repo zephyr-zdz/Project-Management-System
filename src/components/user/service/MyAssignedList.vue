@@ -67,79 +67,79 @@
   </el-table>
 </template>
 
-<style scoped>
-
-</style>
-
 <script>
 import {getLabel} from "../../../utils/methods";
 import Vue from "vue";
 Vue.prototype.$getLabel = getLabel;
-  export default {
-    name:"MessageList",
-    data() {
-      return {
-        visible: [],
-        statusEdit: [],
-        iconList: [
-          {
-            status: "open",
-            text: "开发中"
-          },
-          {
-            status: "closed",
-            text: "已关闭"
-          },
-          {
-            status: "done",
-            text: "已完成"
-          }
-        ],
-        messageData: [],
-      }
-    },
-    mounted () {
-    this.getMessage()
-    },
-    methods: {
-      getMessage(){
-        let jsonObj = JSON.parse(window.sessionStorage.user);
-        let id = jsonObj.user.userid
-        let url = '/user/issue/list/assigned/' + id
-        this.$axios
-          .get(url)
-          .then(res => {
-            this.messageData = res.data.data
-            this.visible = new Array(this.messageData.length).fill(false)
-            for (let i = 0; i < this.messageData.length; i++) {
-              this.statusEdit[i] = this.messageData[i].status
-            }
-          })
-      },
-      changeStatus(scope) {
-        this.visible[scope.$index] = false
-        let data = {
-          id: scope.row.id,
-          status: this.statusEdit[scope.$index]
+export default {
+  name: "MyAssignedList",
+  data() {
+    return {
+      visible: [],
+      statusEdit: [],
+      iconList: [
+        {
+          status: "open",
+          text: "开发中"
+        },
+        {
+          status: "closed",
+          text: "已关闭"
+        },
+        {
+          status: "done",
+          text: "已完成"
         }
-        this.$axios
-          .post('/project/issue/edit/', data)
-          .then(res => {
-            if (res.data.code === 0) {
-              this.$message({
-                message: res.data.msg,
-                type: 'success'
-              })
-              this.getMessage()
-            } else {
-              this.$message({
-                message: res.data.msg,
-                type: 'error'
-              })
-            }
-            this.getMessage()
-          })
-      }
+      ],
+      messageData: [],
+    }
+  },
+  mounted () {
+    this.getMessage()
+  },
+  methods: {
+    getMessage(){
+      let jsonObj = JSON.parse(window.sessionStorage.user);
+      let id = jsonObj.user.userid
+      let url = '/user/issue/list/assigning/' + id
+      this.$axios
+        .get(url)
+        .then(res => {
+          this.messageData = res.data.data
+          this.visible = new Array(this.messageData.length).fill(false)
+          for (let i = 0; i < this.messageData.length; i++) {
+            this.statusEdit[i] = this.messageData[i].status
+          }
+        })
     },
-  }
+    changeStatus(scope) {
+      this.visible[scope.$index] = false
+      let data = {
+        id: scope.row.id,
+        status: this.statusEdit[scope.$index]
+      }
+      this.$axios
+        .post('/project/issue/edit/', data)
+        .then(res => {
+          if (res.data.code === 0) {
+            this.$message({
+              message: res.data.msg,
+              type: 'success'
+            })
+            this.getMessage()
+          } else {
+            this.$message({
+              message: res.data.msg,
+              type: 'error'
+            })
+          }
+          this.getMessage()
+        })
+    }
+  },
+}
 </script>
+
+<style scoped>
+
+</style>

@@ -10,35 +10,35 @@
           <el-descriptions class="margin-top" :column="2" direction="vertical" border>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-user"></i>
+                <i class="el-icon-s-order"></i>
                 项目名称
               </template>
               {{ props.row.project.title }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-mobile-phone"></i>
+                <i class="el-icon-s-data"></i>
                 项目ID
               </template>
               {{ props.row.project.id }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-location-outline"></i>
+                <i class="el-icon-user"></i>
                 所有者
               </template>
               {{ props.row.owner.username }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-mobile-phone"></i>
+                <i class="el-icon-s-custom"></i>
                 项目人数
               </template>
               {{ props.row.number }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
-                <i class="el-icon-mobile-phone"></i>
+                <i class="el-icon-info"></i>
                 项目介绍
               </template>
               {{ props.row.project.intro }}
