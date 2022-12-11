@@ -58,15 +58,15 @@ public class IssueService {
         if (issueManager.findIssueById(issue.getId()) == null) {
             return new Response<>(Response.FAIL, "issue不存在", null);
         }
-        if (projectManager.findProjectById(issue.getProjectId()) == null) {
-            return new Response<>(Response.FAIL, "新issue所属项目为空", null);
+        if (issue.getStatus() == null) {
+            return new Response<>(Response.FAIL, "issue不存在", null);
         }
-        if (userManager.findUserById(issue.getReviewerId()) == null) {
-            return new Response<>(Response.FAIL, "新issue指派者为空", null);
-        }
-        if (userManager.findUserById(issue.getAssigneeId()) == null) {
-            return new Response<>(Response.FAIL, "新issue受托者为空", null);
-        }
+        Issue oldIssue = issueManager.findIssueById(issue.getId());
+        issue.setProjectId(oldIssue.getProjectId());
+        issue.setReviewerId(oldIssue.getReviewerId());
+        issue.setAssigneeId(oldIssue.getAssigneeId());
+        issue.setTitle(oldIssue.getTitle());
+        issue.setDescription(oldIssue.getDescription());
         issueManager.editIssue(issue);
         return new Response<>(Response.SUCCESS, "修改issue成功", issue);
     }
