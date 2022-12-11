@@ -68,7 +68,7 @@ export default {
               owner_id: id,
             })
             .then(resp => {
-              console.log(resp.data)
+              //console.log(resp.data)
               if (resp.data.code === 0) {
                 this.$message({
                   message: resp.data.msg,
@@ -81,6 +81,12 @@ export default {
                   type: 'error'
                 })
               }
+            })
+            .catch(error => {
+              this.$message({
+                message: error,
+                type: 'error'
+              })
             })
         } else {
           this.$alert('请检查输入是否正确', '添加失败', {confirmButtonText: '确定'})

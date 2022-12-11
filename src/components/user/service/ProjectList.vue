@@ -61,6 +61,14 @@
         width="200">
       </el-table-column>
       <el-table-column
+        label="我的角色">
+        <template v-slot="scope">
+          <p v-if="scope.row.role === 'owner'">项目所有者</p>
+          <p v-else-if="scope.row.role === 'manager'">项目管理员</p>
+          <p v-else-if="scope.row.role === 'member'">项目成员</p>
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="project.operation"
         label="操作"
         width="100"
@@ -225,27 +233,28 @@
           type: 'warning'
         }).then(() => {
           this.$axios
-          .post('/project/member/quit', params)
-          .then(res => {
-          if (res.data.code === 0) {
-            this.$message({
-              message: res.data.msg,
-              type: 'success'
+            .post('/project/member/quit', params)
+            .then(res => {
+              if (res.data.code === 0) {
+                this.$message({
+                  message: res.data.msg,
+                  type: 'success'
+                })
+              this.getProject()
+              } else {
+                this.$message({
+                  message: res.data.msg,
+                  type: 'error'
+                })
+              }
             })
-            this.getProject()
-          } else {
-            this.$message({
-              message: res.data.msg,
-              type: 'error'
+            .catch(error => {
+              this.$message({
+                message: error,
+                type: 'error'
+              })
             })
-          }
-        })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消退出'
-          });
-        });
+          })
         },
         showContent(row, column) {
           //console.log(column)

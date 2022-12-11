@@ -153,48 +153,55 @@ export default {
               this.projectData = this.allProjectData[i]
               console.log(this.projectData.role)
               this.visible = new Array(this.projectData.number).fill(false)
-              this.$refs.assign.disabled = getLabel(this.roleList, this.projectData.role, 'value', 'cont') === 0
-              //console.log(this.$refs.assign.disabled)
-              this.$refs.invite.disabled = getLabel(this.roleList, this.projectData.role, 'value', 'cont') === 0
-              this.$refs.assign.assignForm.pjID = this.projectData.project.id
-              this.$refs.assign.assignForm.pjName = this.projectData.project.title
-              this.$refs.assign.userList = this.projectData.memberList
-              //console.log(this.$refs.assign.userList)
+              this.$nextTick(() => {
+                this.$refs.assign.disabled = this.projectData.role === "member"
+                //console.log(this.$refs.assign.disabled)
+                this.$refs.invite.disabled = this.projectData.role === "member"
+                this.$refs.assign.assignForm.pjID = this.projectData.project.id
+                this.$refs.assign.assignForm.pjName = this.projectData.project.title
+                this.$refs.assign.userList = this.projectData.memberList
+              })
             }
           }
         })
     },
     deleteMember(id) {
-      const params = new FormData()
-      params.append('project_id', this.$route.params.id)
-      params.append('user_id', id)
-      this.$axios
-        .post('/project/member/kick', params)
-        .then( resp => {
-          if ( resp.data.code === 0 ) {
+      this.$confirm('此操作将删除该成员, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const params = new FormData()
+        params.append('project_id', this.$route.params.id)
+        params.append('user_id', id)
+        this.$axios
+          .post('/project/member/kick', params)
+          .then(resp => {
+            if (resp.data.code === 0) {
+              this.$message(
+                {
+                  message: resp.data.msg,
+                  type: 'success'
+                },
+              ),
+                this.getProject()
+            } else if (resp.data.code === 1) {
+              this.$message(
+                {
+                  message: resp.data.msg,
+                  type: 'error'
+                }
+              )
+            }
+          })
+          .catch(() => {
             this.$message(
               {
-                message: resp.data.msg,
-                type: 'success'
-              },
-            ),
-              this.getProject()
-          } else if ( resp.data.code === 1) {
-            this.$message(
-              {
-                message: resp.data.msg,
+                message: '发生错误',
                 type: 'error'
-              }
-             )
-          }
-        })
-        .catch(() =>{
-          this.$message(
-            {
-              message: '发生错误',
-              type: 'error'
-            })
-        })
+              })
+          })
+      })
     },
     editMember(scope) {
       this.visible[scope.$index] = false
@@ -229,10 +236,10 @@ export default {
             )
           }
         })
-        .catch(() =>{
+        .catch(error =>{
           this.$message(
             {
-              message: '发生错误',
+              message: error,
               type: 'error'
             })
         })

@@ -59,9 +59,7 @@ export default {
         taskName: '',
         taskInfo: '',
       },
-      userList: [
-        {id: 1, username: '张三'},
-      ],
+      userList: [],
       rules: {
         pjName: [
           {
@@ -91,24 +89,7 @@ export default {
           }
         ],
       },
-      projectList: [
-        {
-          project: {
-            id: 1,
-            title: "片候设",
-            intro: "已候军制全局点数山公更先风劳习所。六已该院战世元后以义观件亲此厂业本知。分识着应众越正金准数展受正细采阶。西集代南力组安油信转方才准队员月了适。历平青什光近深活段所速电半毛始办七。该往学办看电及参及件到九全类被。",
-            owner_id: 1
-          },
-          memberList: [
-            {
-              id: 1,
-              name: "csdv",
-              auth: 1,
-            }
-          ],
-          number: 2
-        }
-      ]
+      projectList: []
     }
   },
   mounted: function () {
@@ -119,7 +100,7 @@ export default {
       let jsonObj = JSON.parse(window.sessionStorage.user);
       let id = jsonObj.user.userid;
       let url = '/user/participating/' + id
-      console.log(this.userList)
+      //console.log(this.userList)
       this.$axios
         .get(url)
         .then(response => {
@@ -149,12 +130,19 @@ export default {
               console.log(resp.data.code)
               if (resp.data.code === 0) {
                 this.$message.success(resp.data.msg)
+                this.clear()
               } else{
                 this.$message({
                   message: resp.data.msg,
                   type: 'error'
                 })
               }
+            })
+            .catch(error => {
+              this.$message({
+                message: error,
+                type: 'error'
+              })
             })
         } else {
           console.log('error submit!!');

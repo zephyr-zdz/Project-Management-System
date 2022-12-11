@@ -139,6 +139,12 @@ Vue.prototype.$getLabel = getLabel;
             }
             this.getMessage()
           })
+          .catch(error => {
+            this.$message({
+              message: error,
+              type: 'error'
+            })
+          })
       }
     },
   }

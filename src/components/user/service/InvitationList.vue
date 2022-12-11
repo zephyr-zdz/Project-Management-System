@@ -92,6 +92,12 @@ export default {
             }
           }
         })
+        .catch(error => {
+          this.$message({
+            message: error,
+            type: 'error'
+          })
+        })
     },
     refuseInvitation(invitationId) {
       let params = new FormData();
@@ -113,6 +119,12 @@ export default {
               this.$alert('Error', {confirmButtonText: 'OK'})
             }
           }
+        })
+        .catch(error => {
+          this.$message({
+            message: error,
+            type: 'error'
+          })
         })
     }
   }

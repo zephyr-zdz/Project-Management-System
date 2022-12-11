@@ -85,6 +85,12 @@ export default {
                 })
               }
             })
+            .catch(error => {
+              this.$message({
+                message: error,
+                type: 'error'
+              })
+            })
     },
     selectUser (row) {
       let jsonObj = JSON.parse(window.sessionStorage.user);
@@ -108,6 +114,12 @@ export default {
               type: 'error'
             })
           }
+        })
+        .catch(error => {
+          this.$message({
+            message: error,
+            type: 'error'
+          })
         })
     }
   }
