@@ -72,6 +72,7 @@ public class IssueService {
         issue.setAssigneeId(oldIssue.getAssigneeId());
         issue.setTitle(oldIssue.getTitle());
         issue.setDescription(oldIssue.getDescription());
+        issue.setDate(oldIssue.getDate());
         issueManager.editIssue(issue);
         return new Response<>(Response.SUCCESS, "修改issue成功", issue);
     }
