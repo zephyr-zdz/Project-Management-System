@@ -5,7 +5,7 @@
         <el-card class="card">
           <el-row>
             <h2 style="height: 25px; margin: 20px 0 0;">我的项目</h2>
-            <add-project style="position: relative; left: 40%;"></add-project>
+            <add-project style="position: relative; left: 40%; bottom: -10px"></add-project>
           </el-row>
           <project-list></project-list>
         </el-card>

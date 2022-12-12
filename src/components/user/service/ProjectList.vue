@@ -1,7 +1,9 @@
 <template>
+  <div>
+    <el-button type="primary" @click="refresh()" icon="el-icon-refresh" size="mini" circle plain style="position: relative; left:47%; z-index: 20; bottom: -10px"></el-button>
   <el-table
       :data="projectData"
-      style="width: 100%"
+      style="width: 100%; position: relative; top: -60px"
       :header-row-style="{height: '60px'}"
       :cell-style="{padding:'2px'}"
       @row-click="showContent"
@@ -85,6 +87,7 @@
         </template>
       </el-table-column>
     </el-table>
+  </div>
 </template>
 
   <style scoped>
@@ -152,6 +155,9 @@
             this.$router.push({path: `/user-home/my-project/${row.project.id}`})
           }
         },
+        refresh(){
+          this.getProject()
+        }
       }
     }
   </script>
