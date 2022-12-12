@@ -138,7 +138,20 @@ export default {
         {value: "manager", label: "项目管理员", cont: 1},
         {value: "member", label: "项目成员", cont: 0}
       ],
-      projectData: {},
+      projectData: {
+        project: {
+          title: '',
+          id: '',
+          intro: ''
+        },
+        owner: {
+          username: '',
+          email: ''
+        },
+        number: 0,
+        role: '',
+        memberList: []
+      },
       allProjectData: [],
     }
   },
