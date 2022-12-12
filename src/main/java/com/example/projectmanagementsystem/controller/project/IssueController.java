@@ -1,6 +1,7 @@
 package com.example.projectmanagementsystem.controller.project;
 
 import com.example.projectmanagementsystem.model.entity.Issue;
+import com.example.projectmanagementsystem.model.vo.IssueVO;
 import com.example.projectmanagementsystem.service.project.IssueService;
 import com.example.projectmanagementsystem.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class IssueController {
         this.issueService = issueService;
     }
     @GetMapping("/list/{project_id}")
-    public Response<List<Issue>> getIssueList(@PathVariable Integer project_id) {
+    public Response<List<IssueVO>> getIssueList(@PathVariable Integer project_id) {
         return issueService.listByProject(project_id);
     }
     @PostMapping("/create")

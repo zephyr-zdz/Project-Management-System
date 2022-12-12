@@ -103,6 +103,7 @@ public class ClassAdapter {
         issueVO.setTitle(issue.getTitle());
         issueVO.setDescription(issue.getDescription());
         issueVO.setStatus(issue.getStatus());
+        issueVO.setDate(issue.getDate());
         return issueVO;
     }
 }

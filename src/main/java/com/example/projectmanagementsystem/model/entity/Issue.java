@@ -28,6 +28,8 @@ public class Issue {
     private String description;
     @Column(name = "status", nullable = false)
     private String status;
+    @Column(name = "date", nullable = false)
+    private String date;
 
     public void initialize(Integer project_id, Integer reviewer_id, Integer assignee_id, String title, String description) {
         this.projectId = project_id;

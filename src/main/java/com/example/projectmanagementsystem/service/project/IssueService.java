@@ -11,6 +11,8 @@ import com.example.projectmanagementsystem.util.Response;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -46,6 +48,9 @@ public class IssueService {
         if (!(issue.getStatus() == null) && !(issue.getStatus().equals("open"))) {
             return new Response<>(Response.FAIL, "issue状态不为开发中", null);
         }
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        issue.setDate(ft.format(dNow));
         issueManager.createIssue(issue);
         messageService.createMessage(issue.getId());
         return new Response<>(Response.SUCCESS, "创建issue成功", issue);
@@ -71,12 +76,13 @@ public class IssueService {
         return new Response<>(Response.SUCCESS, "修改issue成功", issue);
     }
 
-    public Response<List<Issue>> listByProject(Integer projectId) {
+    public Response<List<IssueVO>> listByProject(Integer projectId) {
         if (projectManager.findProjectById(projectId) == null) {
             return new Response<>(Response.FAIL, "项目不存在", null);
         }
         List<Issue> issues = issueManager.findIssuesByProjectId(projectId);
-        return new Response<>(Response.SUCCESS, "获取项目下所有issue成功", issues);
+        List<IssueVO> issueVOs = issues.stream().map(classAdapter::fromIssue2IssueVO).toList();
+        return new Response<>(Response.SUCCESS, "获取项目下所有issue成功", issueVOs);
     }
     public Response<List<IssueVO>> listAssigningByUser(Integer userId) {
         if (userManager.findUserById(userId) == null) {
