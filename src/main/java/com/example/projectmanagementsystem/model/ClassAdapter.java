@@ -100,6 +100,7 @@ public class ClassAdapter {
         issueVO.setId(issue.getId());
         issueVO.setProjectName(projectManager.findProjectById(issue.getProjectId()).getTitle());
         issueVO.setReviewerName(userManager.findUserById(issue.getReviewerId()).getUsername());
+        issueVO.setAssigneeName(userManager.findUserById(issue.getAssigneeId()).getUsername());
         issueVO.setTitle(issue.getTitle());
         issueVO.setDescription(issue.getDescription());
         issueVO.setStatus(issue.getStatus());

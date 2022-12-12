@@ -11,7 +11,7 @@ public class IssueVO {
     private Integer id;
     private String projectName;
     private String reviewerName;
-    private Integer assigneeId;
+    private String assigneeName;
     private String title;
     private String description;
     private String status;
