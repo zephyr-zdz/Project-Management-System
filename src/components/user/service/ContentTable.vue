@@ -110,6 +110,11 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-divider></el-divider>
+
+    <mission-list ref="mission"></mission-list>
+
   </div>
 </template>
 
@@ -117,12 +122,13 @@
 import AssignMission from "../management/AssignMission.vue";
 import Invite from "../management/Invite.vue";
 import {getLabel} from "../../../utils/methods";
+import MissionList from "./MissionList.vue";
 import Vue from "vue";
 Vue.prototype.$getLabel = getLabel;
 
 export default {
   name: "ContentTable",
-  components: {Invite, AssignMission},
+  components: {MissionList, Invite, AssignMission},
   data () {
     return {
       visible: [],
@@ -133,7 +139,7 @@ export default {
         {value: "member", label: "项目成员", cont: 0}
       ],
       projectData: {},
-      allProjectData: []
+      allProjectData: [],
     }
   },
   mounted () {

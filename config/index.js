@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://ii4m5c.natappfree.cc',
+        target: 'http://46ncms.natappfree.cc',
         changeOrigin: true, // cross-origin support
         pathRewrite: {
           '^/api': '/api'

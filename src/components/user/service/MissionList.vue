@@ -1,105 +1,110 @@
 <template>
-  <el-table
-    ref="filterTable"
-      :data="TaskData"
-      style="width: 100%" >
-      <el-table-column
-        prop="date"
-        label="任务开始日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="任务名称"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="assigner"
-        label="任务指派人"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="assignee"
-        label="任务执行人"
-        width="180"
-        column-key="assignee"
-        :filters="getAllassignee"
-      :filter-method="filterHandler">
-      </el-table-column>
-      <el-table-column
-        prop="intro"
-        label="任务简介">
-      </el-table-column>
-
-  </el-table>
+  <div>
+    <el-button @click="dialogVisible = true" type="primary" icon="el-icon-view" plain>任务列表</el-button>
+    <el-dialog title="任务列表" :visible.sync="dialogVisible">
+      <el-table
+        ref="filterTable"
+        :data="allIssueData"
+        style="width: 100%" >
+        <el-table-column
+          type="expand"
+          fixed="left">
+          <template v-slot="props">
+            <p style="width: 80%; line-height: 15pt; position: relative; left: 10%; margin: 0">{{props.row.description}}</p>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="date"
+          label="任务开始日期"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="title"
+          label="任务名称"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="reviewerName"
+          label="任务指派人"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="assigneeName"
+          label="任务执行人"
+          width="180"
+          column-key="assigneeName"
+          :filters="setData"
+          :filter-method="filterHandler">
+        </el-table-column>
+        <el-table-column
+          label="状态"
+          width="100"
+          fixed="right">
+          <template v-slot="scope">
+            <el-popover
+              placement="top"
+              width="160"
+              :v-model="visible[scope.$index]">
+              <el-radio v-model="statusEdit[scope.$index]" label="open">
+                <i class="el-icon-d-arrow-right" style="color: #38B2FF"></i> 开发中
+              </el-radio>
+              <el-radio v-model="statusEdit[scope.$index]" label="done">
+                <i class="el-icon-check" style="color: #13ce66"></i> 已完成
+              </el-radio>
+              <el-radio v-model="statusEdit[scope.$index]" label="closed">
+                <i class="el-icon-close" style="color: #ff4949"></i> 已关闭
+              </el-radio>
+              <div style="text-align: right; margin: 0">
+                <el-button size="mini" type="text" @click="visible[scope.$index] = false">取消</el-button>
+                <el-button type="primary" size="mini" @click="changeStatus(scope)">确定</el-button>
+              </div>
+              <el-button
+                style="padding: 3px"
+                type="text"
+                slot="reference"
+                :disabled="name !== scope.row.reviewerName && name !== scope.row.assigneexName">
+                <i class="el-icon-close" style="color: #ff4949" v-if="scope.row.status === 'closed'"></i>
+                <i class="el-icon-check" style="color: #13ce66" v-if="scope.row.status === 'done'"></i>
+                <i class="el-icon-d-arrow-right" style="color: #38B2FF" v-if="scope.row.status === 'open'"></i>
+                <span>{{ $getLabel(iconList, scope.row.status, 'status', 'text') }}</span>
+              </el-button>
+            </el-popover>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
-import AssignMission from "../management/AssignMission.vue";
-import Invite from "../management/Invite.vue";
 import {getLabel} from "../../../utils/methods";
 import Vue from "vue";
 Vue.prototype.$getLabel = getLabel;
     export default {
+      name: "MissionList",
       data() {
         return {
-          TaskData:[
-          {
-            title:"",
-            assigner:"",
-            assignee:"",
-            taskinfo:""
-          }],
-          Allassignee:[{
-            text:this.TaskData.assignee,
-            value:this.TaskData.assignee
-          }],
-          projectData:
-          {
-            project: {
-              id: 1,
-              title: "片候设",
-              intro: "已候军制全局点数山公更先风劳习所。六已该院战世元后以义观件亲此厂业本知。分识着应众越正金准数展受正细采阶。西集代南力组安油信转方才准队员月了适。历平青什光近深活段所速电半毛始办七。该往学办看电及参及件到九全类被。",
-              owner_id: 1
+          dialogVisible: false,
+          name: '',
+          setData: [],
+          getAllAssignee: [],
+          allIssueData: [],
+          visible: [],
+          statusEdit: [],
+          iconList: [
+            {
+              status: "open",
+              text: "开发中"
             },
-            memberList: [
-              {
-                id: 1,
-                username: "张三",
-                email: ""
-              }
-            ],
-            number: 2,
-            owner: {
-              id: 1,
-              username: "张三",
-              email: ""
+            {
+              status: "closed",
+              text: "已关闭"
             },
-            role: ''
-          },
-        allProjectData: [
-          {
-            project: {
-              id: 1,
-              title: "片候设",
-              intro: "已候军制全局点数山公更先风劳习所。六已该院战世元后以义观件亲此厂业本知。分识着应众越正金准数展受正细采阶。西集代南力组安油信转方才准队员月了适。历平青什光近深活段所速电半毛始办七。该往学办看电及参及件到九全类被。",
-              owner_id: 1
-            },
-            memberIdList: [
-              1,
-              2
-            ],
-            number: 2,
-            owner: {
-              id: 1,
-              username: "张三",
-              email: ""
-            },
-            role: ''
-          },
-        ]
-
-
+            {
+              status: "done",
+              text: "已完成"
+            }
+          ],
         }
       },
       mounted () {
@@ -111,27 +116,53 @@ Vue.prototype.$getLabel = getLabel;
           return row[property] === value;
         },
         async getMission() {
-        let jsonObj = JSON.parse(window.sessionStorage.user);
-        let id = jsonObj.user.userid
-        let url = '/user/participating/' + id
-        this.$axios
-          .get(url)
-          .then(res => {
-            this.allProjectData = res.data.data
-            for (let i = 0; i < this.allProjectData.length; i++) {
-              if (this.allProjectData[i].project.id === parseInt(this.$route.params.id)) {
-                this.projectData = this.allProjectData[i]
-                console.log(this.projectData.role)
-                this.$refs.assign.assignForm.taskName = this.TaskData.title
-                this.$refs.assign.assignForm.userid = this.TaskData.assignee
-                jsonObj.user.userid = this.TaskData.assigner
-                this.$refs.assign.assignForm.taskInfo = this.TaskData.taskinfo
+          let jsonObj = JSON.parse(window.sessionStorage.user);
+          this.name = jsonObj.user.name;
+          let url = '/project/issue/list/' + this.$route.params.id
+          this.$axios
+            .get(url)
+            .then(resp => {
+              this.allIssueData = resp.data.data
+              this.visible = new Array(this.allIssueData.length).fill(false)
+              for (let i = 0; i < this.allIssueData.length; i++) {
+                this.getAllAssignee.push({text: this.allIssueData[i].assigneeName, value: this.allIssueData[i].assigneeName})
+                this.statusEdit[i] = this.allIssueData[i].status
               }
-            }
-          })
+              const res = new Map();
+              this.setData = this.getAllAssignee.filter((item) => !res.has(item.value) && res.set(item.value, 1))
+              //console.log(this.getAllAssignee)
+            })
+          },
+        changeStatus(scope) {
+          this.visible[scope.$index] = false
+          let data = {
+            id: scope.row.id,
+            status: this.statusEdit[scope.$index]
+          }
+          this.$axios
+            .post('/project/issue/edit/', data)
+            .then(res => {
+              if (res.data.code === 0) {
+                this.$message({
+                  message: res.data.msg,
+                  type: 'success'
+                })
+                this.getMessage()
+              } else {
+                this.$message({
+                  message: res.data.msg,
+                  type: 'error'
+                })
+              }
+              this.getMessage()
+            })
+            .catch(error => {
+              this.$message({
+                message: error,
+                type: 'error'
+              })
+            })
         },
-
-
       }
     }
   </script>

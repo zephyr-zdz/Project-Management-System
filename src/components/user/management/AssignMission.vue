@@ -32,7 +32,7 @@
         <el-form-item label="任务名称" prop="taskName">
           <el-input v-model="assignForm.taskName" style="width: 60%"></el-input>
         </el-form-item>
-        <el-form-item label="任务描述" prop="taskDescription">
+        <el-form-item label="任务描述" prop="taskInfo">
           <el-input v-model="assignForm.taskInfo" style="width: 60%" type="textarea" :autosize="{ minRows: 3, maxRows: 5}">
           </el-input>
         </el-form-item>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { Loading } from 'element-ui';
 export default {
   name: "AssignMission",
   data () {
@@ -84,7 +85,8 @@ export default {
         ],
         taskInfo: [
           {
-            required: false,
+            required: true,
+            message: '请输入任务简介',
             trigger: 'blur',
           }
         ],
@@ -124,10 +126,12 @@ export default {
             reviewerId: id,
             status: "open"
           }
+          let loadingInstance = Loading.service({ fullscreen: true });
           this.$axios
             .post('/project/issue/create', issue)
             .then(resp => {
               console.log(resp.data.code)
+              loadingInstance.close();
               if (resp.data.code === 0) {
                 this.$message.success(resp.data.msg)
                 this.clear()
