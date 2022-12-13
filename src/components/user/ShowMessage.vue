@@ -3,8 +3,8 @@
     <el-container>
       <el-main style="line-height: 60px">
         <el-card class="card">
-          <h2 style="height: 80px; margin: 10px 0 0;">邀请信息</h2>
-          <invitation-list></invitation-list>
+          <h2 style="height: 80px; margin: 10px 0 0;">任务信息</h2>
+          <message-list></message-list>
         </el-card>
       </el-main>
     </el-container>
@@ -12,19 +12,15 @@
 </template>
 
 <script>
-import InvitationList from "./InvitationList";
+import MessageList from "./service/MyMissionList.vue";
 export default {
-  name: "ShowInvitation",
-  components: {InvitationList}
+  name: "ShowMessage",
+  components: {MessageList}
 }
 </script>
 
 <style scoped>
-.el-container {
-  top: 0;
-}
 .card {
-  position: relative;
   margin: 0 auto;
   width: 85%;
 }

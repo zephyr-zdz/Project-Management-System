@@ -5,12 +5,12 @@ import Login from '../components/Login';
 import Register from "../components/Register";
 import UserHome from "../components/user/UserHome";
 import UserDash from "../components/user/UserDash";
-import ShowProject from "../components/user/service/ShowProject";
-import ShowInvitation from "../components/user/service/ShowInvitation";
-import ProjectContent from "../components/user/service/ProjectContent.vue";
-import ShowMessage from "../components/user/service/ShowMessage.vue";
+import ShowProject from "../components/user/ShowProject.vue";
+import ShowInvitation from "../components/user/ShowInvitation.vue";
+import ProjectContent from "../components/user/ProjectContent.vue";
+import ShowMessage from "../components/user/ShowMessage.vue";
 import UserInfo from "../components/user/UserInfo.vue";
-import ShowMyAssignedList from "../components/user/service/ShowMyAssignedList.vue";
+import ShowMyAssignedList from "../components/user/ShowMyAssignedList.vue";
 
 Vue.use(VueRouter)
 
@@ -62,14 +62,6 @@ export default new VueRouter({
             roles: [ 'user' ]
           }
         },
-        //    {
-        //      path: 'change-password',
-        //      name: 'ChangePassword',
-        //      component: ChangePassword,
-        //      //meta: {
-        //      //  roles: [ 'user']
-        //      //}
-        //    },
         {
           path: 'my-invitation',
           name: 'MyInvitation',

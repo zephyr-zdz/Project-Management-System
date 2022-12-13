@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button type="primary" @click="refresh()" icon="el-icon-refresh" size="mini" circle plain style="position: relative; left:47%; z-index: 20; bottom: -10px"></el-button>
-  <el-table
+    <el-table
       :data="projectData"
       style="width: 100%; position: relative; top: -60px"
       :header-row-style="{height: '60px'}"

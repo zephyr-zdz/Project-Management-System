@@ -15,7 +15,8 @@
         </el-table-column>
         <el-table-column
           prop="date"
-          label="任务开始日期"
+          label="任务开始时间"
+          sortable
           width="180">
         </el-table-column>
         <el-table-column

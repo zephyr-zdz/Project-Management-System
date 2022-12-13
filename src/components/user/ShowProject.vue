@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import ProjectList from "./ProjectList";
-import AddProject from "../management/AddProject";
+import ProjectList from "./service/ProjectList.vue";
+import AddProject from "./management/AddProject.vue";
 export default {
   name: "ShowProject",
   components: {AddProject, ProjectList},

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ContentTable from "./ContentTable.vue";
+import ContentTable from "./service/ContentTable.vue";
 export default {
   name: "ProjectContent",
   components: {ContentTable},

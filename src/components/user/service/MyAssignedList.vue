@@ -18,7 +18,8 @@
     </el-table-column>
     <el-table-column
       prop="date"
-      label="日期">
+      label="日期"
+      sortable>
     </el-table-column>
     <el-table-column
       prop="title"

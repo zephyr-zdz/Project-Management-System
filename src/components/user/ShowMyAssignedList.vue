@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import MyAssignedList from "./MyAssignedList.vue";
-import MyAssignmentList from "./MyAssignedList.vue";
+import MyAssignedList from "./service/MyAssignedList.vue";
+import MyAssignmentList from "./service/MyAssignedList.vue";
 export default {
   name: "ShowMyAssignedList",
   components: {MyAssignedList, MyAssignmentList}
