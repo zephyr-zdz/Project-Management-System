@@ -1,24 +1,25 @@
 <template>
   <div id="bg">
-    <el-container>
+    <h1 style="font-size: 80px;color:ghostwhite; background-opacity: 0%; position: relative; top:30%">项目管理系统</h1>
+    <!--<el-container>
       <el-main>
         <section id="banner">
           <div id="main-slider" class="flexslider">
-            <img src="../../assets/title1.png" style="height: 50%; width: 100%" />
-            <!-- <div class="flex-caption" style="margin-left: 18%">
+            <img src="../../assets/title1.png" style="height: 50%; width: 100%;" />
+              <div class="flex-caption" style="margin-left: 18%">
               <div style="font-size: 70px;background-color:rgba(255,255,255,0.5);margin-right:45%;width: 375px">
                 <h3 style="font-size: 60px;color:#204F9F; opacity: 100%;background-color: ghostwhite">项目管理系统</h3>
               </div>
-            </div> -->
+            </div>
           </div>
         </section>
-        <div style="position:absolute;">
+        <div style="position:absolute;width:86.5%">
           <div class="app-container check-calendar">
-            <el-date-picker 
-              v-model="value" 
-              type="month" 
-              :clearable="false" 
-              value-format="yyyy-MM" 
+            <el-date-picker
+              v-model="value"
+              type="month"
+              :clearable="false"
+              value-format="yyyy-MM"
               placeholder="请选择月份"
               @change="loadAtten()"
               class="calendarInput"
@@ -28,7 +29,7 @@
           </div>
         </div>
       </el-main>
-    </el-container>
+    </el-container>-->
   </div>
 </template>
 
@@ -92,7 +93,7 @@ export default {
       //点击事件
       calendarOnClick(date){
         console.log(date)
-      },   
+      },
       dateFormat(fmt, date) {
         let ret = "";
         date = new Date(date);
@@ -122,8 +123,15 @@ export default {
 
 <style scoped>
 #bg {
-  background-color: ghostwhite;
-  height: 100%;
+  background: url("~@/assets/_MM_BASE.png") no-repeat center center;
+  height: 90%;
+  width: 88.5%;
+  position: fixed;
+  background-size: cover;
+  opacity: 0.9;
+}
+h1 {
+  font-family: "Source Han Sans CN";
 }
 .calendarInput{position:absolute;top:5px; left:120px;}
   .calendar-day{width: calc(100% - 11px); height: calc(100% - 5px); padding: 8px;}
@@ -131,27 +139,27 @@ export default {
     width:100%;
     height:100%;
   }
-  .item{ 
-    width: calc(100% - 11px); 
-    height: calc(100% - 11px); 
+  .item{
+    width: calc(100% - 11px);
+    height: calc(100% - 11px);
     padding: 8px;
     background:rgba(255, 240, 240, 1);
   }
-  .item2{ 
-    width: calc(100% - 11px); 
-    height: calc(100% - 11px); 
+  .item2{
+    width: calc(100% - 11px);
+    height: calc(100% - 11px);
     padding: 8px;
     background:#fff;
   }
   .sunday{
-    width: calc(100% - 11px); 
-    height: calc(100% - 11px); 
+    width: calc(100% - 11px);
+    height: calc(100% - 11px);
     padding: 8px;
     background:rgba(255, 240, 240, 1);
   }
   .Saturday{
-    width: calc(100% - 11px); 
-    height: calc(100% - 11px); 
+    width: calc(100% - 11px);
+    height: calc(100% - 11px);
     padding: 8px;
     background:rgba(255, 240, 240, 1);
   }
