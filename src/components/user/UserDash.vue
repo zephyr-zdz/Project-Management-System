@@ -123,12 +123,11 @@ export default {
 
 <style scoped>
 #bg {
-  background: url("~@/assets/_MM_BASE.png") no-repeat center center;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(248, 248, 255, 1)100%),url("~@/assets/BG02.png") no-repeat center center;
   height: 90%;
   width: 88.5%;
   position: fixed;
   background-size: cover;
-  opacity: 0.9;
 }
 h1 {
   font-family: "Source Han Sans CN";
