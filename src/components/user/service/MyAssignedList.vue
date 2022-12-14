@@ -27,7 +27,7 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="reviewerName"
+      prop="assigneeName"
       label="任务执行人"
       width="180">
     </el-table-column>
