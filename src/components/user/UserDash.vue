@@ -2,16 +2,16 @@
   <div id="bg">
     <el-container>
       <el-main>
-        <!-- <section id="banner">
+        <section id="banner">
           <div id="main-slider" class="flexslider">
-            <img src="../../assets/title1.jpg" alt="flexslider" style="height: 95%; width: 95%" />
-            <div class="flex-caption" style="margin-left: 18%">
+            <img src="../../assets/title1.png" style="height: 50%; width: 100%" />
+            <!-- <div class="flex-caption" style="margin-left: 18%">
               <div style="font-size: 70px;background-color:rgba(255,255,255,0.5);margin-right:45%;width: 375px">
                 <h3 style="font-size: 60px;color:#204F9F; opacity: 100%;background-color: ghostwhite">项目管理系统</h3>
               </div>
-            </div>
+            </div> -->
           </div>
-        </section> -->
+        </section>
         <div style="position:absolute;">
           <div class="app-container check-calendar">
             <el-date-picker 
@@ -126,7 +126,7 @@ export default {
   height: 100%;
 }
 .calendarInput{position:absolute;top:5px; left:120px;}
-  .calendar-day{width: calc(100% - 11px); height: calc(100% - 11px); padding: 8px;}
+  .calendar-day{width: calc(100% - 11px); height: calc(100% - 5px); padding: 8px;}
   .calendarDiv{
     width:100%;
     height:100%;
