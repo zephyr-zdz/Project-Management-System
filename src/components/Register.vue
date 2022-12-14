@@ -116,9 +116,15 @@ export default {
 </script>
 
 <style scoped>
+#bg {
+  background:url("~@/assets/BG02.png");
+  width:100%;
+  height:100%;
+  position:fixed;
+}
 .card {
   width: 500px;
-  margin: 15% auto auto;
+  margin: 10% auto auto;
 }
 .chr {
   font-weight: bold;
