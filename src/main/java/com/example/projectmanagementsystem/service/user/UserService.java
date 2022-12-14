@@ -56,7 +56,7 @@ public class UserService {
 
     public Response<List<SafeUser>> search(String name) {
         List<SafeUser> users = new ArrayList<>();
-        if (name == null || name.equals("")) {
+        if (name == null || name.equals("%%")) {
             return new Response<>(Response.SUCCESS, "搜索内容不能为空", users);
         }
         for (User user : userManager.findUsersByEmailLike(name)) {
