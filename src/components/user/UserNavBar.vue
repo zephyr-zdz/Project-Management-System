@@ -41,7 +41,7 @@
       </el-submenu>
       <el-menu-item
         index="/user-home/user-info"
-        style="position: fixed; bottom: 0; left: 0%; width: 200px">
+        style="position: absolute; bottom: 1px; left: 0%; width: 200px">
         <i class="el-icon-user-solid" style="'color:#455368'; position: relative; left: -30px"></i>
         <span class="character">{{ userName }}</span>
       </el-menu-item>

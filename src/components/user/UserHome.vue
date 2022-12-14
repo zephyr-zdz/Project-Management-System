@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-container>
-      <el-aside height="100%">
+      <el-aside height="100%" style="width: 210px">
         <student-nav-bar></student-nav-bar>
       </el-aside>
       <el-main>

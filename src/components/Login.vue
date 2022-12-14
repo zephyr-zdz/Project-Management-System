@@ -110,6 +110,8 @@ export default {
 .card {
   width: 400px;
   margin: 15% auto auto;
+  position: relative;
+  top: 10%;
 }
 .chr {
   font-weight: bold;
