@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Transactional
 @Service("ProjectIssueService")
@@ -38,6 +39,9 @@ public class IssueService {
         }
         if (projectManager.findProjectById(issue.getProjectId()) == null) {
             return new Response<>(Response.FAIL, "issue所属项目为空", null);
+        }
+        if (Objects.equals(issue.getAssigneeId(), issue.getReviewerId())) {
+            return new Response<>(Response.FAIL, "issue的assignee和reviewer不能相同", null);
         }
         if (userManager.findUserById(issue.getReviewerId()) == null) {
             return new Response<>(Response.FAIL, "issue指派者为空", null);
