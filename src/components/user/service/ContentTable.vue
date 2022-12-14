@@ -105,7 +105,7 @@
             circle
             plain
             @click="deleteMember(scope.row.id)"
-            :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') === 0 || scope.row.role === 'owner' || scope.row.role === 'manager'">
+            :disabled="$getLabel(roleList, projectData.role, 'value', 'cont') !== 2 || scope.row.role === 'owner'">
           </el-button>
         </template>
       </el-table-column>

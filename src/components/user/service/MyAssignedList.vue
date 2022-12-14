@@ -28,7 +28,7 @@
     </el-table-column>
     <el-table-column
       prop="reviewerName"
-      label="任务指派人"
+      label="任务执行人"
       width="180">
     </el-table-column>
     <el-table-column

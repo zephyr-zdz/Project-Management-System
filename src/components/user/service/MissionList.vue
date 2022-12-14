@@ -63,7 +63,7 @@
                 style="padding: 3px"
                 type="text"
                 slot="reference"
-                :disabled="name !== scope.row.reviewerName && name !== scope.row.assigneexName">
+                :disabled="name !== scope.row.reviewerName && name !== scope.row.assigneeName">
                 <i class="el-icon-close" style="color: #ff4949" v-if="scope.row.status === 'closed'"></i>
                 <i class="el-icon-check" style="color: #13ce66" v-if="scope.row.status === 'done'"></i>
                 <i class="el-icon-d-arrow-right" style="color: #38B2FF" v-if="scope.row.status === 'open'"></i>
