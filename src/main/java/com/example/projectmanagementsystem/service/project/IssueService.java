@@ -41,7 +41,7 @@ public class IssueService {
             return new Response<>(Response.FAIL, "issue所属项目为空", null);
         }
         if (Objects.equals(issue.getAssigneeId(), issue.getReviewerId())) {
-            return new Response<>(Response.FAIL, "issue的assignee和reviewer不能相同", null);
+            return new Response<>(Response.SUCCESS, "成功创建自己的任务", null);
         }
         if (userManager.findUserById(issue.getReviewerId()) == null) {
             return new Response<>(Response.FAIL, "issue指派者为空", null);
@@ -71,6 +71,7 @@ public class IssueService {
             return new Response<>(Response.FAIL, "issue不存在", null);
         }
         Issue oldIssue = issueManager.findIssueById(issue.getId());
+        issue.setId(oldIssue.getId());
         issue.setProjectId(oldIssue.getProjectId());
         issue.setReviewerId(oldIssue.getReviewerId());
         issue.setAssigneeId(oldIssue.getAssigneeId());
